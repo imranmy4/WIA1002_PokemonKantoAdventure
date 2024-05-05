@@ -10,16 +10,27 @@ package pokemon.kanto.adventure;
  */
 public class PokemonKantoAdventure {
 
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         Bulbasaur myBulbasaur = new Bulbasaur();
+        Geodude enemyGeodude = new Geodude();
+        fight(myBulbasaur,enemyGeodude);
     }
     
-    public void fight(Pokemon myPokemon, Pokemon enemy){
+    public static void fight(Pokemon myPokemon, Pokemon enemy){
         int myHP = myPokemon.getHP();
         int enemyHP = enemy.getHP();
-        while(myHP != 0 || enemyHP != 0){
-            myPokemon.attack(myPokemon, enemy);
-            myPokemon.defense(myPokemon, enemy);
+        while(true){
+            enemyHP = myPokemon.attack(enemyHP,myPokemon, enemy);
+            System.out.println(enemy.getName()+" HP : "+enemyHP+"/"+enemy.getHP());
+            if(enemyHP <= 0)
+                break;
+            myHP = myPokemon.defense(myHP,myPokemon, enemy);
+            System.out.println(myPokemon.getName()+" HP : "+myHP+"/"+myPokemon.getHP());
+            if(myHP <= 0)
+                break;
         }
     }
 }
