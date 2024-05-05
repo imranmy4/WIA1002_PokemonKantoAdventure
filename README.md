@@ -1,2 +1,2 @@
 # WIA1002AssignmentPokemon
-Pokemon
+Bulbasaur.java and Pokemon.java belum siap lagi. still experiment.
