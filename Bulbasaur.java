@@ -4,6 +4,9 @@
  */
 package pokemon.kanto.adventure;
 
+import java.util.ArrayList;
+
+
 /**
  *
  * @author IDEAPAD GAMING
@@ -16,24 +19,6 @@ public class Bulbasaur extends Pokemon{
     }
 
     @Override
-    public void attack(Pokemon myPokemon, Pokemon enemy) {
-        String[] enemyWeakness = enemy.getWeakness();
-        String[] myStrength = myPokemon.getStrength();
-        for(String str1 : enemyWeakness){
-            for(String str2 : myStrength){
-                if(str2.equals(str1))
-                    
-            }
-        }
-            
-    }
-
-    @Override
-    public void defense(Pokemon myPokemon, Pokemon enemy) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public String[] initializeStrength() {
         return new String[]{"Water","Ground","Rock"};
     }
@@ -41,6 +26,22 @@ public class Bulbasaur extends Pokemon{
     @Override
     public String[] initializeWeakness() {
        return new String[]{"Fire","Flying","Psychic"};
+    }
+
+    @Override
+    public ArrayList<String> initializeMovesName() {
+        ArrayList<String> moveName = new ArrayList<String>();
+        moveName.add("Tackle");
+        moveName.add("Growl");
+        return moveName;
+    }
+
+    @Override
+    public ArrayList<Double> initializeMovesDmg() {
+        ArrayList<Double> moveDmg = new ArrayList<Double>();
+        moveDmg.add(20.0);
+        moveDmg.add(10.0);
+        return moveDmg;
     }
     
     
