@@ -25,7 +25,7 @@ public class Bulbasaur extends Pokemon{
 
     @Override
     public String[] initializeWeakness() {
-       return new String[]{"Fire","Flying","Poison"};
+       return new String[]{"Fire","Flying","Psychic"};
     }
 
     /*@Override
