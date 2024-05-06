@@ -82,23 +82,40 @@ public abstract class Pokemon {
     
     public int attack(int enemyHP, Pokemon myPokemon, Pokemon enemy){
         Scanner input = new Scanner(System.in);
+        int check1 = 0, check2 = 0;
         int move;
         int damage;
         double dmgMultiplier = 1;
+        String line = enemy.getType();
+        String splitBy = "/";
         /*
         String[] currentMoves = myPokemon.getCurrentMovesName();
         double[] currentMovesDmg = myPokemon.getCurrentMovesDmg();
         */
         Skill[] currentMovesAndDmg = myPokemon.getCurrentMovesAndDmg();
-        String[] enemyWeakness = enemy.getWeakness();
+        String[] enemyType = line.split(splitBy);
+        String[] myWeakness = myPokemon.getWeakness();
         String[] myStrength = myPokemon.getStrength();
-        for(String str1 : enemyWeakness){
+        for(String str1 : enemyType){
             for(String str2 : myStrength){
                 if(str2.equals(str1)){
                     dmgMultiplier = 1.2;
+                    check1 = 1;
+                    
                 }
             }
         }
+        for(String str1 : enemyType){
+            for(String str2 : myWeakness){
+                if(str2.equals(str1)){
+                    dmgMultiplier = 0.8;
+                    check2 = 1;
+                }
+            }
+        }
+        if(check1 == 1 && check2 == 1)
+            dmgMultiplier = 1;
+        
         System.out.println(getName()+" Moves:");
         for(int i=0; i<2; i++){
             System.out.println(i+1+". "+currentMovesAndDmg[i].getMoveName());
@@ -122,23 +139,38 @@ public abstract class Pokemon {
     }
     
     public int defense(int myHP, Pokemon myPokemon, Pokemon enemy){
+        int check1 = 0, check2 = 0;
         double dmgMultiplier = 1;
         int damage;
         int enemyMoveChoice;
+        String line = myPokemon.getType();
+        String splitBy = "/";
         /*
         String[] enemyMoveName = enemy.getCurrentMovesName();
         double[] enemyMoveDmg = enemy.getCurrentMovesDmg();
         */
         Skill[] enemyMovesAndDmg = enemy.getCurrentMovesAndDmg();
-        String[] myWeakness = myPokemon.getWeakness();
+        String[] myType = line.split(splitBy);
         String[] enemyStrength = enemy.getStrength();
-        for(String str1 : enemyStrength){
-            for(String str2 : myWeakness){
+        String[] enemyWeakness = enemy.getWeakness();
+        for(String str1 : myType){
+            for(String str2 : enemyStrength){
                 if(str2.equals(str1)){
                     dmgMultiplier = 1.2;
+                    check1 = 1;
                 }
             }
         }
+        for(String str1 : myType){
+            for(String str2 : enemyWeakness){
+                if(str2.equals(str1)){
+                    dmgMultiplier = 0.8;
+                    check2 = 1;
+                }
+            }
+        }
+        if(check1 == 1 && check2 == 1)
+            dmgMultiplier = 1;
         Random rand = new Random();
         enemyMoveChoice = rand.nextInt(2)+1;
         switch(enemyMoveChoice){
