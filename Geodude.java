@@ -18,7 +18,7 @@ public class Geodude extends Pokemon{
 
     @Override
     public String[] initializeStrength() {
-        return new String[]{"Poison","Fire","Flying"};
+        return new String[]{"Fire","Flying","Bug"};
     }
 
     @Override
