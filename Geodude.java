@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Geodude extends Pokemon{
 
     public Geodude() {
-        super("Geodude", "Rock/Ground", 1, 40, 0);
+        super("Geodude", "Rock/Ground", 1, 200, 0);
     }
 
     @Override
@@ -26,6 +26,7 @@ public class Geodude extends Pokemon{
         return new String[]{"Water","Grass","Ground"};
     }
 
+    /*
     @Override
     public ArrayList<String> initializeMovesName() {
         ArrayList<String> movesName = new ArrayList<String>();
@@ -40,6 +41,15 @@ public class Geodude extends Pokemon{
         movesDmg.add(20.0);
         movesDmg.add(25.0);
         return movesDmg;
+    }*/
+    
+
+    @Override
+    public ArrayList<Skill> initializeMoveAndDmg() {
+        ArrayList<Skill> movesNameAndDmg = new ArrayList<Skill>();
+        movesNameAndDmg.add(new Skill("Tackle",20.0));
+        movesNameAndDmg.add(new Skill("Rock Throw",25.0));
+        return movesNameAndDmg;
     }
     
 }
