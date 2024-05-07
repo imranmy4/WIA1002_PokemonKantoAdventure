@@ -23,5 +23,8 @@ public class Skill {
         return damage;
     }
     
+    public void addDamage(){
+        this.damage += 2.0;
+    }
    
 }
