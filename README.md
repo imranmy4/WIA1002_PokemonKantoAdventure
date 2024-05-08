@@ -14,3 +14,8 @@ Betulkan strength and weakness bulbasaur and geodude
 tukar2 sikit file lama and letak documentation for some class.
 tambah player.java nk bayang mcm mana nk create player nanti.
 sapa punya part tu sila la ubah kalau mau.
+
+8/6/2024
+Aku buat ImranMain ngn ImranTesting branch untuk aku
+jgn edit yg dua tu
+yg main ikutlah
