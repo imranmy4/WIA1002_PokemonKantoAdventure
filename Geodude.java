@@ -1,30 +1,41 @@
 
 package pokemon.kanto.adventure;
 
-import java.util.ArrayList;
+import java.util.Stack;
 
 public class Geodude extends Pokemon{
 
-    public Geodude() {
-        super("Geodude", "Rock/Ground", 10, 200, 0);
+    Geodude() {                                                         //new player geodude
+        super("Geodude","Rock/Ground",5,200,0);
     }
+    
+    Geodude(String location) {                                          //new wild geodude
+        super("Geodude","Rock/Ground",200,location);
+    }
+    
+    Geodude(int savedLevel, int savedXP){                               //saved player geodude(to be implemented)
+        super("Geodude","Rock/Ground", savedLevel,200, savedXP);
+    } 
 
     @Override
-    public String[] initializeStrength() {
+    public String[] setStrength() {
         return new String[]{"Fire","Flying","Bug"};
     }
 
     @Override
-    public String[] initializeWeakness() {
+    public String[] setWeakness() {
         return new String[]{"Water","Grass","Ground"};
     }
 
     @Override
-    public ArrayList<Skill> initializeMoveAndDmg() {
-        ArrayList<Skill> movesNameAndDmg = new ArrayList<Skill>();
-        movesNameAndDmg.add(new Skill("Tackle",20.0));
-        movesNameAndDmg.add(new Skill("Rock Throw",25.0));
-        return movesNameAndDmg;
+    public Stack<Skill> allMoves() {                                        //all geodude moves(tackle is top of stack)
+        Stack<Skill> moveset = new Stack<Skill>();
+        moveset.add(new Skill("Rollout",15.0,6));
+        moveset.add(new Skill("Rock Throw",25.0,5));
+        moveset.add(new Skill("Tackle",20.0,5));
+        
+        
+        return moveset;
     }
     
 }
