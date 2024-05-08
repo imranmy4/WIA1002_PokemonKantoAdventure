@@ -10,15 +10,15 @@ Perkemaskan pokemon punya moves. instead of asing nama moves and damage moves, s
 Betulkan strength and weakness bulbasaur and geodude
 
 
-7/6/2024
+7/5/2024
 tukar2 sikit file lama and letak documentation for some class.
 tambah player.java nk bayang mcm mana nk create player nanti.
 sapa punya part tu sila la ubah kalau mau.
 
-8/6/2024
+8/5/2024
 Aku buat ImranMain ngn ImranTesting branch untuk aku
 jgn edit yg dua tu
 yg main ikutlah
 
-9/6/2024
+9/5/2024
 Baca la kat dalam code haha mls tulis bnyk sgt
