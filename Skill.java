@@ -8,12 +8,15 @@ package pokemon.kanto.adventure;
  *
  * @author IDEAPAD GAMING
  */
-public class Skill {
+public class Skill {                                            //class for pokemon moves
     private String moveName;
     private double damage;
-    Skill(String moveName, double damage){
+    private int level;
+    
+    Skill(String moveName, double damage, int level){
         this.moveName = moveName;
         this.damage = damage;
+        this.level = level;
     }
     public String getMoveName() {
         return moveName;
@@ -21,6 +24,10 @@ public class Skill {
 
     public double getDamage() {
         return damage;
+    }
+    
+    public int getLevel(){
+        return level;
     }
     
     public void addDamage(){

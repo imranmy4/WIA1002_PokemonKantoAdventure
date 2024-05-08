@@ -7,16 +7,17 @@ public class PokemonKantoAdventure {
     
     public static void main(String[] args) {
         Player player = new Player();       //Create new Player(demo)
-        Geodude enemyGeodude = new Geodude();       //Demo enemy
+        WildPokemon wild = new WildPokemon();       //Demo wild enemy
         System.out.println("POKEMON BATTLEEEEE!!!!!");
         player.choosePokemon();         //Player choose Pokemon for battle
         while(true)
-            fight(player.getCurrentPokemon(),enemyGeodude);
+            fight(player.getCurrentPokemon(),wild.getEnemy());
     }
     
     public static void fight(Pokemon myPokemon, Pokemon enemy){     //myPokemon from Player, enemy from demo
         int myHP = myPokemon.getHP();       //will be checks for each pokemon HP
         int enemyHP = enemy.getHP();
+        System.out.println(myPokemon.getName()+" [level "+myPokemon.getLevel()+"] vs "+enemy.getName()+" [level "+enemy.getLevel()+"]");
         while(true){
             System.out.println();
             enemyHP = myPokemon.attack(enemy,enemyHP);       //myPokemon.attack will return enemyHP after taking damage by myPokemon
