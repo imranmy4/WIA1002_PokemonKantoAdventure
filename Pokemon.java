@@ -4,46 +4,126 @@ package pokemon.kanto.adventure;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Stack;
 
 
 public abstract class Pokemon {         //Pokemon parent class
-    private String name;
-    private String type;
+    final private String name;
+    final private String type;
     private int level;
     private int HP;
     private int XP;
-    private String[] strength;          //Which type the pokemon is strong against
-    private String[] weakness;          // which type the pokemon is weak against
+    final private String[] strength;          //Which type the pokemon is strong against
+    final private String[] weakness;          // which type the pokemon is weak against
+    private Stack<Skill> moveset;           //moves the pokemon have not unlocked yet
     private ArrayList<Skill> movesAndDmg;       //the pokemon total moves/skills
     private Skill[] currentMovesAndDmg;         //the pokemon currently used moves/skills 
     
-    Pokemon(String name, String type, int level, int HP, int XP){       //constructor for child classes
+    Pokemon(String name, String type, int level, int HP, int XP){       //constructor for new/saved child classes
         this.name = name;
         this.type = type;
         this.level = level;
-        this.HP = HP;
+        this.HP = setHP(level,HP);
         this.XP = XP;
-        this.strength = initializeStrength();               //strength to movesAndDmg is initialized by child classes using methods
-        this.weakness = initializeWeakness();
-        this.movesAndDmg = initializeMoveAndDmg();
+        this.strength = setStrength();               //set in child class(permanent)
+        this.weakness = setWeakness();               //set in child class(permanent)
+        this.moveset = allMoves();                      //automatic for each pokemon
+        this.movesAndDmg = unlockedMoves();                 //automatic for each pokemon
         this.currentMovesAndDmg = initializeCurrentMovesAndDmg();       //currentMovesAndDmg initialized for new pokemon created
     }
     
-    public abstract String[] initializeStrength();          //child class initialize pokemon strength
+    Pokemon(String name, String type, int HP, String location){       //constructor for WildPokemon child classes
+        this.name = name;
+        this.type = type;
+        this.level = setWildLevel(location);
+        this.HP = setHP(level, HP);
+        this.strength = setStrength();               //same as above
+        this.weakness = setWeakness();
+        this.moveset = allMoves();
+        this.movesAndDmg = unlockedMoves();
+        this.currentMovesAndDmg = wildPokemonMoves();       //currentMovesAndDmg initialized for wild pokemon randomly
+    }
     
-    public abstract String[] initializeWeakness();          // child class initialize pokemon weakness
+    public abstract String[] setStrength();          //child class set pokemon strength
     
-    public abstract ArrayList<Skill> initializeMoveAndDmg();        //child class initialize first strating moves/skills and its damages
+    public abstract String[] setWeakness();          // child class set pokemon weakness   
     
-    public Skill[] initializeCurrentMovesAndDmg(){              //initialize currently used moves/skills for newly created pokemon
+    public abstract Stack<Skill> allMoves();                //child class set pokemon moveset
+    
+    final public int setWildLevel(String location){     //set wild pokemon level according to location
+        Random rand = new Random();
+        int newWildLevel = 0;
+            switch(location){
+                case "Pewter City" : newWildLevel = (rand.nextInt(3)+5);
+                break;
+                case "Cerulean City" : newWildLevel = (rand.nextInt(3)+9);
+                break;
+                default : System.out.println("No pokemon");
+                break;
+            }
+        return newWildLevel;
+    }
+    
+    final public int setHP(int level, int HP){          //set pokemon HP according to level
+        while(level>5){
+            HP += 5;
+            level--;
+        }
+        return HP;
+    }
+    
+    final public Skill moveDamageLeveling(Skill skill){         //increase damage according to level (+2 damage for each level)
+        int levelCheck = level;
+        int moveLevel = skill.getLevel();
+        while(levelCheck>moveLevel){
+            skill.addDamage();
+            levelCheck--;
+        }
+        return skill;
+    }
+    
+    public ArrayList<Skill> unlockedMoves(){                //automatically unlock moves according to pokemon level
+        int levelCheck = level;
+        int movesLevelCheck;
+        ArrayList<Skill> unlockedMoveset = new ArrayList<Skill>();
+        while(levelCheck >= (movesLevelCheck = moveset.peek().getLevel())){
+            unlockedMoveset.add(moveset.pop());
+            if(moveset.empty()){
+                break;
+            }
+        }
+        for(int i=0; i<unlockedMoveset.size(); i++){
+            unlockedMoveset.set(i, moveDamageLeveling(unlockedMoveset.get(i)));
+        }
+        return unlockedMoveset;
+    }
+    
+    public Skill unlockNewMoves(){
+        Skill newSkill;
+        newSkill = moveset.pop();
+        return newSkill;   
+    }
+    
+    final public Skill[] initializeCurrentMovesAndDmg(){              //initialize currently used moves/skills for newly created pokemon
         Skill initialMove1, initialMove2;
         initialMove1 = movesAndDmg.get(0);
         initialMove2 = movesAndDmg.get(1);
-        return new Skill[]{initialMove1,initialMove2};      //return moves/skill to currentMovesAndDMg(only for first time pokemon)
+        return new Skill[]{initialMove1,initialMove2};      //return moves/skill to currentMovesAndDmg for newly created pokemon
     }
     
-    public void addMoves(Skill skill){          //add new moves to existing pokemon
-        movesAndDmg.add(skill);
+    public Skill[] wildPokemonMoves(){          //wild pokemon randomly choose its moves
+        Random rand = new Random();
+        int move1, move2;
+        Skill currentMove1, currentMove2;
+        int moveChoices = movesAndDmg.size();
+        move1 = rand.nextInt(moveChoices);
+        do
+            move2 = rand.nextInt(moveChoices);
+        while(move2 == move1);
+        
+        currentMove1 = movesAndDmg.get(move1);
+        currentMove2 = movesAndDmg.get(move2);
+        return new Skill[]{currentMove1,currentMove2};
     }
     
     public int attack(Pokemon enemy, int enemyHP){           //method for player pokemon to attack enemy
@@ -77,18 +157,18 @@ public abstract class Pokemon {         //Pokemon parent class
         
         System.out.println(name+" Moves:");                //tell player pokemon moves/skills available
         for(int i=0; i<2; i++){
-            System.out.println((i+1)+". "+currentMovesAndDmg[i].getMoveName()+" ["+ (int) currentMovesAndDmg[i].getDamage()+" damage}");
+            System.out.println((i+1)+". "+currentMovesAndDmg[i].getMoveName()+" ["+ (int) currentMovesAndDmg[i].getDamage()+" damage}");        //player pokemon moves list
         }
         System.out.println("Which moves will "+name+" use?");        //player choose which moves/skills to use
         move = input.nextInt();
         
         switch(move){
-            case 1 : System.out.println(name+" uses "+currentMovesAndDmg[0].getMoveName()+"!");       //player use first moves/skills 
+            case 1 : System.out.println(name+" uses "+currentMovesAndDmg[0].getMoveName()+"!");       //player use first moves 
             damage = (int) Math.ceil(currentMovesAndDmg[0].getDamage()*dmgMultiplier);
             enemyHP -= damage;
             break;
             
-            case 2 : System.out.println(name+" uses "+currentMovesAndDmg[1].getMoveName()+"!");          //player use second moves/skills
+            case 2 : System.out.println(name+" uses "+currentMovesAndDmg[1].getMoveName()+"!");          //player use second moves
             damage = (int) Math.ceil(currentMovesAndDmg[1].getDamage()*dmgMultiplier);
             enemyHP -= damage;
             break;
@@ -139,16 +219,16 @@ public abstract class Pokemon {         //Pokemon parent class
         return myHP;
     }
     
-    public void levelUp(int XPwon){              //method for player pokemon to check for level up 
+    public void levelUp(int enemyLevel){              //method for player pokemon to check for level up 
         int XPThreshold;                                            //minimum XP requirement to level up
-        int currentLevel = getLevel();
-        XP += (XPwon*5);                                  //player pokemon XP increase by 5 times enemy pokemon level
+        int currentLevel = level;
+        XP += (enemyLevel*5);                                  //player pokemon XP increase by 5 times enemy pokemon level
         while(XP>0){
-            if(currentLevel>=1 && currentLevel<=9)
+            if(level>=1 && level<=9)
                 XPThreshold = 100;                                  //XP requirement for level 1 to 9
-            else if(currentLevel>=10 && currentLevel<=29)
+            else if(level>=10 && level<=29)
                 XPThreshold = 200;                                  //XP requirement for level 10 to 29
-            else if(currentLevel>=30)
+            else if(level>=30)
                 XPThreshold = 300;                                  //XP requirement dor level 30 and above
             else{
                 System.out.println("Error in leveling up!");        //just in case problem
@@ -162,10 +242,12 @@ public abstract class Pokemon {         //Pokemon parent class
                 System.out.println(name+" HP increase to "+HP);       // (temporary) show HP increase
                 for(int i=0; i<getMovesAndDmg().size(); i++){
                     movesAndDmg.get(i).addDamage();                   //increase player pokemon damage for all moves/skills
-                    System.out.println(movesAndDmg.get(i).getMoveName()+" damage increase to "+movesAndDmg.get(i).getDamage()+" !");        //temporary
+                    System.out.println(movesAndDmg.get(i).getMoveName()+" damage increase to "+movesAndDmg.get(i).getDamage()+" !");        //(temporary) show damage increase
                 }
-                skillCheck(level);           //check if enough level to add new moves/skills
-                currentLevel++;                                                     //increase currentLevel check
+                 
+                if(level >= moveset.peek().getLevel())
+                    movesAndDmg.add(unlockNewMoves());                                      //unlock new moves
+                currentLevel++;
                 XP -= XPThreshold;                                        //minus player pokemon XP from minimum requirement to level up
             }
             else
@@ -175,11 +257,7 @@ public abstract class Pokemon {         //Pokemon parent class
             XP = 0;
     }
     
-    public void skillCheck(int level){           //to be implemented
-        
-    }
-    
-    public void equipMoves(){                       //equip moves/skills for player pokemon
+    public void equipMoves(){                       //equip moves for player pokemon
         Scanner input = new Scanner(System.in);
         int moveNum1, moveNum2;
         System.out.println("Which moves would you like to equip on "+name);
@@ -189,8 +267,15 @@ public abstract class Pokemon {         //Pokemon parent class
         System.out.println();
         System.out.print("1st move: ");
         moveNum1 = input.nextInt();
-        System.out.print("2nd move: ");
-        moveNum2 = input.nextInt();
+        
+        do{
+            System.out.print("2nd move: ");
+            moveNum2 = input.nextInt();
+            if(moveNum2 == moveNum1){
+                System.out.println("\nYou have already selected this move!");
+                System.out.println("Please pick another move!\n");
+            }
+        } while(moveNum2 == moveNum1);
         
         currentMovesAndDmg[0] = movesAndDmg.get(moveNum1-1);
         currentMovesAndDmg[1] = movesAndDmg.get(moveNum2-1);
