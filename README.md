@@ -22,3 +22,6 @@ yg main ikutlah
 
 9/5/2024
 Baca la kat dalam code haha mls tulis bnyk sgt
+
+11/5/2024
+penat betul dah 900 line aku sorg buat 💀
