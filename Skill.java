@@ -4,11 +4,13 @@
  */
 package pokemon.kanto.adventure;
 
+import java.io.Serializable;
+
 /**
  *
  * @author IDEAPAD GAMING
  */
-public class Skill {                                            //class for pokemon moves
+public class Skill implements Serializable{                                            //class for pokemon moves
     private String moveName;
     private double damage;
     private int level;
