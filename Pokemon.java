@@ -1,42 +1,48 @@
 
 package pokemon.kanto.adventure;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Stack;
 
 
-public abstract class Pokemon {         //Pokemon parent class
+public abstract class Pokemon implements Serializable{         //Pokemon parent class
     final private String name;
     final private String type;
     private int level;
     private int HP;
+    private int currentHP;
     private int XP;
     final private String[] strength;          //Which type the pokemon is strong against
     final private String[] weakness;          // which type the pokemon is weak against
     private Stack<Skill> moveset;           //moves the pokemon have not unlocked yet
     private ArrayList<Skill> movesAndDmg;       //the pokemon total moves/skills
     private Skill[] currentMovesAndDmg;         //the pokemon currently used moves/skills 
+    private int XPThreshold;
     
     Pokemon(String name, String type, int level, int HP, int XP){       //constructor for new/saved child classes
         this.name = name;
         this.type = type;
         this.level = level;
         this.HP = setHP(level,HP);
+        this.currentHP = this.HP;
         this.XP = XP;
         this.strength = setStrength();               //set in child class(permanent)
         this.weakness = setWeakness();               //set in child class(permanent)
         this.moveset = allMoves();                      //automatic for each pokemon
         this.movesAndDmg = unlockedMoves();                 //automatic for each pokemon
         this.currentMovesAndDmg = initializeCurrentMovesAndDmg();       //currentMovesAndDmg initialized for new pokemon created
+        this.XPThreshold = XPThresholdSet();
     }
     
-    Pokemon(String name, String type, int HP, String location){       //constructor for WildPokemon child classes
+    Pokemon(String name, String type, int HP, String location){       //constructor for wild pokemon child classes
         this.name = name;
         this.type = type;
         this.level = setWildLevel(location);
         this.HP = setHP(level, HP);
+        this.currentHP = this.HP;
         this.strength = setStrength();               //same as above
         this.weakness = setWeakness();
         this.moveset = allMoves();
@@ -126,7 +132,7 @@ public abstract class Pokemon {         //Pokemon parent class
         return new Skill[]{currentMove1,currentMove2};
     }
     
-    public int attack(Pokemon enemy, int enemyHP){           //method for player pokemon to attack enemy
+    public int attack(Pokemon enemy){           //method for player pokemon to attack enemy
         Scanner input = new Scanner(System.in);
         int check1 = 0, check2 = 0;                     //check for player pokemon strength and weakness
         int move;
@@ -165,19 +171,19 @@ public abstract class Pokemon {         //Pokemon parent class
         switch(move){
             case 1 : System.out.println(name+" uses "+currentMovesAndDmg[0].getMoveName()+"!");       //player use first moves 
             damage = (int) Math.ceil(currentMovesAndDmg[0].getDamage()*dmgMultiplier);
-            enemyHP -= damage;
+            enemy.currentHP -= damage;
             break;
             
             case 2 : System.out.println(name+" uses "+currentMovesAndDmg[1].getMoveName()+"!");          //player use second moves
             damage = (int) Math.ceil(currentMovesAndDmg[1].getDamage()*dmgMultiplier);
-            enemyHP -= damage;
+            enemy.currentHP -= damage;
             break;
         }
         
-        return enemyHP;
+        return enemy.currentHP;
     }
     
-    public int defense(Pokemon enemy, int myHP){         //method for player taking damage from enemy
+    public int defense(Pokemon enemy){         //method for player taking damage from enemy
         int check1 = 0, check2 = 0;                                 //basically 50% same as attack method just reverse role
         double dmgMultiplier = 1;
         int damage;
@@ -208,32 +214,21 @@ public abstract class Pokemon {         //Pokemon parent class
         switch(enemyMoveChoice){
             case 1 : System.out.println(enemy.name+" uses "+enemy.currentMovesAndDmg[0].getMoveName()+"!");
             damage = (int) Math.ceil(enemy.currentMovesAndDmg[0].getDamage()*dmgMultiplier);
-            myHP -= damage;
+            currentHP -= damage;
             break;
             
             case 2 : System.out.println(enemy.name+" uses "+enemy.currentMovesAndDmg[1].getMoveName()+"!");
             damage = (int) Math.ceil(enemy.currentMovesAndDmg[1].getDamage()*dmgMultiplier);
-            myHP -= damage;
+            currentHP -= damage;
             break;
         }
-        return myHP;
+        return currentHP;
     }
     
-    public void levelUp(int enemyLevel){              //method for player pokemon to check for level up 
-        int XPThreshold;                                            //minimum XP requirement to level up
+    public void levelUp(int enemyLevel){              //method for player pokemon to check for level up
         int currentLevel = level;
         XP += (enemyLevel*5);                                  //player pokemon XP increase by 5 times enemy pokemon level
         while(XP>0){
-            if(level>=1 && level<=9)
-                XPThreshold = 100;                                  //XP requirement for level 1 to 9
-            else if(level>=10 && level<=29)
-                XPThreshold = 200;                                  //XP requirement for level 10 to 29
-            else if(level>=30)
-                XPThreshold = 300;                                  //XP requirement dor level 30 and above
-            else{
-                System.out.println("Error in leveling up!");        //just in case problem
-                break;
-            }
             if(XP>=XPThreshold){                          //check if player XP reach minimum requirement
                 level++;                                  //increase player pokemon level
                 HP += 5;                                  //increase player pokemon health
@@ -249,12 +244,26 @@ public abstract class Pokemon {         //Pokemon parent class
                     movesAndDmg.add(unlockNewMoves());                                      //unlock new moves
                 currentLevel++;
                 XP -= XPThreshold;                                        //minus player pokemon XP from minimum requirement to level up
+                XPThreshold = XPThresholdSet();
             }
             else
                 break;
         }
         if(XP<0)              //reset player pokemon XP to zero
             XP = 0;
+    }
+    
+    public int XPThresholdSet(){
+        int XPThresholdSet = 1000000;
+        if(level>=1 && level<=9)
+                XPThresholdSet = 100;                                  //XP requirement for level 1 to 9
+            else if(level>=10 && level<=29)
+                XPThresholdSet = 200;                                  //XP requirement for level 10 to 29
+            else if(level>=30)
+                XPThresholdSet = 300;                                  //XP requirement dor level 30 and above
+            else
+                System.out.println("Error in leveling up!");        //just in case problem
+        return XPThresholdSet;
     }
     
     public void equipMoves(){                       //equip moves for player pokemon
@@ -297,6 +306,14 @@ public abstract class Pokemon {         //Pokemon parent class
         return HP;
     }
     
+    public int getCurrentHP(){
+        return currentHP;
+    }
+    
+    public void resetCurrentHP(){
+        this.currentHP = HP;
+    }
+    
     public int getXP(){
         return XP;
     }
@@ -315,6 +332,10 @@ public abstract class Pokemon {         //Pokemon parent class
     
     public ArrayList<Skill> getMovesAndDmg(){
         return movesAndDmg;
+    }
+    
+    public int getXPThreshold(){
+        return XPThreshold;
     }
     
 }
