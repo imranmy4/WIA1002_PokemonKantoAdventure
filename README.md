@@ -25,3 +25,11 @@ Baca la kat dalam code haha mls tulis bnyk sgt
 
 11/5/2024
 penat betul dah 900 line aku sorg buat 💀
+
+12/5/1997
+IMPORTANT!
+whenever guna scanner.nextInt(), WAJIB tambah satu line scanner.nextLine() bawah dia. x perlu masuk ke variable apa2 pun just scanner.nextLine(); and done. nextInt() ja perlu, apa2 lain xperlu(rasanya)
+
+ini kerana bila guna nextInt(), dia just accept nombor yg korang tekan and tak accept korg tekan enter(walaupun perlu untuk masukkan nombor). apabila ada apa2 nextLine() digunakan selepas itu, baru enter yg korg tekan kat nextInt() tu diterima. so kalau nextLine() tu penting(mcm letak nama ke), dia akan terus skip sebab dia accept enter dari nextInt() sebelumnya.
+
+jadi untuk selesaikan masalah ini just letak nextLine() yg x penting selepas nextInt(). sekiannnnnnnnnnn.
