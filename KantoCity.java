@@ -159,6 +159,12 @@ public class KantoCity {
                 System.out.println("[4]Talk to MOM (Your hometown has no gym)");
             }
             
+            if(Location.equals("Saffron City")){
+                System.out.println("[5] Rival's Race");
+            }else if(Location.equals("Fuchsia City")){
+                System.out.println("[5] Safari Zone");
+            }
+            
             System.out.println("---------------------------------------------------------------");
             String input ;
             System.out.print("Your Choice : ");
@@ -167,37 +173,37 @@ public class KantoCity {
             
             
             while(true){
-                if(!Location.equals("Pallet Town")&&!(input.charAt(0)>='1' && input.charAt(0)<='4')){
-                    System.out.println("Invalid input, please try again");
+                if(!(Location.equals("Pallet Town")||Location.equals("Fuchsia City")||Location.equals("Saffron City"))&&!(input.charAt(0)>='1' && input.charAt(0)<='4')){
+                    System.out.println("1.Invalid input, please try again");
                     System.out.print("Your Choice : ");
                     input = sc.nextLine();
                 }else if(Location.equals("Pallet Town")&&!(input.charAt(0)>='1' && input.charAt(0)<='4')){
-                    System.out.println("Invalid input, please try again");
+                    System.out.println("2.Invalid input, please try again");
                     System.out.print("Your Choice : ");
                     input = sc.nextLine();
                 }
                 else if((input.charAt(0)=='1'||input.charAt(0)=='3') && input.length() != 2){
-                    System.out.println("Invalid input, please try again");
+                    System.out.println("3.Invalid input, please try again");
                     System.out.print("Your Choice : ");
                     input = sc.nextLine();
                 }else if((input.charAt(0)=='2' || input.charAt(0)=='4') && input.length() !=1){
-                    System.out.println("Invalid input, please try again");
+                    System.out.println("4.Invalid input, please try again");
                     System.out.print("Your Choice : ");
                     input = sc.nextLine();
                 }else if ((input.charAt(0)=='1' && arr_size ==2 )&& !(input.charAt(1)=='a' || input.charAt(1)=='b')){
-                    System.out.println("Invalid input, please try again");
+                    System.out.println("5.Invalid input, please try again");
                     System.out.print("Your Choice : ");
                     input = sc.nextLine();
                 }else if (input.charAt(0)=='1' && arr_size==3 && !(input.charAt(1)=='a' || input.charAt(1)=='b' || input.charAt(1)=='c')){
-                    System.out.println("Invalid input, please try again");
+                    System.out.println("6.Invalid input, please try again");
                     System.out.print("Your Choice : ");
                     input = sc.nextLine();
                 }else if (input.charAt(0)=='1' && arr_size==4 && !(input.charAt(1)=='a' || input.charAt(1)=='b' || input.charAt(1)=='c'|| input.charAt(1)=='d')){
-                    System.out.println("Invalid input, please try again");
+                    System.out.println("7.Invalid input, please try again");
                     System.out.print("Your Choice : ");
                     input = sc.nextLine();
                 }else if(input.charAt(0)=='3'&& !(input.charAt(1)=='a' || input.charAt(1)=='b' || input.charAt(1)=='c'|| input.charAt(1)=='d')){
-                    System.out.println("Invalid input, please try again");
+                    System.out.println("8.Invalid input, please try again");
                     System.out.print("Your Choice : ");
                     input = sc.nextLine();
                 }
@@ -255,6 +261,14 @@ public class KantoCity {
             
             else if(input.charAt(0)=='4' && !Location.equals("Lavender Town")){
                 //Challenge gym leader
+            }
+            
+            else if(input.charAt(0)=='5' && Location.equals("Saffron City")){
+                //Rival Race
+            }
+            
+            else if(input.charAt(0)=='5' && Location.equals("Fuchsia City")){
+                //safari zone
             }
         }
         
@@ -459,3 +473,4 @@ public class KantoCity {
     }
     
 }
+
