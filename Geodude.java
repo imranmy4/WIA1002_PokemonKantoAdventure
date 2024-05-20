@@ -5,34 +5,35 @@ import java.util.Stack;
 
 public class Geodude extends Pokemon{
 
-    Geodude() {                                                         //new player geodude
+    public Geodude() {                                                         //new player geodude
         super("Geodude","Rock/Ground",5,110,0);
     }
     
-    Geodude(String location) {                                          //new wild geodude
+    public Geodude(String location) {                                          //new wild geodude
         super("Geodude","Rock/Ground",110,location);
     }
-    /*
-    Geodude(int savedLevel, int savedXP){                               //saved player geodude(to be implemented)
-        super("Geodude","Rock/Ground", savedLevel,200, savedXP);
-    } 
-    */
+    
+    public Geodude(int level) {                                                         //gym leader pokemon
+        super("Geodude","Rock/Ground",level,110);
+    }
+    
     @Override
     public String[] setStrength() {
-        return new String[]{"Fire","Flying","Bug"};
+        return new String[]{"Fire","Flying","Bug","Ice"};
     }
 
     @Override
     public String[] setWeakness() {
-        return new String[]{"Water","Grass","Ground"};
+        return new String[]{"Water","Grass","Ground","Fighting","Ice"};
     }
 
     @Override
     public Stack<Skill> allMoves() {                                        //all geodude moves(tackle is top of stack)
         Stack<Skill> moveset = new Stack<Skill>();
-        //moveset.push(new Skill(""))
-        moveset.push(new Skill("Rock Blast",42,15));
-        moveset.push(new Skill("Rock Throw",2.0,7));
+        moveset.push(new Skill("Stone Edge",94.0,45));
+        moveset.push(new Skill("Earthquake",62,28));
+        moveset.push(new Skill("Rock Blast",40,15));
+        moveset.push(new Skill("Rock Throw",22.0,7));
         moveset.push(new Skill("Rollout",16.0,5));
         moveset.push(new Skill("Tackle",14.0,5));
         
