@@ -104,7 +104,7 @@ public class KantoCity {
             
             
             //Second option (Fight wild pokemon)
-            System.out.println("\n[2] Fight Wild Pokemon ");
+            System.out.println("\n[2] Fight Wild Pokemon ");//
             
             
             //Third Option
@@ -427,6 +427,7 @@ public class KantoCity {
                 stack.push("down");
             }else{
                 System.out.println("Invalid input, please tray again.");
+                arr[x][y]="Y";
                 continue ;
             }
             
@@ -473,4 +474,3 @@ public class KantoCity {
     }
     
 }
-
