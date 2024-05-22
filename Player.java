@@ -8,25 +8,25 @@ import java.util.Stack;
 
 public class Player implements Serializable{                                                           //temporary player class
     private String name;
-    private ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>();              //i think player pokemon can be saved in arraylist (??)
-    private ArrayList<Pokemon> battlePokemon = new ArrayList<>();
+    private ArrayList<Pokemon> pokemon = new ArrayList<>();              //i think player pokemon can be saved in arraylist (??)
+    private ArrayList<Pokemon> battlePokemon;
+    private ArrayList<Pokemon> usedPokemon = new ArrayList<>();
     private Pokemon currentPokemon;                                             //pokemon currently equipped(for battle)
-    private int choice;
     private int saveSlot;
+    private ArrayList<String> badge = new ArrayList<>();
     
     Player(String name){
-        //pokemon.add(starterPokemon());
         this.name = name;
-        pokemon.add(new Bulbasaur());
-        pokemon.add(new Geodude());
-        currentPokemon = pokemon.get(0);
-        for(int i=0; i<pokemon.size(); i++)
-            battlePokemon.add(pokemon.get(i));
+        pokemon.add(starterPokemon());
+        currentPokemon = null;
+        battlePokemon = new ArrayList<Pokemon>(pokemon);
     }
     
     public Pokemon choosePokemon(){                                                //choose pokemon for battle
         Scanner input = new Scanner(System.in);
+        int choice;
         System.out.println("Which Pokemon would you like to use?");
+        System.out.println("---------------------------------------------------------------\n");
         for(int i=0; i<battlePokemon.size();  i++){
             System.out.print((i+1)+". "+battlePokemon.get(i).getName()+" [level "+battlePokemon.get(i).getLevel()+"]\t");
             System.out.println("[HP : "+battlePokemon.get(i).getHP()+"/"+battlePokemon.get(i).getHP()+"]"+"\t [XP : "+battlePokemon.get(i).getXP()+"/"+battlePokemon.get(i).getXPThreshold()+"]");
@@ -36,19 +36,36 @@ public class Player implements Serializable{                                    
             }
             System.out.println("\n");
         }
-        System.out.println("Your choice: ");
+        System.out.println("---------------------------------------------------------------");
         do{
-        choice = input.nextInt();
-        if(choice>battlePokemon.size())
-            System.out.println("Try again!");
-        } while(choice>battlePokemon.size());                
+            System.out.print("Your choice: ");
+            choice = input.nextInt();
+            input.nextLine();
+            if(choice>battlePokemon.size())
+                System.out.println("Try again!");
+        } while(choice>battlePokemon.size());
+        if(currentPokemon != null)
+            putBackPokemon();
         currentPokemon = battlePokemon.get(choice-1);
+        usedPokemon.add(battlePokemon.get(choice-1));
+        battlePokemon.remove(choice-1);
         currentPokemon.equipMoves();                                            //equip moves for pokemon
         return currentPokemon;
+    }    
+    
+    public void resetPokemon(){
+        battlePokemon = new ArrayList<Pokemon>(pokemon);
+        removeCurrentPokemon();
+        usedPokemon.clear();
     }
     
-    public void resetBattlePokemon(){
-        this.battlePokemon = pokemon;
+    public void updatePokemon(){
+        for(int i=0; i<usedPokemon.size(); i++){
+            usedPokemon.get(i).resetCurrentHP();
+            battlePokemon.add(usedPokemon.get(i));
+        }
+        pokemon = new ArrayList<Pokemon>(battlePokemon);
+        usedPokemon.clear();
     }
     
     public Pokemon starterPokemon(){
@@ -90,13 +107,13 @@ public class Player implements Serializable{                                    
             
     }
     
-    public Pokemon removeCurrentPokemon(){
+    public void removeCurrentPokemon(){
         currentPokemon = null;
-        return currentPokemon;
     }
     
-    public void removeBattlePokemon(){
-        battlePokemon.remove(choice-1);
+    public void putBackPokemon(){
+        battlePokemon.add(currentPokemon);
+        currentPokemon = null;
     }
     
     public ArrayList<Pokemon> getPokemon(){
@@ -105,6 +122,10 @@ public class Player implements Serializable{                                    
     
     public ArrayList<Pokemon> getBattlePokemon(){
         return battlePokemon;
+    }
+    
+    public ArrayList<Pokemon> getUsedPokemon(){
+        return usedPokemon;
     }
     
     public Pokemon getCurrentPokemon(){
@@ -125,5 +146,17 @@ public class Player implements Serializable{                                    
     
     public int getSaveSlot(){
         return saveSlot;
+    }
+    
+    public boolean battlePokemonEmpty(){
+        return battlePokemon.isEmpty();
+    }
+    
+    public ArrayList<String> getBadges(){
+        return badge;
+    }
+    
+    public void obtainBadge(String badge){
+        this.badge.add(badge);
     }
 }
