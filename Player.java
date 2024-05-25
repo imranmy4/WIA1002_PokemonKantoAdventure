@@ -101,7 +101,8 @@ public class Player implements Serializable{                                    
                 
                 default : System.out.println("Try again!");
                 break;
-            } 
+            }
+            System.out.println("---------------------------------------------------------------");
         }while(starterPokemon == null);
         return starterPokemon;
             
@@ -134,6 +135,7 @@ public class Player implements Serializable{                                    
     
     public void newPokemon(Pokemon newPokemon){
         pokemon.add(newPokemon);
+        battlePokemon = new ArrayList<Pokemon>(pokemon);
     }
     
     public String getName(){
