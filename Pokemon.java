@@ -74,12 +74,39 @@ public abstract class Pokemon implements Serializable{         //Pokemon parent 
         Random rand = new Random();
         int newWildLevel = 0;
             switch(location){
-                case "Pewter City" : newWildLevel = (rand.nextInt(3)+5);
-                break;
-                case "Cerulean City" : newWildLevel = (rand.nextInt(3)+9);
-                break;
-                default : System.out.println("No pokemon");
-                break;
+                case "Pallet Town" :
+                    newWildLevel = (rand.nextInt(3)+7);
+                    break;
+                case "Pewter City" : 
+                    newWildLevel = (rand.nextInt(3)+9);
+                    break;
+                case "Cerulean City" : 
+                    newWildLevel = (rand.nextInt(3)+18);
+                    break;
+                case "Vermilion City" :
+                    newWildLevel = (rand.nextInt(3)+27);
+                    break;
+                case "Celadon City" :
+                    newWildLevel = (rand.nextInt(3)+36);
+                    break;
+                case "Fuchsia City" : 
+                    newWildLevel = (rand.nextInt(3)+45);
+                    break;
+                case "Saffron City" :
+                    newWildLevel = (rand.nextInt(3)+53);
+                    break;
+                case "Cinnabar Island" :
+                    newWildLevel = (rand.nextInt(3)+62);
+                    break;
+                case "Viridian City" :
+                    newWildLevel = (rand.nextInt(3)+70);
+                    break;
+                case "Lavender Town" :
+                    newWildLevel = (rand.nextInt(3)+30);
+                    break;
+                default : 
+                    System.out.println("No pokemon");
+                    break;
             }
         return newWildLevel;
     }
