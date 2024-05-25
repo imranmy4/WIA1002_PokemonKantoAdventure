@@ -9,6 +9,10 @@ public class Raichu extends Pokemon{
         super("Raichu","Electric",5,110,0);
     }
     
+    public Raichu(String location){
+        super("Raichu","Electric",110,location);
+    }
+    
     public Raichu(int level){
         super("Raichu","Electric",level,110);
     }
