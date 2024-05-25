@@ -9,6 +9,10 @@ public class Blastoise extends Pokemon{
         super("Blastoise","Water",5,115,0);
     }
     
+    public Blastoise(String location){
+        super("Blastoise","Water",115,location);
+    }
+    
     public Blastoise(int level){
         super("Blastoise","Water",level,115);
     }
