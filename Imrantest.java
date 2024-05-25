@@ -114,11 +114,14 @@ public class PokemonKantoAdventure {
         int Index = 2;
         String Location = "Pallet Town";
         boolean gameloop = true ;
+        boolean finishGame = false;
         
-        while(gameloop){
+        while(gameloop && !finishGame){
+            finishGame = gameFinish(player);
             int arr_size = graph.get(Index).size();
             ArrayList<City> currentLocation = graph.get(Index);
             System.out.println("You are now at "+Location);
+            WildPokemon wildPokemon = new WildPokemon(Location);
             
             //First Option (Move to other places)
             System.out.println("[1] Move To : ");
@@ -129,7 +132,7 @@ public class PokemonKantoAdventure {
             
             
             //Second option (Fight wild pokemon)
-            System.out.println("\n[2] Fight Wild Pokemon ");
+            System.out.println("\n[2] Fight Wild Pokemon "+wildPokemon.stringPokemonInArea());
             
             
             //Third Option
@@ -248,7 +251,7 @@ public class PokemonKantoAdventure {
             }
             
             else if(input.charAt(0)=='2'){
-                //Fight wild pokemon function
+                wildPokemonBattle(player,wildPokemon.getEnemy());
             }
             
             else if(input.charAt(0)=='3'){
@@ -301,6 +304,7 @@ public class PokemonKantoAdventure {
                 gymleader = gymLeaders.get(Location);
                 System.out.println("Prepare to battle against "+gymleader.getName()+"!");
                 gymLeaderBattle(player,gymleader);
+                gymLeaders.replace(Location, resetGymLeaders(Location));
             }
             
             else if(input.charAt(0)=='5' && Location.equals("Saffron City")){
@@ -312,7 +316,9 @@ public class PokemonKantoAdventure {
             }
         }
         
-
+        creditScene(player);
+        saveAndExit(player);
+        System.exit(0);
         
     }
     
@@ -626,6 +632,75 @@ public class PokemonKantoAdventure {
         
     }
     
+    public static void wildPokemonBattle(Player player, Pokemon enemy){
+        boolean win = false;
+        if(player.getBattlePokemon().size() != player.getPokemon().size())
+            player.resetPokemon();
+        
+        Scanner input = new Scanner(System.in);
+        while((!player.battlePokemonEmpty() || player.getCurrentPokemon() != null) && win == false){
+            int choice =0;
+            System.out.println("Wild "+enemy.getName()+" [level "+enemy.getLevel()+"]\n");
+            System.out.println("Strong against: "+enemy.stringStrength());
+            System.out.println("Weak against: "+enemy.stringWeakness());
+            
+            if(player.getCurrentPokemon() == null)
+                player.choosePokemon();
+            else{
+                if(!player.battlePokemonEmpty()){
+                    System.out.println("Stay with this pokemon or choose another one?");
+                    System.out.println(player.getCurrentPokemon().getName()+" [HP: "+player.getCurrentPokemon().getCurrentHP()+"/"+player.getCurrentPokemon().getHP()+"]");
+                    do{
+                        System.out.println("\n1. Stay with this one.\n2. Choose another pokemon.");
+                        choice = input.nextInt();
+                        input.nextLine();
+                    } while(choice < 1 || choice > 2);
+                    switch(choice){
+                        case 1:
+                            break;
+                        case 2:
+                            player.choosePokemon();
+                            break;
+                    } 
+                } else{
+                    System.out.println("You only have "+player.getCurrentPokemon().getName()+" left! Keep fighting!");
+                }
+            }
+            System.out.println("\n");
+            player.getCurrentPokemon().againstEnemy(enemy);
+            
+            while(player.getCurrentPokemon().getCurrentHP() > 0 && enemy.getCurrentHP() > 0){
+                System.out.println("\n---------------------------------------------------------------");
+                player.getCurrentPokemon().attack(enemy);
+                if(enemy.getCurrentHP() <= 0){
+                    System.out.println(enemy.getName()+" [HP: 0/"+enemy.getHP()+"]");
+                    System.out.println(player.getCurrentPokemon().getName()+" won against wild "+enemy.getName()+"!");
+                    win = true;
+                    break;
+                }
+                player.getCurrentPokemon().defense(enemy);
+                if(player.getCurrentPokemon().getCurrentHP() <= 0){
+                    System.out.println(player.getCurrentPokemon().getName()+" [HP: 0/"+player.getCurrentPokemon().getHP()+"]");
+                    System.out.println(player.getCurrentPokemon().getName()+" lose! Choose another pokemon!");
+                    player.removeCurrentPokemon();
+                    break;
+                }
+                System.out.println("\n---------------------------------------------------------------");
+            }
+        }
+        if(!player.battlePokemonEmpty() || player.getCurrentPokemon() != null){
+            System.out.println("\nYou won "+enemy.getLevel()*5+" XP for all pokemon that went to battle!");
+            for(int i=0; i<player.getUsedPokemon().size(); i++){
+                player.getUsedPokemon().get(i).levelUp(enemy.getLevel());
+            }
+        } else{
+            System.out.println("You lose against wild "+enemy.getName());
+        }
+        System.out.println();
+        player.updatePokemon();
+        player.resetPokemon();
+    }
+    
     public static void fileExists(){
         File file = new File("Game Slot.txt");
         if(!file.exists()){
@@ -883,7 +958,6 @@ public class PokemonKantoAdventure {
                         } else{
                             player = new Player(name);
                             player.setSaveSlot(choice);
-                            System.out.println(player.getName()+" save slot " +player.getSaveSlot());
                             break;
                         }
                     }
@@ -901,6 +975,57 @@ public class PokemonKantoAdventure {
         temp.put("Pewter City", new PewterCityGymLeader());
         temp.put("Cerulean City", new CeruleanCityGymLeader());
         temp.put("Vermilion City", new VermilionCityGymLeader());
+        temp.put("Celadon City", new CeladonCityGymLeader());
+        temp.put("Fuchsia City", new FuchsiaCityGymLeader());
+        temp.put("Saffron City", new SaffronCityGymLeader());
+        temp.put("Cinnabar Island", new CinnabarIslandGymLeader());
+        temp.put("Viridian City", new ViridianCityGymLeader());
         return temp;
+    }
+    
+    public static GymLeaders resetGymLeaders(String Location){
+        GymLeaders temp = null;
+        switch(Location){
+            case "Pewter City" :
+                temp = new PewterCityGymLeader();
+                break;
+            case "Cerulean City" :
+                temp = new CeruleanCityGymLeader();
+                break;
+            case "Vermilion City" :
+                temp = new VermilionCityGymLeader();
+                break;
+            case "Celadon City" :
+                temp = new CeladonCityGymLeader();
+                break;
+            case "Fuchsia City" :
+                temp = new FuchsiaCityGymLeader();
+                break;
+            case "Saffron City" :
+                temp = new SaffronCityGymLeader();
+                break;
+            case "Cinnabar Island" : 
+                temp = new CinnabarIslandGymLeader();
+                break;
+            case "Viridian City" :
+                temp = new ViridianCityGymLeader();
+                break;
+        }
+        return temp;
+    }
+    
+    public static boolean gameFinish(Player player){
+        if(player.getBadges().size() == 8)
+            return true;
+        else
+            return false;
+    }
+    
+    public static void creditScene(Player player){
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("\nCongratulations "+player.getName()+", you've finished the game!");
+        System.out.println("You've collected all 8 badges in Kanto region!");
+        System.out.println("We hope you enjoyed our game!");
+        System.out.println("---------------------------------------------------------------");
     }
 }
