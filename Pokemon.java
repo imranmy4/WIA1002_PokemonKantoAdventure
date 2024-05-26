@@ -207,33 +207,38 @@ public abstract class Pokemon implements Serializable{         //Pokemon parent 
         for(int i=0; i<2; i++){
             System.out.println((i+1)+". "+currentMovesAndDmg[i].getMoveName()+" ["+ (int) currentMovesAndDmg[i].getDamage()+" damage}");        //player pokemon moves list
         }
-        System.out.print("Which moves will "+name+" use: ");        //player choose which moves/skills to use
-        move = input.nextInt();
-        System.out.println("\n");
-        
-        switch(move){
-            case 1 : 
-                System.out.println(name+" uses "+currentMovesAndDmg[0].getMoveName()+"!");       //player use first moves 
-                damage = (int) Math.ceil(currentMovesAndDmg[0].getDamage()*dmgMultiplier);
-                enemy.currentHP -= damage;
-                if(enemy.currentHP <= 0)
-                    break;
-                else{
-                    System.out.println(enemy.name+" received "+damage+" damage! [HP: "+enemy.currentHP+"/"+enemy.HP+"]");
-                    break;
-                }
+        do{
+            System.out.print("Which moves will "+name+" use: ");        //player choose which moves/skills to use
+            move = input.nextInt();
+            System.out.println("\n");
             
-            case 2 : 
-                System.out.println(name+" uses "+currentMovesAndDmg[1].getMoveName()+"!");          //player use second moves
-                damage = (int) Math.ceil(currentMovesAndDmg[1].getDamage()*dmgMultiplier);
-                enemy.currentHP -= damage;
-                if(enemy.currentHP <= 0)
+            switch(move){
+                case 1 : 
+                    System.out.println(name+" uses "+currentMovesAndDmg[0].getMoveName()+"!");       //player use first moves 
+                    damage = (int) Math.ceil(currentMovesAndDmg[0].getDamage()*dmgMultiplier);
+                    enemy.currentHP -= damage;
+                    if(enemy.currentHP <= 0)
+                        break;
+                    else{
+                        System.out.println(enemy.name+" received "+damage+" damage! [HP: "+enemy.currentHP+"/"+enemy.HP+"]");
+                        break;
+                    }
+                    
+                case 2 : 
+                    System.out.println(name+" uses "+currentMovesAndDmg[1].getMoveName()+"!");          //player use second moves
+                    damage = (int) Math.ceil(currentMovesAndDmg[1].getDamage()*dmgMultiplier);
+                    enemy.currentHP -= damage;
+                    if(enemy.currentHP <= 0)
+                        break;
+                    else{
+                        System.out.println(enemy.name+" received "+damage+" damage! [HP: "+enemy.currentHP+"/"+enemy.HP+"]");
+                        break;
+                    }
+                default :
+                    System.out.println("Invalid input!");
                     break;
-                else{
-                    System.out.println(enemy.name+" received "+damage+" damage! [HP: "+enemy.currentHP+"/"+enemy.HP+"]");
-                    break;
-                }
-        }
+            }
+        } while(move != 1 && move != 2);
         
         return enemy.currentHP;
     }
@@ -369,7 +374,6 @@ public abstract class Pokemon implements Serializable{         //Pokemon parent 
         for(String str1 : myType){
             for(String str2 : enemy.strength){
                 if(str2.equals(str1)){
-                    System.out.println(name+" is weak against "+enemy.name+"!");
                     check1 = 1;
                 }
             }
@@ -377,12 +381,16 @@ public abstract class Pokemon implements Serializable{         //Pokemon parent 
         for(String str1 : myType){
             for(String str2 : enemy.weakness){
                 if(str2.equals(str1)){
-                    System.out.println(name+" is strong against "+enemy.name+"! Good choice!");
+                    check2 = 1;
                 }
             }
         }
         if(check1 == 1 && check2 == 1)
             System.out.println(name+" is both strong and weak against "+enemy.name+", damage normal!");
+        else if(check1 == 1 && check2 == 0)
+            System.out.println(name+" is strong against "+enemy.getName()+"! Good choice!");
+        else if(check1 == 0 && check2 == 1)
+            System.out.println(name+" is weak against "+enemy.getName()+"!");
     }
     
     public String getName(){
