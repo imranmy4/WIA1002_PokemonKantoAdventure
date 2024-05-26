@@ -1,21 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package kantocity;
 
-/**
- *
- * @author ahmad
- */
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Scanner ;
-import java.io.*;
+import java.util.HashMap;
 import java.util.Random;
-public class KantoCity {
+import java.util.Scanner;
 
-   
+
+public class KantoCity {
     public static void main(String[] args) {
+        //Check save file
+        fileExists();
         
         Scanner sc = new Scanner(System.in);
         
@@ -27,7 +32,7 @@ public class KantoCity {
         ArrayList<City> CinnabarIsland = new ArrayList<>();//3
         ArrayList<City> FuschiaCity = new ArrayList<>();//4
         ArrayList<City> CeladonCity = new ArrayList<>();//5
-        ArrayList<City> VermillionCity = new ArrayList<>();//6
+        ArrayList<City> VermilionCity = new ArrayList<>();//6
         ArrayList<City> LavenderTown = new ArrayList<>();//7
         ArrayList<City> SaffronCity = new ArrayList<>();//8
         ArrayList<City> CeruleanCity = new ArrayList<>();//9
@@ -52,20 +57,20 @@ public class KantoCity {
         FuschiaCity.add(new City("Lavender Town",7));
         
         CeladonCity.add(new City("Fuchsia City",4));
-        CeladonCity.add(new City("Vermillion City",6));
+        CeladonCity.add(new City("Vermilion City",6));
         CeladonCity.add(new City("Saffron City",8));
         
-        VermillionCity.add(new City("Celadon City",5));
-        VermillionCity.add(new City("Lavender Town",7));
+        VermilionCity.add(new City("Celadon City",5));
+        VermilionCity.add(new City("Lavender Town",7));
         
-        LavenderTown.add(new City("Vermillion City",6));
+        LavenderTown.add(new City("Vermilion City",6));
         LavenderTown.add(new City("Cerulean City",9));
         LavenderTown.add(new City("Fuchsia City",4));
         LavenderTown.add(new City("Saffron City",8));
         
         SaffronCity.add(new City("Celadon City",5));
         SaffronCity.add(new City("Cerulean City",9));
-        SaffronCity.add(new City("Vermillion City", 6));
+        SaffronCity.add(new City("Vermilion City", 6));
         SaffronCity.add(new City("Lavender Town",7));
         
         CeruleanCity.add(new City("Pewter City",0));
@@ -81,19 +86,44 @@ public class KantoCity {
         graph.add(CinnabarIsland);
         graph.add(FuschiaCity);
         graph.add(CeladonCity);
-        graph.add(VermillionCity);
+        graph.add(VermilionCity);
         graph.add(LavenderTown);
         graph.add(SaffronCity);
         graph.add(CeruleanCity);
         
+        //Map gym leaders to locations
+        HashMap<String,GymLeaders> gymLeaders = setGymLeaders();
+        
+        Player player = null;
+        GymLeaders gymleader;
+        
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("Welcome to Pokemon - Kanto Adventure\n");
+        switch(startPrompt()){
+                case 1 :
+                    player = newGame();
+                    break;
+                case 2: 
+                    player = loadPlayerData();
+                    System.out.println(player.getName());
+                    break;
+                case 3:
+                    System.exit(0);        
+            }
+        
         int Index = 2;
         String Location = "Pallet Town";
         boolean gameloop = true ;
+        boolean finishGame = false;
         
-        while(gameloop){
+        while(gameloop && !finishGame){
+            finishGame = gameFinish(player);
             int arr_size = graph.get(Index).size();
             ArrayList<City> currentLocation = graph.get(Index);
             System.out.println("You are now at "+Location);
+            WildPokemon wildPokemon = new WildPokemon(Location);
+            
+            player.catchPokemon();
             
             //First Option (Move to other places)
             System.out.println("[1] Move To : ");
@@ -104,7 +134,7 @@ public class KantoCity {
             
             
             //Second option (Fight wild pokemon)
-            System.out.println("\n[2] Fight Wild Pokemon ");//
+            System.out.println("\n[2] Fight Wild Pokemon "+wildPokemon.stringPokemonInArea());
             
             
             //Third Option
@@ -223,7 +253,7 @@ public class KantoCity {
             }
             
             else if(input.charAt(0)=='2'){
-                //Fight wild pokemon function
+                wildPokemonBattle(player,wildPokemon.getEnemy());
             }
             
             else if(input.charAt(0)=='3'){
@@ -233,17 +263,28 @@ public class KantoCity {
                     System.out.println("\n");
                 }else if(input.charAt(1)=='b'){
                     //Show pokemon
+                    for(int i=0; i<player.getPokemon().size(); i++){
+                        System.out.println((i+1)+". "+player.getPokemon().get(i).getName()+" [level "+player.getPokemon().get(i).getLevel()+"]");
+                    }
                     System.out.println("\n");
                 }else if(input.charAt(1)=='c'){
                     //Show badges
+                    if(!player.getBadges().isEmpty()){
+                        for(int i=0; i<player.getBadges().size(); i++){
+                            System.out.println((i+1)+". "+player.getBadges().get(i));
+                        }
+                    } else{
+                        System.out.println("You don't have any badges.");
+                    }
                     System.out.println("\n");
                 }else if(input.charAt(1)=='d'){
                     //Save and exit
-                    System.out.println("\n");
+                    saveAndExit(player);
+                    System.exit(0);
                 }
             }
             else if(input.charAt(0)=='4' && Location.equals("Pallet Town")){
-                System.out.println("MOM : Oh hi there (player name) ! ");
+                System.out.println("MOM : Oh hi there "+player.getName()+"!");
                 try{
                     Scanner sc2 = new Scanner(new FileInputStream("mom's dialogue.txt"));
                     while(sc2.hasNextLine()){
@@ -261,6 +302,11 @@ public class KantoCity {
             
             else if(input.charAt(0)=='4' && !Location.equals("Lavender Town")){
                 //Challenge gym leader
+                System.out.println("You challenged "+Location+"'s Gym Leader!");
+                gymleader = gymLeaders.get(Location);
+                System.out.println("Prepare to battle against "+gymleader.getName()+"!");
+                gymLeaderBattle(player,gymleader);
+                gymLeaders.replace(Location, resetGymLeaders(Location));
             }
             
             else if(input.charAt(0)=='5' && Location.equals("Saffron City")){
@@ -272,7 +318,9 @@ public class KantoCity {
             }
         }
         
-
+        creditScene(player);
+        saveAndExit(player);
+        System.exit(0);
         
     }
     
@@ -427,7 +475,6 @@ public class KantoCity {
                 stack.push("down");
             }else{
                 System.out.println("Invalid input, please tray again.");
-                arr[x][y]="Y";
                 continue ;
             }
             
@@ -472,5 +519,519 @@ public class KantoCity {
         
         
     }
+    
+    public static int startPrompt(){
+        Scanner input = new Scanner(System.in);
+        int choice;
+        System.out.println("1. Start a new adventure.");
+        System.out.println("2. Resume previous adventure.");
+        System.out.println("3. Quit game");
+        System.out.println("---------------------------------------------------------------");
+        choice = input.nextInt();
+        input.nextLine();
+        return choice;
+        
+    }
+    
+    public static void gymLeaderBattle(Player player, GymLeaders gymleader){     //myPokemon from Player, enemy from demo
+        if(gymleader.getRemainingPokemon().size() != gymleader.getAllPokemon().size())
+            gymleader.resetPokemon();
+        if(player.getBattlePokemon().size() != player.getPokemon().size())
+            player.resetPokemon();
+        int accumulatedLevel = 0;
+        Scanner input = new Scanner(System.in);
+        while((!player.battlePokemonEmpty() || player.getCurrentPokemon() != null) && (!gymleader.remainingPokemonEmpty() || gymleader.getCurrentPokemon() != null)){
+            System.out.println("\n---------------------------------------------------------------");
+            int choice = 0;
+            if(gymleader.getCurrentPokemon() == null){
+                gymleader.setCurrentPokemon();
+                System.out.println(gymleader.getName()+" chose "+gymleader.getCurrentPokemon().getName()+" [level "+gymleader.getCurrentPokemon().getLevel()+"]\n");
+                System.out.println("Strong against: "+gymleader.getCurrentPokemon().stringStrength());
+                System.out.println("Weak against: "+gymleader.getCurrentPokemon().stringWeakness());
+                System.out.println();
+            } else{
+                System.out.println(gymleader.getName()+"'s "+gymleader.getCurrentPokemon().getName()+" still stands "+"! [HP: "+gymleader.getCurrentPokemon().getCurrentHP()+"/"+gymleader.getCurrentPokemon().getHP()+"]\n");
+                System.out.println("Strong against: "+gymleader.getCurrentPokemon().stringStrength());
+                System.out.println("Weak against: "+gymleader.getCurrentPokemon().stringWeakness());
+                System.out.println();
+            }
+            if(player.getCurrentPokemon() == null)
+                player.choosePokemon();
+            else{
+                if(!player.battlePokemonEmpty()){
+                    System.out.println("Stay with this pokemon or choose another one?");
+                    System.out.println(player.getCurrentPokemon().getName()+" [HP: "+player.getCurrentPokemon().getCurrentHP()+"/"+player.getCurrentPokemon().getHP()+"]");
+                    do{
+                        System.out.println("\n1. Stay with this one.\n2. Choose another pokemon.");
+                        choice = input.nextInt();
+                        input.nextLine();
+                    } while(choice < 1 || choice > 2);
+                    switch(choice){
+                        case 1:
+                            break;
+                        case 2:
+                            player.choosePokemon();
+                            break;
+                    } 
+                } else{
+                    System.out.println("You only have "+player.getCurrentPokemon().getName()+" left! Keep fighting!");
+                }
+            }
+            System.out.println("\n");
+            player.getCurrentPokemon().againstEnemy(gymleader.getCurrentPokemon());
+            
+            while(player.getCurrentPokemon().getCurrentHP() > 0 && gymleader.getCurrentPokemon().getCurrentHP() > 0){
+                System.out.println("\n---------------------------------------------------------------");
+                player.getCurrentPokemon().attack(gymleader.getCurrentPokemon());
+                if(gymleader.getCurrentPokemon().getCurrentHP() <= 0){
+                    System.out.println(gymleader.getCurrentPokemon().getName()+" [HP: 0/"+gymleader.getCurrentPokemon().getHP()+"]");
+                    System.out.println(player.getCurrentPokemon().getName()+" won against "+gymleader.getName()+"'s "+gymleader.getCurrentPokemon().getName()+"!");
+                    accumulatedLevel += gymleader.getCurrentPokemon().getLevel();
+                    gymleader.removeCurrentPokemon();
+                    break;
+                }
+                player.getCurrentPokemon().defense(gymleader.getCurrentPokemon());
+                if(player.getCurrentPokemon().getCurrentHP() <= 0){
+                    System.out.println(player.getCurrentPokemon().getName()+" [HP: 0/"+player.getCurrentPokemon().getHP()+"]");
+                    System.out.println(player.getCurrentPokemon().getName()+" lose!");
+                    player.removeCurrentPokemon();
+                    break;
+                }
+                System.out.println("\n---------------------------------------------------------------");
+            }
+            
+            
+            
+        }
+        
+        if(!player.battlePokemonEmpty() || player.getCurrentPokemon() != null){
+            System.out.println("\nYou won "+accumulatedLevel*5+" XP for all pokemon that went to battle!");
+            for(int i=0; i<player.getUsedPokemon().size(); i++){
+                player.getUsedPokemon().get(i).levelUp(accumulatedLevel);
+            }
+            if(!player.getBadges().contains(gymleader.getBadge())){
+                System.out.println("\n"+gymleader.getName()+": You beat me fair and square. You are worthy of winning my badge! Here you go!");
+                System.out.println(gymleader.getName()+": Come back here sometime! I'll be happy to fight you again!");
+                System.out.println("\nCongratulations "+player.getName()+", you obtained "+gymleader.getBadge()+"!");
+                player.obtainBadge(gymleader.getBadge());
+            } else{
+                System.out.println("\n"+gymleader.getName()+": You beat me again this time! It was a very good fight!");
+                System.out.println(gymleader.getName()+": Come again sometime!");
+            }
+        } else{
+            if(!player.getBadges().contains(gymleader.getBadge())){
+                System.out.println("\n"+gymleader.getName()+": Looks like you are not ready to have my badge! Come again when you are stronger!");
+                System.out.println(gymleader.getName()+": I will be waiting for our next rematch!");
+            } else{
+                System.out.println("\n"+gymleader.getName()+": Looks like it's not your luck this time! Come back again some other time for another rematch!");
+            }
+            
+        }
+        System.out.println();
+        player.updatePokemon();
+        player.resetPokemon();
+        gymleader.resetPokemon();
+        
+    }
+    
+    public static void wildPokemonBattle(Player player, Pokemon enemy){
+        boolean win = false;
+        if(player.getBattlePokemon().size() != player.getPokemon().size())
+            player.resetPokemon();
+        
+        Scanner input = new Scanner(System.in);
+        while((!player.battlePokemonEmpty() || player.getCurrentPokemon() != null) && win == false){
+            int choice =0;
+            System.out.println("\n---------------------------------------------------------------");
+            System.out.println("Wild "+enemy.getName()+" [level "+enemy.getLevel()+"]\n");
+            System.out.println("Strong against: "+enemy.stringStrength());
+            System.out.println("Weak against: "+enemy.stringWeakness());
+            System.out.println();
+            
+            if(player.getCurrentPokemon() == null)
+                player.choosePokemon();
+            else{
+                if(!player.battlePokemonEmpty()){
+                    System.out.println("Stay with this pokemon or choose another one?");
+                    System.out.println(player.getCurrentPokemon().getName()+" [HP: "+player.getCurrentPokemon().getCurrentHP()+"/"+player.getCurrentPokemon().getHP()+"]");
+                    do{
+                        System.out.println("\n1. Stay with this one.\n2. Choose another pokemon.");
+                        choice = input.nextInt();
+                        input.nextLine();
+                    } while(choice < 1 || choice > 2);
+                    switch(choice){
+                        case 1:
+                            break;
+                        case 2:
+                            player.choosePokemon();
+                            break;
+                    } 
+                } else{
+                    System.out.println("You only have "+player.getCurrentPokemon().getName()+" left! Keep fighting!");
+                }
+            }
+            System.out.println("\n");
+            player.getCurrentPokemon().againstEnemy(enemy);
+            
+            while(player.getCurrentPokemon().getCurrentHP() > 0 && enemy.getCurrentHP() > 0){
+                System.out.println("\n---------------------------------------------------------------");
+                player.getCurrentPokemon().attack(enemy);
+                if(enemy.getCurrentHP() <= 0){
+                    System.out.println(enemy.getName()+" [HP: 0/"+enemy.getHP()+"]");
+                    System.out.println(player.getCurrentPokemon().getName()+" won against wild "+enemy.getName()+"!");
+                    win = true;
+                    break;
+                }
+                player.getCurrentPokemon().defense(enemy);
+                if(player.getCurrentPokemon().getCurrentHP() <= 0){
+                    System.out.println(player.getCurrentPokemon().getName()+" [HP: 0/"+player.getCurrentPokemon().getHP()+"]");
+                    System.out.println(player.getCurrentPokemon().getName()+" lose! Choose another pokemon!");
+                    player.removeCurrentPokemon();
+                    break;
+                }
+                System.out.println("\n---------------------------------------------------------------");
+            }
+        }
+        if(!player.battlePokemonEmpty() || player.getCurrentPokemon() != null){
+            System.out.println("\nYou won "+enemy.getLevel()*5+" XP for all pokemon that went to battle!");
+            for(int i=0; i<player.getUsedPokemon().size(); i++){
+                player.getUsedPokemon().get(i).levelUp(enemy.getLevel());
+            }
+        } else{
+            System.out.println("You lost against wild "+enemy.getName());
+        }
+        System.out.println();
+        player.updatePokemon();
+        player.resetPokemon();
+    }
+    
+    public static void fileExists(){
+        File file = new File("Game Slot.txt");
+        if(!file.exists()){
+        createFile();
+        }
+    }
+    
+    public static void createFile(){
+        try{
+            FileWriter fw = new FileWriter("Game Slot.txt");
+            fw.write("1\n2\n3\n");
+            fw.close();
+            System.out.println("File Created");
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public static void saveAndExit(Player player){
+        String name = player.getName();
+        String playerSave = name+".bin";
+        int slot = player.getSaveSlot();
+        String line;
+        String array[];
+        ArrayList<String[]> data = new ArrayList<>();
+        File file1 = new File("Game Slot.txt");
+        
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(file1));
+            
+            while((line = br.readLine()) != null){
+                array = line.split(",");
+                data.add(array);
+            }
+            br.close();
+            
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        
+        try{
+            
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file1));
+            
+            for(int i=0; i<data.size(); i++){
+                if(slot == Integer.parseInt(data.get(i)[0])){
+                    bw.write(String.valueOf(slot)+","+name);
+                    bw.newLine();
+                } else {
+                    if(data.get(i).length == 2){
+                        bw.write(data.get(i)[0]+","+data.get(i)[1]);
+                        bw.newLine();
+                    } else if(data.get(i).length == 1){
+                        bw.write(data.get(i)[0]);
+                        bw.newLine();
+                    } else{
+                        System.out.println("Error in saving data.(csv file)");
+                        break;
+                    }
+                }
+            }
+            bw.close();
+            
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        
+        
+        try{
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(playerSave));
+            
+            out.writeObject(player);
+            out.close();
+            System.out.println("Saved!");
+            
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        
+         
+        
+    }
+        
+    public static Player loadPlayerData(){
+        Scanner input = new Scanner(System.in);
+        boolean success = false;
+        String line;
+        String name = "";
+        String[] array = null;
+        ArrayList<String[]> slots = new ArrayList<>();
+        int choice;
+        Player player = null;
+        System.out.print("Which game file would you like to load: ");
+        while(success == false){
+            try{
+                BufferedReader br = new BufferedReader(new FileReader("Game Slot.txt"));
+                System.out.print("\nGame Saves:\t");
+                do{
+                    while((line = br.readLine()) != null){
+                        array = line.split(",");
+                        if(array.length == 1){
+                            System.out.print(array[0]+". (empty)\t");
+                        } else if(array.length == 2){
+                            System.out.print(array[0]+". ("+array[1]+")\t");
+                        } else {
+                            System.out.print(array[0]+". (corrupted save file)");
+                        }
+                        slots.add(array);
+                    }
+                    
+                System.out.print("\n\nLoad: ");
+                choice = input.nextInt();
+                input.nextLine();
+                if(choice < 1 || choice > 3)
+                        System.out.println("\nInvalid game save.");
+                } while(choice < 1 || choice > 3);
+                
+                for(int i=0; i<slots.size(); i++){
+                    if(choice == Integer.parseInt(slots.get(i)[0])){
+                        if(slots.get(i).length == 2){
+                            name = slots.get(i)[1];
+                            success = true;
+                            break;
+                        } else if(slots.get(i).length == 1){
+                            System.out.println("Choose available game file only.");
+                        } else{
+                            System.out.println("Game file is corrupted. Choose another available game file.");
+                        }
+                    }
+                }
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
+        }
+        
+        try{
+            File filename = new File(name+".bin");
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
+            if(name.equals("") || filename.exists() == false){
+                System.out.println("Fail to load game file(no name or file does not exist).");
+            } else{
+                player = (Player) ois.readObject();
+                System.out.println("Welcome back "+player.getName()+"!");
+            }
+        } catch(IOException e){
+            e.printStackTrace();
+        } catch(ClassNotFoundException f){
+            f.printStackTrace();
+        }
+        return player;
+    }
+    
+    public static Player newGame(){
+        Scanner input = new Scanner(System.in);
+        int choice = 0;
+        String name;
+        Player player = null;
+        
+        while(player == null){
+            System.out.print("\nNew Game:\t");
+            String line;
+            String[] temp;
+            String[] slot;
+            String answer;
+            boolean overwrite = false;
+            boolean unique = false;
+            ArrayList<String[]> slots = new ArrayList<>();
+            try{
+                BufferedReader br = new BufferedReader(new FileReader("Game Slot.txt"));
+                while((line = br.readLine()) != null){
+                    slot = line.split(",");
+                    if(slot.length == 1){
+                        System.out.print(slot[0]+". (empty)\t");
+                    } else if(slot.length == 2){
+                        System.out.print(slot[0]+". ("+slot[1]+")\t");
+                    } else{
+                        System.out.println(slot[0]+". Error(corrupted save file)");
+                    }
+                    slots.add(slot);
+                }
+                br.close();
+                
+                do {
+                    System.out.print("\n\nGame Slot: ");
+                    choice = input.nextInt();
+                    input.nextLine();
+                    if(choice <1 || choice >3)
+                        System.out.println("Invalid Save Slot.");
+                } while(choice <1 || choice >3);
+                
+                if(slots.get(choice-1).length == 2){
+                    while(overwrite == false){
+                        System.out.println("Overwrite save file?");
+                        System.out.print("You can't revert back after overwriting this game file. [yes/no] : ");
+                        answer = input.nextLine();
+                        if(answer.equalsIgnoreCase("yes")){
+                            while(unique == false){
+                            System.out.print("Enter your name: ");
+                            name = input.nextLine();
+                            for(int j=0; j<3; j++){
+                                temp = slots.get(j);
+                                if(temp.length == 2){
+                                    if(name.equalsIgnoreCase(temp[1]) && choice == Integer.parseInt(temp[0])){
+                                        unique = true;
+                                        break;
+                                    } else if(name.equalsIgnoreCase(temp[1]) && choice != Integer.parseInt(temp[0])){
+                                        System.out.println("Please enter unique name.");
+                                        unique = false;
+                                        break;
+                                    } else
+                                        unique = true;
+                                }
+                            }
+                            if(unique == true){
+                                player = new Player(name);
+                                player.setSaveSlot(choice);
+                                try{
+                                    File oldFile = new File(slots.get(choice-1)[1]+".bin");
+                                    File sameFile = new File(name+".bin");
+                                    if(sameFile.exists())
+                                        sameFile.delete();
+                                    else if(oldFile.exists())
+                                        oldFile.delete();
+                                } catch(SecurityException s){
+                                    s.printStackTrace();
+                                }
+                                
+                                overwrite = true;
+                            }
+                            }
+                            
+                        } else if(answer.equalsIgnoreCase("no")){
+                            overwrite = false;
+                            break;
+                        }
+                    }
+                    
+                }else if(slots.get(choice-1).length == 1){
+                    while(unique == false){
+                        System.out.print("Enter your name: ");
+                        name = input.nextLine();
+                        for(int k=0; k<3; k++){
+                            temp = slots.get(k);
+                            if(temp.length == 2){
+                                if(name.equalsIgnoreCase(temp[1])){
+                                    unique = false;
+                                    break;
+                                }
+                            } else if(temp.length == 1){
+                                unique = true;
+                            }
+                        }
+                        if(unique == false){
+                            System.out.println("Please enter unique name.");
+                        } else{
+                            player = new Player(name);
+                            player.setSaveSlot(choice);
+                            break;
+                        }
+                    }
+                }
+                
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+        return player;
+    }
+    
+    public static HashMap<String,GymLeaders> setGymLeaders(){
+        HashMap<String,GymLeaders> temp = new HashMap<>();
+        temp.put("Pewter City", new PewterCityGymLeader());
+        temp.put("Cerulean City", new CeruleanCityGymLeader());
+        temp.put("Vermilion City", new VermilionCityGymLeader());
+        temp.put("Celadon City", new CeladonCityGymLeader());
+        temp.put("Fuchsia City", new FuchsiaCityGymLeader());
+        temp.put("Saffron City", new SaffronCityGymLeader());
+        temp.put("Cinnabar Island", new CinnabarIslandGymLeader());
+        temp.put("Viridian City", new ViridianCityGymLeader());
+        return temp;
+    }
+    
+    public static GymLeaders resetGymLeaders(String Location){
+        GymLeaders temp = null;
+        switch(Location){
+            case "Pewter City" :
+                temp = new PewterCityGymLeader();
+                break;
+            case "Cerulean City" :
+                temp = new CeruleanCityGymLeader();
+                break;
+            case "Vermilion City" :
+                temp = new VermilionCityGymLeader();
+                break;
+            case "Celadon City" :
+                temp = new CeladonCityGymLeader();
+                break;
+            case "Fuchsia City" :
+                temp = new FuchsiaCityGymLeader();
+                break;
+            case "Saffron City" :
+                temp = new SaffronCityGymLeader();
+                break;
+            case "Cinnabar Island" : 
+                temp = new CinnabarIslandGymLeader();
+                break;
+            case "Viridian City" :
+                temp = new ViridianCityGymLeader();
+                break;
+        }
+        return temp;
+    }
+    
+    public static boolean gameFinish(Player player){
+        if(player.getBadges().size() == 8)
+            return true;
+        else
+            return false;
+    }
+    
+    public static void creditScene(Player player){
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("\nCongratulations "+player.getName()+", you've finished the game!");
+        System.out.println("You've collected all 8 badges in Kanto region!");
+        System.out.println("We hope you enjoyed our game!");
+        System.out.println("---------------------------------------------------------------");
+    }
+    
     
 }
