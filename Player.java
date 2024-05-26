@@ -3,6 +3,7 @@ package pokemon.kanto.adventure;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;                                                           //Nanti tukar la kalau perlu class ni(dekat main branch github je)
 import java.util.Stack;
 
@@ -14,12 +15,24 @@ public class Player implements Serializable{                                    
     private Pokemon currentPokemon;                                             //pokemon currently equipped(for battle)
     private int saveSlot;
     private ArrayList<String> badge = new ArrayList<>();
+    Stack<Pokemon> uncatchedPokemon = new Stack<>();
     
     Player(String name){
         this.name = name;
         pokemon.add(starterPokemon());
         currentPokemon = null;
         battlePokemon = new ArrayList<Pokemon>(pokemon);
+        
+        //Pokemon that player haven't catched yet
+        uncatchedPokemon.push(new Machop());
+        uncatchedPokemon.push(new Pikachu());
+        uncatchedPokemon.push(new Snorlax());
+        uncatchedPokemon.push(new Eevee());
+        uncatchedPokemon.push(new Jigglypuff());
+        if(pokemon.get(0).getName().equals("Geodude"))
+            uncatchedPokemon.push(new Bulbasaur());
+        else
+            uncatchedPokemon.push(new Geodude());
     }
     
     public Pokemon choosePokemon(){                                                //choose pokemon for battle
@@ -74,6 +87,7 @@ public class Player implements Serializable{                                    
         Pokemon starterPokemon = null;
         Bulbasaur starter1 = new Bulbasaur();
         Geodude starter2 = new Geodude();
+        System.out.println("---------------------------------------------------------------");
         System.out.println("Choose your starter pokemon!");
         System.out.println("1. "+starter1.getName()+"\t["+starter1.getType()+"]\t [level "+starter1.getLevel()+"]\t [HP : "+starter1.getHP()+"/"+starter1.getHP()+"]");
         System.out.println("Moves: ");
@@ -86,6 +100,7 @@ public class Player implements Serializable{                                    
             System.out.print("\t"+(j+1)+". "+starter2.getMovesAndDmg().get(j).getMoveName()+" ["+ (int) starter2.getMovesAndDmg().get(j).getDamage()+" damage]");
         }
         System.out.println();
+        System.out.println("---------------------------------------------------------------\n");
         do{
             starter = input.nextInt();
             switch(starter){
@@ -104,8 +119,42 @@ public class Player implements Serializable{                                    
             }
             System.out.println("---------------------------------------------------------------");
         }while(starterPokemon == null);
+        
         return starterPokemon;
             
+    }
+    
+    public void catchPokemon(){
+        Random rand = new Random();
+        Scanner input = new Scanner(System.in);
+        String choice;
+        
+        if(uncatchedPokemon.isEmpty())
+            return;
+        else{
+            int chance = (rand.nextInt(1)+1);
+            switch(chance){
+                case 1:
+                    System.out.println("---------------------------------------------------------------");
+                    System.out.println("You encountered a wild "+uncatchedPokemon.peek().getName()+"!");
+                    System.out.print("Would you like to catch it? [yes/no] : ");
+                    do{
+                    choice = input.nextLine();
+                    if(choice.equalsIgnoreCase("yes")){
+                        System.out.println("You have obtained "+uncatchedPokemon.peek().getName()+"!");
+                        newPokemon(uncatchedPokemon.pop());
+                    }
+                    else if(choice.equalsIgnoreCase("no"))
+                        System.out.println("You'll have another chance to catch it next time!");
+                    else
+                            System.out.print("Invalid input! [yes/no] : ");
+                    } while(!(choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("no")));
+                    System.out.println("---------------------------------------------------------------");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
     
     public void removeCurrentPokemon(){
