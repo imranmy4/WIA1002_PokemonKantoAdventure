@@ -32,7 +32,7 @@ public class PokemonKantoAdventure {
         ArrayList<City> CinnabarIsland = new ArrayList<>();//3
         ArrayList<City> FuschiaCity = new ArrayList<>();//4
         ArrayList<City> CeladonCity = new ArrayList<>();//5
-        ArrayList<City> VermillionCity = new ArrayList<>();//6
+        ArrayList<City> VermilionCity = new ArrayList<>();//6
         ArrayList<City> LavenderTown = new ArrayList<>();//7
         ArrayList<City> SaffronCity = new ArrayList<>();//8
         ArrayList<City> CeruleanCity = new ArrayList<>();//9
@@ -57,20 +57,20 @@ public class PokemonKantoAdventure {
         FuschiaCity.add(new City("Lavender Town",7));
         
         CeladonCity.add(new City("Fuchsia City",4));
-        CeladonCity.add(new City("Vermillion City",6));
+        CeladonCity.add(new City("Vermilion City",6));
         CeladonCity.add(new City("Saffron City",8));
         
-        VermillionCity.add(new City("Celadon City",5));
-        VermillionCity.add(new City("Lavender Town",7));
+        VermilionCity.add(new City("Celadon City",5));
+        VermilionCity.add(new City("Lavender Town",7));
         
-        LavenderTown.add(new City("Vermillion City",6));
+        LavenderTown.add(new City("Vermilion City",6));
         LavenderTown.add(new City("Cerulean City",9));
         LavenderTown.add(new City("Fuchsia City",4));
         LavenderTown.add(new City("Saffron City",8));
         
         SaffronCity.add(new City("Celadon City",5));
         SaffronCity.add(new City("Cerulean City",9));
-        SaffronCity.add(new City("Vermillion City", 6));
+        SaffronCity.add(new City("Vermilion City", 6));
         SaffronCity.add(new City("Lavender Town",7));
         
         CeruleanCity.add(new City("Pewter City",0));
@@ -86,7 +86,7 @@ public class PokemonKantoAdventure {
         graph.add(CinnabarIsland);
         graph.add(FuschiaCity);
         graph.add(CeladonCity);
-        graph.add(VermillionCity);
+        graph.add(VermilionCity);
         graph.add(LavenderTown);
         graph.add(SaffronCity);
         graph.add(CeruleanCity);
@@ -122,6 +122,8 @@ public class PokemonKantoAdventure {
             ArrayList<City> currentLocation = graph.get(Index);
             System.out.println("You are now at "+Location);
             WildPokemon wildPokemon = new WildPokemon(Location);
+            
+            player.catchPokemon();
             
             //First Option (Move to other places)
             System.out.println("[1] Move To : ");
@@ -591,7 +593,7 @@ public class PokemonKantoAdventure {
                 player.getCurrentPokemon().defense(gymleader.getCurrentPokemon());
                 if(player.getCurrentPokemon().getCurrentHP() <= 0){
                     System.out.println(player.getCurrentPokemon().getName()+" [HP: 0/"+player.getCurrentPokemon().getHP()+"]");
-                    System.out.println(player.getCurrentPokemon().getName()+" lose! Choose another pokemon!");
+                    System.out.println(player.getCurrentPokemon().getName()+" lose!");
                     player.removeCurrentPokemon();
                     break;
                 }
@@ -640,9 +642,11 @@ public class PokemonKantoAdventure {
         Scanner input = new Scanner(System.in);
         while((!player.battlePokemonEmpty() || player.getCurrentPokemon() != null) && win == false){
             int choice =0;
+            System.out.println("\n---------------------------------------------------------------");
             System.out.println("Wild "+enemy.getName()+" [level "+enemy.getLevel()+"]\n");
             System.out.println("Strong against: "+enemy.stringStrength());
             System.out.println("Weak against: "+enemy.stringWeakness());
+            System.out.println();
             
             if(player.getCurrentPokemon() == null)
                 player.choosePokemon();
@@ -694,7 +698,7 @@ public class PokemonKantoAdventure {
                 player.getUsedPokemon().get(i).levelUp(enemy.getLevel());
             }
         } else{
-            System.out.println("You lose against wild "+enemy.getName());
+            System.out.println("You lost against wild "+enemy.getName());
         }
         System.out.println();
         player.updatePokemon();
@@ -940,7 +944,7 @@ public class PokemonKantoAdventure {
                     
                 }else if(slots.get(choice-1).length == 1){
                     while(unique == false){
-                        System.out.println("Enter your name: ");
+                        System.out.print("Enter your name: ");
                         name = input.nextLine();
                         for(int k=0; k<3; k++){
                             temp = slots.get(k);
@@ -1028,4 +1032,6 @@ public class PokemonKantoAdventure {
         System.out.println("We hope you enjoyed our game!");
         System.out.println("---------------------------------------------------------------");
     }
+    
+    
 }
