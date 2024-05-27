@@ -10,3 +10,5 @@ esok aku post yg paling latest
 1. Account creation tu da siap
 2. Tinggal nak link dengan database
 3. But that nak buat cane eh?
+
+tk sure la. kena tunggu yg part extra database start buat
