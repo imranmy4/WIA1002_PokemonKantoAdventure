@@ -1,8 +1,16 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package pokemonkantoadventure;
 
-package pokemon.kanto.adventure;
-
+/**
+ *
+ * @author ahmad
+ */
 import java.util.Stack;
-
+import java.util.Scanner ;
+import java.io.*;
 public class Espeon extends Pokemon{
 
     public Espeon() {
@@ -38,6 +46,18 @@ public class Espeon extends Pokemon{
         moveset.push(new Skill("Bite",14.0,5));
         
         return moveset;
+    }
+    
+    public void display(){
+        try{
+            Scanner sc = new Scanner(new FileInputStream("espeon.txt"));
+            while(sc.hasNextLine()){
+                System.out.println(sc.nextLine());
+            }
+            sc.close();
+        }catch(IOException e){
+            System.out.println("Espeon picture is not found");
+        }
     }
     
 }
