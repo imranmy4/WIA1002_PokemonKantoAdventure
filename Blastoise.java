@@ -1,7 +1,16 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package pokemonkantoadventure;
 
-package pokemon.kanto.adventure;
-
+/**
+ *
+ * @author ahmad
+ */
 import java.util.Stack;
+import java.io.*;
+import java.util.Scanner;
 
 public class Blastoise extends Pokemon{
 
@@ -38,6 +47,18 @@ public class Blastoise extends Pokemon{
         moveset.push(new Skill("Tail Whip",15.0,5));
         
         return moveset;
+    }
+    
+    public void display(){
+        try{
+            Scanner sc = new Scanner(new FileInputStream("Blastoise(kecik sikit).txt"));
+            while(sc.hasNextLine()){
+                System.out.println(sc.nextLine());
+            }
+            sc.close();
+        }catch(IOException e){
+            System.out.println("Blastoise picture is not found");
+        }
     }
     
 }
