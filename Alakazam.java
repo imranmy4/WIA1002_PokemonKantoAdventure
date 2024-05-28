@@ -1,8 +1,6 @@
-
-package pokemon.kanto.adventure;
-
 import java.util.Stack;
-
+import java.io.*;
+import java.util.Scanner;
 public class Alakazam extends Pokemon{
 
     public Alakazam() {
@@ -38,6 +36,18 @@ public class Alakazam extends Pokemon{
         moveset.push(new Skill("Confusion",15.0,5));
         
         return moveset;
+    }
+    
+    public void display(){
+        try{
+            Scanner sc = new Scanner(new FileInputStream("alakazam.txt"));
+            while(sc.hasNextLine()){
+                System.out.println(sc.nextLine());
+            }
+            sc.close();
+        }catch(IOException e){
+            System.out.println("Alakazam picture is not found");
+        }
     }
     
 }
