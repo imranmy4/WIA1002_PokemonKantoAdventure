@@ -70,7 +70,8 @@ public class Player implements Serializable{                                    
         currentPokemon = battlePokemon.get(choice-1);
         usedPokemon.add(battlePokemon.get(choice-1));
         battlePokemon.remove(choice-1);
-        currentPokemon.equipMoves();                                            //equip moves for pokemon
+        currentPokemon.display();
+        currentPokemon.equipMoves();//equip moves for pokemon
         return currentPokemon;
     }    
     
@@ -114,11 +115,13 @@ public class Player implements Serializable{                                    
             starter = input.nextInt();
             switch(starter){
                 case 1 : starterPokemon = starter1;
+                    starter1.display();
                     System.out.println("You chose "+starterPokemon.getName()+"! Good choice!");
                     System.out.println("Good luck on your journey!");
                 break;
                 
                 case 2 : starterPokemon = starter2;
+                    starter2.display();
                     System.out.println("You chose "+starterPokemon.getName()+"! Good choice!");
                     System.out.println("Good luck on your journey!");
                 break;
