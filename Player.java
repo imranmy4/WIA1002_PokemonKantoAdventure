@@ -132,7 +132,7 @@ public class Player implements Serializable{                                    
         if(uncatchedPokemon.isEmpty())
             return;
         else{
-            int chance = (rand.nextInt(1)+1);
+            int chance = (rand.nextInt(10)+1);
             switch(chance){
                 case 1:
                     System.out.println("---------------------------------------------------------------");
