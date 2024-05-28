@@ -1,8 +1,16 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package pokemonkantoadventure;
 
-package pokemon.kanto.adventure;
-
+/**
+ *
+ * @author ahmad
+ */
 import java.util.Stack;
-
+import java.util.Scanner;
+import java.io.*;
 public class Koffing extends Pokemon{
 
     public Koffing() {
@@ -38,6 +46,18 @@ public class Koffing extends Pokemon{
         moveset.push(new Skill("Poison Gas",18.0,5));
         
         return moveset;      
+    }
+    
+    public void display(){
+        try{
+            Scanner sc = new Scanner(new FileInputStream("koffing.txt"));
+            while(sc.hasNextLine()){
+                System.out.println(sc.nextLine());
+            }
+            sc.close();
+        }catch(IOException e){
+            System.out.println("Koffing picture is not found");
+        }
     }
     
 }
