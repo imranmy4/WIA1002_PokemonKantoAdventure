@@ -25,7 +25,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 
-public class KantoCity {
+public class PokemonKantoAdventure {
     public static void main(String[] args) {
         //Check save file
         fileExists();
@@ -554,11 +554,13 @@ public class KantoCity {
             int choice = 0;
             if(gymleader.getCurrentPokemon() == null){
                 gymleader.setCurrentPokemon();
+                gymleader.getCurrentPokemon().display();
                 System.out.println(gymleader.getName()+" chose "+gymleader.getCurrentPokemon().getName()+" [level "+gymleader.getCurrentPokemon().getLevel()+"]\n");
                 System.out.println("Strong against: "+gymleader.getCurrentPokemon().stringStrength());
                 System.out.println("Weak against: "+gymleader.getCurrentPokemon().stringWeakness());
                 System.out.println();
             } else{
+                gymleader.getCurrentPokemon().display();
                 System.out.println(gymleader.getName()+"'s "+gymleader.getCurrentPokemon().getName()+" still stands "+"! [HP: "+gymleader.getCurrentPokemon().getCurrentHP()+"/"+gymleader.getCurrentPokemon().getHP()+"]\n");
                 System.out.println("Strong against: "+gymleader.getCurrentPokemon().stringStrength());
                 System.out.println("Weak against: "+gymleader.getCurrentPokemon().stringWeakness());
@@ -655,13 +657,15 @@ public class KantoCity {
         while((!player.battlePokemonEmpty() || player.getCurrentPokemon() != null) && win == false){
             int choice =0;
             System.out.println("\n---------------------------------------------------------------");
+            enemy.display();
             System.out.println("Wild "+enemy.getName()+" [level "+enemy.getLevel()+"]\n");
             System.out.println("Strong against: "+enemy.stringStrength());
             System.out.println("Weak against: "+enemy.stringWeakness());
             System.out.println();
             
-            if(player.getCurrentPokemon() == null)
+            if(player.getCurrentPokemon() == null){
                 player.choosePokemon();
+            }
             else{
                 if(!player.battlePokemonEmpty()){
                     System.out.println("Stay with this pokemon or choose another one?");
