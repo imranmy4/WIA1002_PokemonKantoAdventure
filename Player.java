@@ -1,6 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package pokemonkantoadventure;
 
-package pokemon.kanto.adventure;
-
+/**
+ *
+ * @author ahmad
+ */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,6 +23,7 @@ public class Player implements Serializable{                                    
     private int saveSlot;
     private ArrayList<String> badge = new ArrayList<>();
     Stack<Pokemon> uncatchedPokemon = new Stack<>();
+    int pokeball ;
     
     Player(String name){
         this.name = name;
@@ -83,6 +91,7 @@ public class Player implements Serializable{                                    
     
     public Pokemon starterPokemon(){
         Scanner input = new Scanner(System.in);
+        pokeball = 0 ;
         int starter;
         Pokemon starterPokemon = null;
         Bulbasaur starter1 = new Bulbasaur();
@@ -132,17 +141,28 @@ public class Player implements Serializable{                                    
         if(uncatchedPokemon.isEmpty())
             return;
         else{
-            int chance = (rand.nextInt(10)+1);
+            int chance = (rand.nextInt(7)+1);
             switch(chance){
                 case 1:
                     System.out.println("---------------------------------------------------------------");
                     System.out.println("You encountered a wild "+uncatchedPokemon.peek().getName()+"!");
+                    System.out.println("You have "+ pokeball+ " pokeballs ");
                     System.out.print("Would you like to catch it? [yes/no] : ");
                     do{
                     choice = input.nextLine();
                     if(choice.equalsIgnoreCase("yes")){
-                        System.out.println("You have obtained "+uncatchedPokemon.peek().getName()+"!");
-                        newPokemon(uncatchedPokemon.pop());
+                        pokeball--;
+                        int pokeball_probability=rand.nextInt(2);
+                        switch(pokeball_probability){
+                        case 1:
+                            System.out.println("Oops, the pokemon got away, better luck next time .");
+                            break;
+                        case 0:
+                            System.out.println("You have obtained "+uncatchedPokemon.peek().getName()+"!");
+                            newPokemon(uncatchedPokemon.pop());
+                            break;
+                        }
+                        System.out.println("You now have "+pokeball+" pokeballs ");
                     }
                     else if(choice.equalsIgnoreCase("no"))
                         System.out.println("You'll have another chance to catch it next time!");
