@@ -1,5 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package pokemonkantoadventure;
 
-package kantocity;
+/**
+ *
+ * @author ahmad
+ */
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -123,8 +131,9 @@ public class KantoCity {
             System.out.println("You are now at "+Location);
             WildPokemon wildPokemon = new WildPokemon(Location);
             
+            if(player.pokeball>0){
             player.catchPokemon();
-            
+            }
             //First Option (Move to other places)
             System.out.println("[1] Move To : ");
             char options = 'a';
@@ -606,6 +615,8 @@ public class KantoCity {
         
         if(!player.battlePokemonEmpty() || player.getCurrentPokemon() != null){
             System.out.println("\nYou won "+accumulatedLevel*5+" XP for all pokemon that went to battle!");
+            System.out.println("You have earned 2 pokeballs");
+            player.pokeball +=2 ;
             for(int i=0; i<player.getUsedPokemon().size(); i++){
                 player.getUsedPokemon().get(i).levelUp(accumulatedLevel);
             }
@@ -635,6 +646,7 @@ public class KantoCity {
     }
     
     public static void wildPokemonBattle(Player player, Pokemon enemy){
+        Random rand = new Random();
         boolean win = false;
         if(player.getBattlePokemon().size() != player.getPokemon().size())
             player.resetPokemon();
@@ -694,6 +706,14 @@ public class KantoCity {
         }
         if(!player.battlePokemonEmpty() || player.getCurrentPokemon() != null){
             System.out.println("\nYou won "+enemy.getLevel()*5+" XP for all pokemon that went to battle!");
+            int probability_pokeball= rand.nextInt(3);
+            switch(probability_pokeball){
+                case 0 :
+                    System.out.println("You have received one pokeball ");
+                    player.pokeball++;
+                    break;
+            }
+            
             for(int i=0; i<player.getUsedPokemon().size(); i++){
                 player.getUsedPokemon().get(i).levelUp(enemy.getLevel());
             }
