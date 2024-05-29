@@ -672,8 +672,7 @@ public class PokemonKantoAdventure {
                     System.out.println(player.getCurrentPokemon().getName()+" [HP: "+player.getCurrentPokemon().getCurrentHP()+"/"+player.getCurrentPokemon().getHP()+"]");
                     do{
                         System.out.println("\n1. Stay with this one.\n2. Choose another pokemon.");
-                        choice = input.nextInt();
-                        input.nextLine();
+                        choice = acceptInt();
                     } while(choice < 1 || choice > 2);
                     switch(choice){
                         case 1:
@@ -840,8 +839,7 @@ public class PokemonKantoAdventure {
                     }
                     
                 System.out.print("\n\nLoad: ");
-                choice = input.nextInt();
-                input.nextLine();
+                choice = acceptInt();
                 if(choice < 1 || choice > 3)
                         System.out.println("\nInvalid game save.");
                 } while(choice < 1 || choice > 3);
@@ -913,8 +911,7 @@ public class PokemonKantoAdventure {
                 
                 do {
                     System.out.print("\n\nGame Slot: ");
-                    choice = input.nextInt();
-                    input.nextLine();
+                    choice = acceptInt();
                     if(choice <1 || choice >3)
                         System.out.println("Invalid Save Slot.");
                 } while(choice <1 || choice >3);
@@ -1055,6 +1052,19 @@ public class PokemonKantoAdventure {
         System.out.println("You've collected all 8 badges in Kanto region!");
         System.out.println("We hope you enjoyed our game!");
         System.out.println("---------------------------------------------------------------");
+    }
+
+    public static int acceptInt(){
+        int i;
+        Scanner input = new Scanner(System.in);
+        try{
+            i = input.nextInt();
+            input.nextLine();
+            return i;
+        } catch(InputMismatchException ex){
+            return -1;
+        }
+        
     }
     
     
