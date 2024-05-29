@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.InputMismatchException;
 
 
 public abstract class Pokemon implements Serializable{         //Pokemon parent class
@@ -75,7 +76,7 @@ public abstract class Pokemon implements Serializable{         //Pokemon parent 
         int newWildLevel = 0;
             switch(location){
                 case "Pallet Town" :
-                    newWildLevel = (rand.nextInt(3)+7);
+                    newWildLevel = (rand.nextInt(3)+3);
                     break;
                 case "Pewter City" : 
                     newWildLevel = (rand.nextInt(3)+9);
@@ -209,7 +210,7 @@ public abstract class Pokemon implements Serializable{         //Pokemon parent 
         }
         do{
             System.out.print("Which moves will "+name+" use: ");        //player choose which moves/skills to use
-            move = input.nextInt();
+            move = acceptInt();
             System.out.println("\n");
             
             switch(move){
@@ -349,18 +350,17 @@ public abstract class Pokemon implements Serializable{         //Pokemon parent 
         System.out.println();
         do{
         System.out.print("1st move: ");
-        moveNum1 = input.nextInt();
-        input.nextLine();
-        } while(moveNum1 > movesAndDmg.size());
+        moveNum1 = acceptInt();
+        } while(moveNum1 > movesAndDmg.size() || moveNum1<1);
         
         do{
             System.out.print("2nd move: ");
-            moveNum2 = input.nextInt();
+            moveNum2 = acceptInt();
             if(moveNum2 == moveNum1){
                 System.out.println("\nYou have already selected this move!");
                 System.out.println("Please pick another move!\n");
             }
-        } while(moveNum2 == moveNum1 || moveNum2 > movesAndDmg.size());
+        } while(moveNum2 == moveNum1 || moveNum2 > movesAndDmg.size() || moveNum2<1);
         
         currentMovesAndDmg[0] = movesAndDmg.get(moveNum1-1);
         currentMovesAndDmg[1] = movesAndDmg.get(moveNum2-1);
@@ -455,5 +455,18 @@ public abstract class Pokemon implements Serializable{         //Pokemon parent 
             full=full+str+"|";
         }
         return full;
+    }
+
+    public static int acceptInt(){
+        int i;
+        Scanner input = new Scanner(System.in);
+        try{
+            i = input.nextInt();
+            input.nextLine();
+            return i;
+        } catch(InputMismatchException ex){
+            return -1;
+        }
+        
     }
 }
