@@ -536,8 +536,13 @@ public class PokemonKantoAdventure {
         System.out.println("2. Resume previous adventure.");
         System.out.println("3. Quit game");
         System.out.println("---------------------------------------------------------------");
-        choice = input.nextInt();
-        input.nextLine();
+        do{
+            System.out.print("Your choice: ");
+            choice = acceptInt();
+            if(choice<1 || choice>3){
+                System.out.println("Invalid input! Please try again!");
+            }
+        } while(choice<1 || choice>3);
         return choice;
         
     }
@@ -574,8 +579,7 @@ public class PokemonKantoAdventure {
                     System.out.println(player.getCurrentPokemon().getName()+" [HP: "+player.getCurrentPokemon().getCurrentHP()+"/"+player.getCurrentPokemon().getHP()+"]");
                     do{
                         System.out.println("\n1. Stay with this one.\n2. Choose another pokemon.");
-                        choice = input.nextInt();
-                        input.nextLine();
+                        choice = acceptInt();
                     } while(choice < 1 || choice > 2);
                     switch(choice){
                         case 1:
