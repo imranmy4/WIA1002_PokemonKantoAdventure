@@ -10,6 +10,7 @@ package pokemonkantoadventure;
  */
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;                                                           //Nanti tukar la kalau perlu class ni(dekat main branch github je)
 import java.util.Stack;
@@ -60,11 +61,10 @@ public class Player implements Serializable{                                    
         System.out.println("---------------------------------------------------------------");
         do{
             System.out.print("Your choice: ");
-            choice = input.nextInt();
-            input.nextLine();
-            if(choice>battlePokemon.size())
+            choice = acceptInt();
+            if(choice>battlePokemon.size() || choice<1)
                 System.out.println("Try again!");
-        } while(choice>battlePokemon.size());
+        } while(choice>battlePokemon.size() || choice<1);
         if(currentPokemon != null)
             putBackPokemon();
         currentPokemon = battlePokemon.get(choice-1);
@@ -112,7 +112,7 @@ public class Player implements Serializable{                                    
         System.out.println();
         System.out.println("---------------------------------------------------------------\n");
         do{
-            starter = input.nextInt();
+            starter = acceptInt();
             switch(starter){
                 case 1 : starterPokemon = starter1;
                     starter1.display();
@@ -232,5 +232,18 @@ public class Player implements Serializable{                                    
     
     public void obtainBadge(String badge){
         this.badge.add(badge);
+    }
+
+    public static int acceptInt(){
+        int i;
+        Scanner input = new Scanner(System.in);
+        try{
+            i = input.nextInt();
+            input.nextLine();
+            return i;
+        } catch(InputMismatchException ex){
+            return -1;
+        }
+        
     }
 }
