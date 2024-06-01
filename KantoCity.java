@@ -105,6 +105,15 @@ public class PokemonKantoAdventure {
         
         Player player = null;
         GymLeaders gymleader;
+        try{
+        Scanner skaner = new Scanner(new FileInputStream("pokemon_logo.txt"));
+        while(skaner.hasNextLine()){
+            System.out.println(skaner.nextLine());
+        }
+        skaner.close();
+        }catch(IOException e){
+            System.out.println("There is something wrong with the pokemon logo");
+        }
         
         System.out.println("---------------------------------------------------------------");
         System.out.println("Welcome to Pokemon - Kanto Adventure\n");
@@ -320,7 +329,7 @@ public class PokemonKantoAdventure {
             }
             
             else if(input.charAt(0)=='5' && Location.equals("Saffron City")){
-                RivalsRace race = new RivalsRace(Location);
+                //Rival Race
             }
             
             else if(input.charAt(0)=='5' && Location.equals("Fuchsia City")){
