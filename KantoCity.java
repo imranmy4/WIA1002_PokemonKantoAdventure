@@ -938,8 +938,12 @@ public class PokemonKantoAdventure {
                         answer = input.nextLine();
                         if(answer.equalsIgnoreCase("yes")){
                             while(unique == false){
-                            System.out.print("Enter your name: ");
-                            name = input.nextLine();
+                            do{    //cant input blank
+                                System.out.print("Enter your name: ");
+                                name = input.nextLine();
+                                if(name.isBlank())
+                                    System.out.println("Please enter a name!");
+                            } while(name.isBlank());
                             for(int j=0; j<3; j++){
                                 temp = slots.get(j);
                                 if(temp.length == 2){
@@ -980,8 +984,12 @@ public class PokemonKantoAdventure {
                     
                 }else if(slots.get(choice-1).length == 1){
                     while(unique == false){
-                        System.out.print("Enter your name: ");
-                        name = input.nextLine();
+                        do{    //cant input blank
+                            System.out.print("Enter your name: ");
+                            name = input.nextLine();
+                            if(name.isBlank())
+                                System.out.println("Please enter a name!");
+                        } while(name.isBlank());
                         for(int k=0; k<3; k++){
                             temp = slots.get(k);
                             if(temp.length == 2){
