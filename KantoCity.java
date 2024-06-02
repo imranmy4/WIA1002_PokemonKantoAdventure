@@ -329,6 +329,7 @@ public class PokemonKantoAdventure {
             }
             
             else if(input.charAt(0)=='5' && Location.equals("Saffron City")){
+                RivalsRace race = new RivalsRace(Location);
                 //Rival Race
             }
             
