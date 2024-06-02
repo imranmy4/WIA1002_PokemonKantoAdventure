@@ -39,8 +39,8 @@ public class Jigglypuff extends Pokemon{
         moveset.push(new Skill("Body Slam",70.0,31));
         moveset.push(new Skill("Round",37.0,14));
         moveset.push(new Skill("Echoed Voice",22.0,8));
-        moveset.push(new Skill("Pound",15.0,5));
-        moveset.push(new Skill("Disarming Voice",13.0,5));
+        moveset.push(new Skill("Pound",15.0,1));
+        moveset.push(new Skill("Disarming Voice",13.0,1));
         
         return moveset;
     }
