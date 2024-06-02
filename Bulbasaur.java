@@ -43,8 +43,8 @@ public class Bulbasaur extends Pokemon{
         moveset.push(new Skill("Power Whip",60,26));
         moveset.push(new Skill("Razor Leaf",38.0,14));
         moveset.push(new Skill("Vine Whip",23.0,8));
-        moveset.push(new Skill("Tackle",15.0,5));
-        moveset.push(new Skill("Growl",13.0,5));
+        moveset.push(new Skill("Tackle",15.0,1));
+        moveset.push(new Skill("Growl",13.0,1));
         
         return moveset;
     }
