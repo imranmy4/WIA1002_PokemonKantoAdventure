@@ -42,8 +42,8 @@ public class Geodude extends Pokemon{
         moveset.push(new Skill("Earthquake",62,28));
         moveset.push(new Skill("Rock Blast",40,15));
         moveset.push(new Skill("Rock Throw",22.0,7));
-        moveset.push(new Skill("Rollout",16.0,5));
-        moveset.push(new Skill("Tackle",14.0,5));
+        moveset.push(new Skill("Rollout",16.0,1));
+        moveset.push(new Skill("Tackle",14.0,1));
         
         
         return moveset;
