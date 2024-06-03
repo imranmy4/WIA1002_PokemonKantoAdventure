@@ -27,12 +27,12 @@ public class Eevee extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Double-Edge",99.0,47));
-        moveset.push(new Skill("Take Down",58.0,27));
-        moveset.push(new Skill("Bite",37.0,16));
-        moveset.push(new Skill("Swift",21.0,9));
-        moveset.push(new Skill("Tail Whip",12.0,5));
-        moveset.push(new Skill("Tackle",14.0,5));
+        moveset.push(new Skill("Double-Edge",99.0,43));
+        moveset.push(new Skill("Take Down",58.0,23));
+        moveset.push(new Skill("Bite",37.0,12));
+        moveset.push(new Skill("Swift",21.0,5));
+        moveset.push(new Skill("Tail Whip",12.0,1));
+        moveset.push(new Skill("Tackle",14.0,1));
         
         return moveset;
     }
