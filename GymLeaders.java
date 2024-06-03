@@ -1,8 +1,6 @@
-
-package pokemon.kanto.adventure;
+package pokemonkantoadventure;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Stack;
 
 public abstract class GymLeaders {
@@ -13,64 +11,64 @@ public abstract class GymLeaders {
     Stack<Pokemon> remainingPokemon = new Stack<>();
     Pokemon currentPokemon = null;
     
-    GymLeaders(String name, String type, String badge){
+    GymLeaders(String name, String type, String badge) {
         this.name = name;
         this.badge = badge;
         this.type = type;
         allPokemon = gymLeaderPokemon();
-        for(int i=0; i<allPokemon.size(); i++)
+        for(int i = 0 ; i < allPokemon.size() ; i++)
             remainingPokemon.push(allPokemon.get(i));
     }
     
     abstract public ArrayList<Pokemon> gymLeaderPokemon();
     
-    public String getName(){
+    public String getName() {
         return name;
     }
     
-    public String getBadge(){
+    public String getBadge() {
         return badge;
     }
     
-    public ArrayList<Pokemon> getAllPokemon(){
+    public ArrayList<Pokemon> getAllPokemon() {
         return allPokemon;
     }
     
-    public Stack<Pokemon> getRemainingPokemon(){
+    public Stack<Pokemon> getRemainingPokemon() {
         return remainingPokemon;
     }
     
-    public void resetPokemon(){
+    public void resetPokemon() {
         allPokemon = new ArrayList<>();
         allPokemon = gymLeaderPokemon();
         remainingPokemon = new Stack<>();
-        for(int i=0; i<allPokemon.size(); i++)
+        for(int i = 0 ; i < allPokemon.size() ; i++)
             remainingPokemon.push(allPokemon.get(i));
     }
     
-    public Pokemon nextBattlePokemon(){
+    public Pokemon nextBattlePokemon() {
         currentPokemon = remainingPokemon.pop();
         return currentPokemon;
     }
     
-    public void removeCurrentPokemon(){
+    public void removeCurrentPokemon() {
         currentPokemon = null;
     }
     
-    public boolean remainingPokemonEmpty(){
+    public boolean remainingPokemonEmpty() {
         return remainingPokemon.isEmpty();
     }
     
-    public Pokemon getCurrentPokemon(){
+    public Pokemon getCurrentPokemon() {
         return currentPokemon;
     }
     
-    public void setCurrentPokemon(){
+    public void setCurrentPokemon() {
         currentPokemon = nextBattlePokemon();
     }
 }
 
-class PewterCityGymLeader extends GymLeaders{
+class PewterCityGymLeader extends GymLeaders {
 
     public PewterCityGymLeader() {
         super("Brock","Rock","The Boulder Badge");
@@ -84,14 +82,14 @@ class PewterCityGymLeader extends GymLeaders{
         
         return temp;
     }
-    
 }
 
-class CeruleanCityGymLeader extends GymLeaders{
+class CeruleanCityGymLeader extends GymLeaders {
     
-    public CeruleanCityGymLeader(){
+    public CeruleanCityGymLeader() {
         super("Misty","Water","The Cascade Badge");
     }
+    
     @Override
     public ArrayList<Pokemon> gymLeaderPokemon() {
         ArrayList<Pokemon> temp = new ArrayList<>();
@@ -100,10 +98,9 @@ class CeruleanCityGymLeader extends GymLeaders{
         
         return temp;
     }
-    
 }
 
-class VermilionCityGymLeader extends GymLeaders{
+class VermilionCityGymLeader extends GymLeaders {
 
     public VermilionCityGymLeader() {
         super("Lt. Surge","Electric","The Thunder Badge");
@@ -118,7 +115,6 @@ class VermilionCityGymLeader extends GymLeaders{
         
         return temp;
     }
-    
 }
 
 class CeladonCityGymLeader extends GymLeaders{
@@ -136,12 +132,11 @@ class CeladonCityGymLeader extends GymLeaders{
         
         return temp;
     }
-    
 }
 
-class FuchsiaCityGymLeader extends GymLeaders{
+class FuchsiaCityGymLeader extends GymLeaders {
     
-    public FuchsiaCityGymLeader(){
+    public FuchsiaCityGymLeader() {
         super("Koga","Poison","The Soul Badge");
     }
 
@@ -154,12 +149,11 @@ class FuchsiaCityGymLeader extends GymLeaders{
         
         return temp;
     }
-    
 }
 
-class SaffronCityGymLeader extends GymLeaders{
+class SaffronCityGymLeader extends GymLeaders {
     
-    public SaffronCityGymLeader(){
+    public SaffronCityGymLeader() {
         super("Sabrina","Psychic","The Marsh Badge");
     }
 
@@ -172,12 +166,11 @@ class SaffronCityGymLeader extends GymLeaders{
         
         return temp;
     }
-    
 }
 
-class CinnabarIslandGymLeader extends GymLeaders{
+class CinnabarIslandGymLeader extends GymLeaders {
     
-    public CinnabarIslandGymLeader(){
+    public CinnabarIslandGymLeader() {
         super("Blaine","Fire","The Volcano Badge");
     }
 
@@ -190,10 +183,9 @@ class CinnabarIslandGymLeader extends GymLeaders{
         
         return temp;
     }
-
 }
 
-class ViridianCityGymLeader extends GymLeaders{
+class ViridianCityGymLeader extends GymLeaders {
 
     public ViridianCityGymLeader() {
         super("Giovanni","Ground","The Earth Badge");
@@ -208,5 +200,4 @@ class ViridianCityGymLeader extends GymLeaders{
         
         return temp;
     }
-    
 }
