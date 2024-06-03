@@ -1,27 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package pokemonkantoadventure;
+package pokemonkantoadventure;;
 
-/**
- *
- * @author ahmad
- */
+import java.util.Scanner;
 import java.util.Stack;
 import java.io.*;
-import java.util.Scanner;
-public class Arcanine extends Pokemon{
+
+public class Arcanine extends Pokemon {
 
     public Arcanine() {
         super("Arcanine","Fire",5,108,0);
     }
     
-    public Arcanine(String location){
+    public Arcanine(String location) {
         super("Arcanine","Fire",108,location);
     }
     
-    public Arcanine(int level){
+    public Arcanine(int level) {
         super("Arcanine","Fire",level,108);
     }
 
@@ -38,26 +31,25 @@ public class Arcanine extends Pokemon{
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Flamethrower",103.0,46));
+        moveset.push(new Skill("Flamethrower",103.0,46,"BURNED"));
         moveset.push(new Skill("Extreme Speed",77.0,34));
         moveset.push(new Skill("Play Rough",47.0,19));
         moveset.push(new Skill("Crunch",28.0,10));
-        moveset.push(new Skill("Fire Fang",17.0,5));
-        moveset.push(new Skill("Flame Wheel",16.0,5));
+        moveset.push(new Skill("Fire Fang",17.0,5,"BURNED"));
+        moveset.push(new Skill("Flame Wheel",16.0,5, "BURNED"));
         
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("Arcanine(besar).txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Arcanine picture is not found");
+        } catch(IOException e) {
+            System.out.println("Arcanine picture is not found.");
         }
     }
-    
 }
