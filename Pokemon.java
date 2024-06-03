@@ -84,31 +84,31 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                     newWildLevel = (rand.nextInt(3) + 3);
                     break;
                 case "Pewter City" : 
-                    newWildLevel = (rand.nextInt(3) + 9);
+                    newWildLevel = (rand.nextInt(3) + 5);
                     break;
                 case "Cerulean City" : 
-                    newWildLevel = (rand.nextInt(3) + 18);
+                    newWildLevel = (rand.nextInt(3) + 9);
                     break;
                 case "Vermilion City" :
-                    newWildLevel = (rand.nextInt(3) + 27);
+                    newWildLevel = (rand.nextInt(3) + 13);
                     break;
                 case "Celadon City" :
-                    newWildLevel = (rand.nextInt(3) + 36);
+                    newWildLevel = (rand.nextInt(3) + 18);
                     break;
                 case "Fuchsia City" : 
-                    newWildLevel = (rand.nextInt(3) + 45);
+                    newWildLevel = (rand.nextInt(3) + 23);
                     break;
                 case "Saffron City" :
-                    newWildLevel = (rand.nextInt(3) + 53);
+                    newWildLevel = (rand.nextInt(3) + 28);
                     break;
                 case "Cinnabar Island" :
-                    newWildLevel = (rand.nextInt(3) + 62);
+                    newWildLevel = (rand.nextInt(3) + 33);
                     break;
                 case "Viridian City" :
-                    newWildLevel = (rand.nextInt(3) + 70);
+                    newWildLevel = (rand.nextInt(3) + 38);
                     break;
                 case "Lavender Town" :
-                    newWildLevel = (rand.nextInt(3) + 30);
+                    newWildLevel = (rand.nextInt(3) + 12);
                     break;
                 default : 
                     System.out.println("No pokemon");
@@ -118,7 +118,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
     }
     
     final private int setHP(int level, int HP) {          //set pokemon HP according to level
-        while(level > 5) {
+        while(level > 1) {
             HP += 5;
             level--;
         }
@@ -508,16 +508,18 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         System.out.println(name + " [XP: " + XP + "/" + XPThreshold + "]");
     }
     
-    private int XPThresholdSet() {
+    private int XPThresholdSet(){
         int XPThresholdSet = 1000000;
-        if(level >= 1 && level <= 9)
-                XPThresholdSet = 100;                                  //XP requirement for level 1 to 9
-            else if(level >= 10 && level <= 29)
-                XPThresholdSet = 200;                                  //XP requirement for level 10 to 29
-            else if(level >= 30)
+        if(level>=1 && level<=9)
+                XPThresholdSet = 30;                                  //XP requirement for level 1 to 9
+            else if(level>=10 && level<=19)
+                XPThresholdSet = 100;                                  //XP requirement for level 10 to 19
+            else if(level>=20 && level<=29)
+                XPThresholdSet = 200;                                   //XP requirement for level 20 to 29
+            else if(level>=30)
                 XPThresholdSet = 300;                                  //XP requirement dor level 30 and above
             else
-                System.out.println("Error in leveling up!");         //just in case problem
+                System.out.println("Error in leveling up!");        //just in case problem
         return XPThresholdSet;
     }
     
@@ -571,9 +573,9 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         
         if(check1 == 1 && check2 == 1)
             System.out.println(name + " is both strong and weak against " + enemy.name + ", damage normal!");
-        else if(check1 == 1 && check2 == 0)
-            System.out.println(name + " is strong against " + enemy.getName() + "! Good choice!");
         else if(check1 == 0 && check2 == 1)
+            System.out.println(name + " is strong against " + enemy.getName() + "! Good choice!");
+        else if(check1 == 1 && check2 == 0)
             System.out.println(name +" is weak against " + enemy.getName() + "!");
     }
     
