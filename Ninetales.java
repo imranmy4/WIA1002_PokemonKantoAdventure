@@ -31,12 +31,12 @@ public class Ninetales extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Inferno",105.0,47,"BURNED"));
-        moveset.push(new Skill("Incinerate",80.0,35));
-        moveset.push(new Skill("Will-O-Wisp",47.0,19,"BURNED"));
-        moveset.push(new Skill("Fire Spin",29.0,10));
-        moveset.push(new Skill("Ember",18.0,5,"BURNED"));
-        moveset.push(new Skill("Flamethrower",17.0,5,"BURNED"));
+        moveset.push(new Skill("Inferno",105.0,43,"BURNED"));
+        moveset.push(new Skill("Incinerate",80.0,31));
+        moveset.push(new Skill("Will-O-Wisp",47.0,15,"BURNED"));
+        moveset.push(new Skill("Fire Spin",29.0,6));
+        moveset.push(new Skill("Ember",18.0,1,"BURNED"));
+        moveset.push(new Skill("Flamethrower",17.0,1,"BURNED"));
         
         return moveset;
     }
