@@ -1,24 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 import java.io.*;
 
-public class Snorlax extends Pokemon{
+public class Snorlax extends Pokemon {
 
     public Snorlax() {
         super("Snorlax","Normal",5,140,0);
     }
     
-    public Snorlax(String location){
+    public Snorlax(String location) {
         super("Snorlax","Normal",140,location);
     }
     
@@ -49,16 +41,15 @@ public class Snorlax extends Pokemon{
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("snorlax.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Snorlax picture is not found");
+        } catch(IOException e) {
+            System.out.println("Snorlax picture is not found.");
         }
-    }
-    
+    }   
 }
