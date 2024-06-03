@@ -31,12 +31,12 @@ public class Voltorb extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Gyro Ball",96.0,40));
-        moveset.push(new Skill("Electro Ball",71.0,29));
-        moveset.push(new Skill("Charge Beam",43.0,16));
-        moveset.push(new Skill("Spark",24.0,8,"PARALYZED"));
-        moveset.push(new Skill("Eerie Impulse",16.0,5));
-        moveset.push(new Skill("Thunder Shock",14.0,5,"PARALYZED"));
+        moveset.push(new Skill("Gyro Ball",96.0,36));
+        moveset.push(new Skill("Electro Ball",71.0,25));
+        moveset.push(new Skill("Charge Beam",43.0,12));
+        moveset.push(new Skill("Spark",24.0,4,"PARALYZED"));
+        moveset.push(new Skill("Eerie Impulse",16.0,1));
+        moveset.push(new Skill("Thunder Shock",14.0,1,"PARALYZED"));
         
         return moveset;
     }
