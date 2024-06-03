@@ -1,28 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 import java.io.*;
 
-public class Vileplume extends Pokemon{
+public class Vileplume extends Pokemon {
 
     public Vileplume() {
         super("Vileplume","Grass/Poison",5,102,0);
     }
     
-    public Vileplume(String location){
+    public Vileplume(String location) {
         super("Vileplume","Grass/Poison",102,location);
     }
     
-    public Vileplume(int level){
+    public Vileplume(int level) {
         super("Vileplume","Grass/Poison",level,102);
     }
 
@@ -43,22 +35,21 @@ public class Vileplume extends Pokemon{
         moveset.push(new Skill("Petal Dance",67.0,28));
         moveset.push(new Skill("Moonblast",46.0,18));
         moveset.push(new Skill("Giga Drain",26.0,9));
-        moveset.push(new Skill("Stun Spore",17.0,5));
+        moveset.push(new Skill("Stun Spore",17.0,5,"PARALYZED"));
         moveset.push(new Skill("Mega Drain",16.0,5));
         
         return moveset;    
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("vileplume.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Vileplume picture is not found");
+        } catch(IOException e) {
+            System.out.println("Vileplume picture is not found.");
         }
-    }
-    
+    } 
 }
