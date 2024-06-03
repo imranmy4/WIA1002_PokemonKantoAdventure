@@ -257,12 +257,12 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                                 double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                                 sideEffectDamage = (int) Math.ceil(currentMovesAndDmg[0].getDamage() * randomDamage);
                                 enemy.currentHP -= sideEffectDamage;
-                                System.out.println("Random damage:" + sideEffectDamage);                         
                                 System.out.println("Side effect " + currentSkill.getSideEffect() + " is applied to " + enemy.getName());
+                                System.out.println("Side effect damage: " + sideEffectDamage);                         
                                 statusAilment = statusAilment.NONE;
                             } else {
-                                System.out.println("Outside sideEffect condition");
-                                System.out.println("Status Ailment: " + enemy.getStatusAilment());
+                                System.out.println("You didn't applied any side effect to the enemy.");
+                                System.out.println("Your current Pokemon status ailment: " + enemy.getStatusAilment());
                             }
                         }                        
                     } 
@@ -271,7 +271,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                     if(enemy.currentHP <= 0)
                         break;
                     else {
-                        System.out.println(enemy.name + " received " + (damage + sideEffectDamage) + " damage! [HP: " + enemy.currentHP + "/" + enemy.HP + "]");
+                        System.out.println(enemy.name + " received a total of " + (damage + sideEffectDamage) + " damages! [HP: " + enemy.currentHP + "/" + enemy.HP + "]");
                         break;
                     }
                     
@@ -307,12 +307,12 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                                 double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                                 sideEffectDamage = (int) Math.ceil(currentMovesAndDmg[0].getDamage() * randomDamage);
                                 enemy.currentHP -= sideEffectDamage;
-                                System.out.println("Random damage:" + sideEffectDamage);                         
                                 System.out.println("Side effect " + currentSkill.getSideEffect() + " is applied to " + enemy.getName());
+                                System.out.println("Side effect damage: " + sideEffectDamage);
                                 statusAilment = statusAilment.NONE;
                             } else {
-                                System.out.println("Outside sideEffect condition");
-                                System.out.println("Status Ailment: " + enemy.getStatusAilment());
+                                System.out.println("You didn't applied any side effect to the enemy.");
+                                System.out.println("Your current Pokemon status ailment: " + enemy.getStatusAilment());
                             }
                         }                        
                     } 
@@ -321,7 +321,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                     if(enemy.currentHP <= 0)
                         break;
                     else{
-                        System.out.println(enemy.name + " received " + (damage + sideEffectDamage) + " damage! [HP: " + enemy.currentHP + "/" + enemy.HP + "]");
+                        System.out.println(enemy.name + " received a total of " + (damage + sideEffectDamage) + " damages! [HP: " + enemy.currentHP + "/" + enemy.HP + "]");
                         break;
                     }
                 default :
@@ -397,18 +397,18 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                             healStatus();
                             player.antidote--;
                         }
-                        System.out.println("You currently have " + player.antidote + " antidote.");
+                        System.out.println("You currently have " + player.antidote + " ANTIDOTE item.");
                         
                         if (statusAilment != statusAilment.NONE) {
                             double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                             sideEffectDamage = (int) Math.ceil(enemy.currentMovesAndDmg[0].getDamage() * randomDamage);
                             currentHP -= sideEffectDamage;
-                            System.out.println("Random damage:" + sideEffectDamage);                         
                             System.out.println("Side effect " + currentSkill.getSideEffect() + " is applied to " + getName());
+                            System.out.println("Side effect damage: " + sideEffectDamage);
                             statusAilment = statusAilment.NONE;
                         } else {
-                            System.out.println("Outside sideEffect condition");
-                            System.out.println("Status Ailment: " + enemy.getStatusAilment());
+                            System.out.println(enemy.name + " didn't applied any side effect to " + name + ".");
+                            System.out.println(name + " status ailment: " + getStatusAilment());
                         }
                     }                        
                 } 
@@ -417,7 +417,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                 if(currentHP <= 0)
                     break;
                 else{
-                    System.out.println(name + " received " + (damage + sideEffectDamage) + " damage! [HP: " + currentHP + "/" + HP + "]");
+                    System.out.println(name + " received a total of " + (damage + sideEffectDamage) + " damages! [HP: " + currentHP + "/" + HP + "]");
                     break;
                 }
             
@@ -458,12 +458,12 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                             double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                             sideEffectDamage = (int) Math.ceil(enemy.currentMovesAndDmg[1].getDamage() * randomDamage);
                             currentHP -= sideEffectDamage;
-                            System.out.println("Random damage:" + sideEffectDamage);                         
                             System.out.println("Side effect " + currentSkill.getSideEffect() + " is applied to " + getName());
+                            System.out.println("Side effect damage: " + sideEffectDamage);
                             statusAilment = statusAilment.NONE;
                         } else {
-                            System.out.println("Outside sideEffect condition");
-                            System.out.println("Status Ailment: " + enemy.getStatusAilment());
+                            System.out.println(enemy.name + " didn't applied any side effect to " + name + ".");
+                            System.out.println(name + " status ailment: " + getStatusAilment());
                         }
                     }                        
                 } 
@@ -472,7 +472,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                 if(currentHP <= 0)
                     break;
                 else{
-                    System.out.println(name + " received " + (damage + sideEffectDamage) + " damage! [HP: " + currentHP + "/" + HP + "]");
+                    System.out.println(name + " received a total of " + (damage + sideEffectDamage) + " damages! [HP: " + currentHP + "/" + HP + "]");
                     break;
                 }
         }
@@ -508,18 +508,18 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         System.out.println(name + " [XP: " + XP + "/" + XPThreshold + "]");
     }
     
-    private int XPThresholdSet(){
+    private int XPThresholdSet() {
         int XPThresholdSet = 1000000;
-        if(level>=1 && level<=9)
+        if(level >= 1 && level <= 9)
                 XPThresholdSet = 30;                                  //XP requirement for level 1 to 9
-            else if(level>=10 && level<=19)
+            else if(level >= 10 && level <= 19)
                 XPThresholdSet = 100;                                  //XP requirement for level 10 to 19
-            else if(level>=20 && level<=29)
+            else if(level >= 20 && level <= 29)
                 XPThresholdSet = 200;                                   //XP requirement for level 20 to 29
-            else if(level>=30)
+            else if(level >= 30)
                 XPThresholdSet = 300;                                  //XP requirement dor level 30 and above
             else
-                System.out.println("Error in leveling up!");        //just in case problem
+                System.out.println("Error in leveling up!");         //just in case problem
         return XPThresholdSet;
     }
     
@@ -576,7 +576,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         else if(check1 == 0 && check2 == 1)
             System.out.println(name + " is strong against " + enemy.getName() + "! Good choice!");
         else if(check1 == 1 && check2 == 0)
-            System.out.println(name +" is weak against " + enemy.getName() + "!");
+            System.out.println(name + " is weak against " + enemy.getName() + "!");
     }
     
     public String getName() {
