@@ -31,12 +31,12 @@ public class Nidoqueen extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Superpower",99.0,44));
-        moveset.push(new Skill("Poison Sting",73.0,32,"POISONED"));
-        moveset.push(new Skill("Earth Power",50.0,21));
-        moveset.push(new Skill("Fury Swipes",29.0,10));
-        moveset.push(new Skill("Sludge Wave",18.0,5,"POISONED"));
-        moveset.push(new Skill("Superpower",17.0,5));
+        moveset.push(new Skill("Superpower",99.0,40));
+        moveset.push(new Skill("Poison Sting",73.0,28,"POISONED"));
+        moveset.push(new Skill("Earth Power",50.0,17));
+        moveset.push(new Skill("Fury Swipes",29.0,6));
+        moveset.push(new Skill("Sludge Wave",18.0,1,"POISONED"));
+        moveset.push(new Skill("Superpower",17.0,1));
         
         return moveset;
     }
