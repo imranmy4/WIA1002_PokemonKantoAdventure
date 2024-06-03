@@ -1,28 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 import java.io.*;
 
-public class Raichu extends Pokemon{
+public class Raichu extends Pokemon {
 
     public Raichu() {
         super("Raichu","Electric",5,110,0);
     }
     
-    public Raichu(String location){
+    public Raichu(String location) {
         super("Raichu","Electric",110,location);
     }
     
-    public Raichu(int level){
+    public Raichu(int level) {
         super("Raichu","Electric",level,110);
     }
 
@@ -39,28 +31,25 @@ public class Raichu extends Pokemon{
     @Override
     public Stack<Skill> allMoves() {
          Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Thunderbolt",84.0,34));
-        moveset.push(new Skill("Thunder Punch",66.0,26));
-        moveset.push(new Skill("Thunder Shock",41.0,15));
-        moveset.push(new Skill("Thunder",25.0,8));
+        moveset.push(new Skill("Thunderbolt",84.0,34,"PARALYZED"));
+        moveset.push(new Skill("Thunder Punch",66.0,26,"PARALYZED"));
+        moveset.push(new Skill("Thunder Shock",41.0,15,"PARALYZED"));
+        moveset.push(new Skill("Thunder",25.0,8,"PARALYZED"));
         moveset.push(new Skill("Electro Ball",16.0,5));
-        moveset.push(new Skill("Nuzzle",17.0,5));
+        moveset.push(new Skill("Nuzzle",17.0,5,"PARALYZED"));
         
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("raichu.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Raichu picture is not found");
+        } catch(IOException e) {
+            System.out.println("Raichu picture is not found.");
         }
     }
-    
-    
-    
 }
