@@ -31,12 +31,12 @@ public class Espeon extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Last Resort",99.0,46));
-        moveset.push(new Skill("Future Sight",78.0,36));
-        moveset.push(new Skill("Morning Sun",50.0,22));
-        moveset.push(new Skill("Baby-doll Eyes",25.0,10));
-        moveset.push(new Skill("Charm",15.0,5));
-        moveset.push(new Skill("Bite",14.0,5));
+        moveset.push(new Skill("Last Resort",99.0,42));
+        moveset.push(new Skill("Future Sight",78.0,32));
+        moveset.push(new Skill("Morning Sun",50.0,18));
+        moveset.push(new Skill("Baby-doll Eyes",25.0,6));
+        moveset.push(new Skill("Charm",15.0,1));
+        moveset.push(new Skill("Bite",14.0,1));
         
         return moveset;
     }
