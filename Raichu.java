@@ -31,12 +31,12 @@ public class Raichu extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
          Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Thunderbolt",84.0,34,"PARALYZED"));
-        moveset.push(new Skill("Thunder Punch",66.0,26,"PARALYZED"));
-        moveset.push(new Skill("Thunder Shock",41.0,15,"PARALYZED"));
-        moveset.push(new Skill("Thunder",25.0,8,"PARALYZED"));
-        moveset.push(new Skill("Electro Ball",16.0,5));
-        moveset.push(new Skill("Nuzzle",17.0,5,"PARALYZED"));
+        moveset.push(new Skill("Thunderbolt",84.0,30,"PARALYZED"));
+        moveset.push(new Skill("Thunder Punch",66.0,22,"PARALYZED"));
+        moveset.push(new Skill("Thunder Shock",41.0,11,"PARALYZED"));
+        moveset.push(new Skill("Thunder",25.0,4,"PARALYZED"));
+        moveset.push(new Skill("Electro Ball",16.0,1));
+        moveset.push(new Skill("Nuzzle",17.0,1,"PARALYZED"));
         
         return moveset;
     }
