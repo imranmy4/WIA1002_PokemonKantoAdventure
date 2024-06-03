@@ -1,28 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 import java.io.*;
 
-public class Tangela extends Pokemon{
+public class Tangela extends Pokemon {
 
     public Tangela() {
         super("Tangela","Grass",5,100,0);
     }
     
-    public Tangela(String location){
+    public Tangela(String location) {
         super("Tangela","Grass",100,location);
     }
     
-    public Tangela(int level){
+    public Tangela(int level) {
         super("Tangela","Grass",level,100);
     }
 
@@ -48,18 +40,15 @@ public class Tangela extends Pokemon{
         
         return moveset;
     }
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("tangela.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Tangela picture is not found");
+        } catch(IOException e) {
+            System.out.println("Tangela picture is not found.");
         }
     }
-    
-    
-    
 }
