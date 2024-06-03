@@ -1,24 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 import java.io.*;
 
-public class Machop extends Pokemon{
+public class Machop extends Pokemon {
 
     public Machop() {
         super("Machop","Fighting",5,102,0);
     }
     
-    public Machop(String location){
+    public Machop(String location) {
         super("Machop","Fighting",102,location);
     }
 
@@ -45,16 +37,15 @@ public class Machop extends Pokemon{
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("machop.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Machop picture is not found");
+        } catch(IOException e) {
+            System.out.println("Machop picture is not found.");
         }
     }
-    
 }
