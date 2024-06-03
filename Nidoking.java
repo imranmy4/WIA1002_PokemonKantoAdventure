@@ -31,12 +31,12 @@ public class Nidoking extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Megahorn",100.0,44));
-        moveset.push(new Skill("Peck",74.0,32));
-        moveset.push(new Skill("Poison Jab",51.0,21,"POISONED"));
-        moveset.push(new Skill("Double Kick",30.0,10));
-        moveset.push(new Skill("Sludge Wave",19.0,5,"POISONED"));
-        moveset.push(new Skill("Fury Attack",18.0,5));
+        moveset.push(new Skill("Megahorn",100.0,40));
+        moveset.push(new Skill("Peck",74.0,28));
+        moveset.push(new Skill("Poison Jab",51.0,17,"POISONED"));
+        moveset.push(new Skill("Double Kick",30.0,6));
+        moveset.push(new Skill("Sludge Wave",19.0,1,"POISONED"));
+        moveset.push(new Skill("Fury Attack",18.0,1));
         
         return moveset;
     }
