@@ -31,12 +31,12 @@ public class Squirtle extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Wave Crash",96.0,44));
-        moveset.push(new Skill("Hydro Pump",76.0,34));
-        moveset.push(new Skill("Aqua Tail",49.0,21));
-        moveset.push(new Skill("Water Pulse",27.0,10));
-        moveset.push(new Skill("Rapid Spin",16.0,5));
-        moveset.push(new Skill("Watergun",15.0,5));
+        moveset.push(new Skill("Wave Crash",96.0,40));
+        moveset.push(new Skill("Hydro Pump",76.0,30));
+        moveset.push(new Skill("Aqua Tail",49.0,17));
+        moveset.push(new Skill("Water Pulse",27.0,6));
+        moveset.push(new Skill("Rapid Spin",16.0,1));
+        moveset.push(new Skill("Watergun",15.0,1));
         
         return moveset;
     }
