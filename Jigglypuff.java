@@ -27,10 +27,10 @@ public class Jigglypuff extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Hyper Voice",89.0,40));
-        moveset.push(new Skill("Body Slam",70.0,31));
-        moveset.push(new Skill("Round",37.0,14));
-        moveset.push(new Skill("Echoed Voice",22.0,8));
+        moveset.push(new Skill("Hyper Voice",89.0,36));
+        moveset.push(new Skill("Body Slam",70.0,37));
+        moveset.push(new Skill("Round",37.0,10));
+        moveset.push(new Skill("Echoed Voice",22.0,4));
         moveset.push(new Skill("Pound",15.0,1));
         moveset.push(new Skill("Disarming Voice",13.0,1));
         
