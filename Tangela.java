@@ -31,15 +31,16 @@ public class Tangela extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Tickle",86.0,37));
-        moveset.push(new Skill("Power Whip",59.0,25));
-        moveset.push(new Skill("Ancient Power",41.0,16));
-        moveset.push(new Skill("Mega Drain",25.0,9));
-        moveset.push(new Skill("Absorb",16.0,5));
-        moveset.push(new Skill("Bind",14.0,5));
+        moveset.push(new Skill("Tickle",86.0,33));
+        moveset.push(new Skill("Power Whip",59.0,21));
+        moveset.push(new Skill("Ancient Power",41.0,12));
+        moveset.push(new Skill("Mega Drain",25.0,5));
+        moveset.push(new Skill("Absorb",16.0,1));
+        moveset.push(new Skill("Bind",14.0,1));
         
         return moveset;
     }
+    
     public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("tangela.txt"));
