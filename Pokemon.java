@@ -256,7 +256,11 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                                 double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                                 sideEffectDamage = (int) Math.ceil(currentMovesAndDmg[0].getDamage() * randomDamage);
                                 enemy.currentHP -= sideEffectDamage;
-                                System.out.println(currentSkill.getSideEffect() + checkSideEffect + enemy.getName());
+                                if(checkSideEffect.equals("POISONED") || checkSideEffect.equals("PARALYZED") || checkSideEffect.equals("BURNED")) {
+                                    System.out.println(currentSkill.getSideEffect() + checkSideEffect + enemy.getName());
+                                } else {
+                                    System.out.println(currentSkill.getSideEffect() + " CONFUSED " + enemy.getName());
+                                }
                                 System.out.println("Deals " + sideEffectDamage + " extra damage!");                         
                                 statusAilment = statusAilment.NONE;
                             }
@@ -303,7 +307,11 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                                 double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                                 sideEffectDamage = (int) Math.ceil(currentMovesAndDmg[0].getDamage() * randomDamage);
                                 enemy.currentHP -= sideEffectDamage;
-                                System.out.println(currentSkill.getSideEffect() + checkSideEffect + enemy.getName());
+                                if(checkSideEffect.equals("POISONED") || checkSideEffect.equals("PARALYZED") || checkSideEffect.equals("BURNED")) {
+                                    System.out.println(currentSkill.getSideEffect() + checkSideEffect + enemy.getName());
+                                } else {
+                                    System.out.println(currentSkill.getSideEffect() + " CONFUSED " + enemy.getName());
+                                }
                                 System.out.println("Deals " + sideEffectDamage + " extra damage!");
                                 statusAilment = statusAilment.NONE;
                             }
@@ -396,7 +404,11 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                             double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                             sideEffectDamage = (int) Math.ceil(enemy.currentMovesAndDmg[0].getDamage() * randomDamage);
                             currentHP -= sideEffectDamage;
-                            System.out.println(currentSkill.getSideEffect() + checkSideEffect + getName());
+                            if(checkSideEffect.equals("POISONED") || checkSideEffect.equals("PARALYZED") || checkSideEffect.equals("BURNED")) {
+                                    System.out.println(currentSkill.getSideEffect() + checkSideEffect + getName());
+                            } else {
+                                System.out.println(currentSkill.getSideEffect() + " CONFUSED " + getName());
+                            }
                             System.out.println("Deals " + sideEffectDamage + " extra damage!");
                             statusAilment = statusAilment.NONE;
                         } else {
@@ -450,7 +462,11 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                             double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                             sideEffectDamage = (int) Math.ceil(enemy.currentMovesAndDmg[1].getDamage() * randomDamage);
                             currentHP -= sideEffectDamage;
-                            System.out.println(currentSkill.getSideEffect() + checkSideEffect + getName());
+                            if(checkSideEffect.equals("POISONED") || checkSideEffect.equals("PARALYZED") || checkSideEffect.equals("BURNED")) {
+                                    System.out.println(currentSkill.getSideEffect() + checkSideEffect + getName());
+                            } else {
+                                System.out.println(currentSkill.getSideEffect() + " CONFUSED " + getName());
+                            }
                             System.out.println("Deals " + sideEffectDamage + " extra damage!");
                             statusAilment = statusAilment.NONE;
                         } else {
