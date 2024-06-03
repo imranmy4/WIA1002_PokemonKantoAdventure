@@ -293,7 +293,7 @@ public class KantoCity {
                     System.out.println("Theres a problem with mom's dialogue");
                 }
             } else if(input.charAt(0) == '4' && Location.equals("Lavender Town")) {
-                pokemaze();
+                pokemaze(player);
             } else if(input.charAt(0) == '4' && !Location.equals("Lavender Town")) {
                 //Challenge gym leader
                 System.out.println("You challenged " + Location + "'s Gym Leader!");
@@ -341,7 +341,7 @@ public class KantoCity {
         }
     }
     
-    public static void pokemaze() {
+    public static void pokemaze(Player player) {
         Random rand = new Random();
         int maze_option = rand.nextInt(5) + 1;
         String filename;
@@ -379,13 +379,13 @@ public class KantoCity {
             for(int i = 0 ; i < num_line ; i++){
                 arr[i]= sc2.nextLine().split(" ");
             }
-            gameStart(arr);
+            gameStart(arr,player);
         } catch(IOException e) {
             System.out.println("There is a problem with the map");
         }
     }
     
-    public static void gameStart(String arr[][]) {
+    public static void gameStart(String arr[][], Player player) {
         MyStack<String> stack = new MyStack<>();
         
         Scanner sc = new Scanner(System.in);
@@ -480,7 +480,15 @@ public class KantoCity {
             
             if(x == x_end && y == y_end) {
                 System.out.println("Congratulations ,you have reached the end of the maze !");
-                break;
+                
+                Random rand = new Random();
+                int probability_items = rand.nextInt(2); 
+                switch(probability_items) {
+                case 0 :
+                    System.out.println("Congratulations, you have received one ANTIDOTE item !");
+                    player.antidote++;
+                    break;
+                }
             }
             if(x == x_ghast1 && y == y_ghast1) {
                 System.out.println("You have encountered a ghast, you have been kicked out of the maze. \n");
@@ -687,8 +695,9 @@ public class KantoCity {
             int probability_items = rand.nextInt(2); 
             switch(probability_items) {
                 case 0 :
-                    System.out.println("You have received one ANTIDOTE");
+                    System.out.println("Congratulations, you have received one ANTIDOTE item !");
                     player.antidote++;
+                    System.out.println("You currently have " + player.getAntidote() + " ANTIDOTE item.");
                     break;
             }
             for(int i = 0 ; i < player.getUsedPokemon().size() ; i++){
