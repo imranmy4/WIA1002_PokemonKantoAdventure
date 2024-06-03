@@ -31,12 +31,12 @@ public class Weezing extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Destiny Bond",106.0,45));
-        moveset.push(new Skill("Memento",76.0,33));
-        moveset.push(new Skill("Explosion",43.0,17));
-        moveset.push(new Skill("Double Hit",29.0,10));
-        moveset.push(new Skill("Clear Smog",17.0,5,"POISONED"));
-        moveset.push(new Skill("Heat Wave",19.0,5));
+        moveset.push(new Skill("Destiny Bond",106.0,41));
+        moveset.push(new Skill("Memento",76.0,29));
+        moveset.push(new Skill("Explosion",43.0,13));
+        moveset.push(new Skill("Double Hit",29.0,6));
+        moveset.push(new Skill("Clear Smog",17.0,1,"POISONED"));
+        moveset.push(new Skill("Heat Wave",19.0,1));
         
         return moveset;    
     }
