@@ -31,13 +31,13 @@ public class Pikachu extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Thunder",105.0,46,"PARALYZED"));
-        moveset.push(new Skill("Thunderbolt",65.0,27,"PARALYZED"));
-        moveset.push(new Skill("Spark",42.0,16,"PARALYZED"));
-        moveset.push(new Skill("Electro Ball",23.0,8));
-        moveset.push(new Skill("Nuzzle",15.0,5,"PARALYZED"));
-        moveset.push(new Skill("Quick Attack",14.0,5));
-        
+        moveset.push(new Skill("Thunder",105.0,42,"PARALYZED"));
+        moveset.push(new Skill("Thunderbolt",65.0,23,"PARALYZED"));
+        moveset.push(new Skill("Spark",42.0,12,"PARALYZED"));
+        moveset.push(new Skill("Electro Ball",23.0,4));
+        moveset.push(new Skill("Nuzzle",15.0,1,"PARALYZED"));
+        moveset.push(new Skill("Quick Attack",14.0,1));
+           
         return moveset;
     }
     
