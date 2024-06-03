@@ -31,12 +31,12 @@ public class Muk extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Memento",92.0,41));
-        moveset.push(new Skill("Gunk Shot",57.0,25,"POISONED"));
-        moveset.push(new Skill("Mud Shot",39.0,16));
-        moveset.push(new Skill("Sludge",26.0,9,"POISONED"));
-        moveset.push(new Skill("Mud Slap",16.0,5));
-        moveset.push(new Skill("Poison Gas",15.0,5,"POISONED"));
+        moveset.push(new Skill("Memento",92.0,37));
+        moveset.push(new Skill("Gunk Shot",57.0,21,"POISONED"));
+        moveset.push(new Skill("Mud Shot",39.0,12));
+        moveset.push(new Skill("Sludge",26.0,5,"POISONED"));
+        moveset.push(new Skill("Mud Slap",16.0,1));
+        moveset.push(new Skill("Poison Gas",15.0,1,"POISONED"));
         
         return moveset;       
     }
