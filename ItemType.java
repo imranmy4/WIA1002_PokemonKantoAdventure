@@ -1,0 +1,5 @@
+package pokemonkantoadventure;
+
+enum ItemType {
+    POISONED_ANTIDOTES, PARALYZED_HEALS, BURNED_ANTIDOTES, CONFUSION_ANTIDOTES;
+}
