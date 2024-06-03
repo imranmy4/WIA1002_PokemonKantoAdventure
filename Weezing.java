@@ -1,28 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 import java.io.*;
 
-public class Weezing extends Pokemon{
+public class Weezing extends Pokemon {
 
     public Weezing() {
         super("Weezing","Poison",5,98,0);
     }
     
-    public Weezing(String location){
+    public Weezing(String location) {
         super("Weezing","Poison",98,location);
     }
     
-    public Weezing(int level){
+    public Weezing(int level) {
         super("Weezing","Poison",level,98);
     }
 
@@ -43,21 +35,21 @@ public class Weezing extends Pokemon{
         moveset.push(new Skill("Memento",76.0,33));
         moveset.push(new Skill("Explosion",43.0,17));
         moveset.push(new Skill("Double Hit",29.0,10));
-        moveset.push(new Skill("Clear Smog",17.0,5));
+        moveset.push(new Skill("Clear Smog",17.0,5,"POISONED"));
         moveset.push(new Skill("Heat Wave",19.0,5));
         
         return moveset;    
     }
-    public void display(){
+    
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("weezing.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Weezing picture is not found");
+        } catch(IOException e) {
+            System.out.println("Weezing picture is not found.");
         }
-    }
-    
+    } 
 }
