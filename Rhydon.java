@@ -31,12 +31,12 @@ public class Rhydon extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Horn Drill",102.0,45));
-        moveset.push(new Skill("Stone Edge",73.0,31));
-        moveset.push(new Skill("Earthquake",50.0,20));
-        moveset.push(new Skill("Drill Run",29.0,10));
-        moveset.push(new Skill("Hammer Arm",19.0,5));
-        moveset.push(new Skill("Bulldoze",18.0,5));
+        moveset.push(new Skill("Horn Drill",102.0,41));
+        moveset.push(new Skill("Stone Edge",73.0,27));
+        moveset.push(new Skill("Earthquake",50.0,16));
+        moveset.push(new Skill("Drill Run",29.0,6));
+        moveset.push(new Skill("Hammer Arm",19.0,1));
+        moveset.push(new Skill("Bulldoze",18.0,1));
         
         return moveset;
     }
