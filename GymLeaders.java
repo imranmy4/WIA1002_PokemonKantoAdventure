@@ -77,8 +77,8 @@ class PewterCityGymLeader extends GymLeaders {
     @Override
     public ArrayList<Pokemon> gymLeaderPokemon() {
         ArrayList<Pokemon> temp = new ArrayList<>();
-        temp.add(new Onix(15));
-        temp.add(new Geodude(12));
+        temp.add(new Onix(8));
+        temp.add(new Geodude(6));
         
         return temp;
     }
@@ -93,8 +93,8 @@ class CeruleanCityGymLeader extends GymLeaders {
     @Override
     public ArrayList<Pokemon> gymLeaderPokemon() {
         ArrayList<Pokemon> temp = new ArrayList<>();
-        temp.add(new Blastoise(24));
-        temp.add(new Psyduck(21));
+        temp.add(new Blastoise(12));
+        temp.add(new Psyduck(10));
         
         return temp;
     }
@@ -109,9 +109,9 @@ class VermilionCityGymLeader extends GymLeaders {
     @Override
     public ArrayList<Pokemon> gymLeaderPokemon() {
         ArrayList<Pokemon> temp = new ArrayList<>();
-        temp.add(new Raichu(34));
-        temp.add(new Pikachu(32));
-        temp.add(new Voltorb(29));
+        temp.add(new Raichu(17));
+        temp.add(new Pikachu(15));
+        temp.add(new Voltorb(14));
         
         return temp;
     }
@@ -126,9 +126,9 @@ class CeladonCityGymLeader extends GymLeaders{
     @Override
     public ArrayList<Pokemon> gymLeaderPokemon() {
         ArrayList<Pokemon> temp = new ArrayList<>();
-        temp.add(new Vileplume(45));
-        temp.add(new Tangela(42));
-        temp.add(new Victreebel(39));
+        temp.add(new Vileplume(22));
+        temp.add(new Tangela(20));
+        temp.add(new Victreebel(19));
         
         return temp;
     }
@@ -143,9 +143,9 @@ class FuchsiaCityGymLeader extends GymLeaders {
     @Override
     public ArrayList<Pokemon> gymLeaderPokemon() {
         ArrayList<Pokemon> temp = new ArrayList<>();
-        temp.add(new Weezing(53));
-        temp.add(new Muk(50));
-        temp.add(new Koffing(48));
+        temp.add(new Weezing(27));
+        temp.add(new Muk(25));
+        temp.add(new Koffing(24));
         
         return temp;
     }
@@ -160,9 +160,9 @@ class SaffronCityGymLeader extends GymLeaders {
     @Override
     public ArrayList<Pokemon> gymLeaderPokemon() {
         ArrayList<Pokemon> temp = new ArrayList<>();
-        temp.add(new Alakazam(61));
-        temp.add(new MrMime(58));
-        temp.add(new Espeon(56));
+        temp.add(new Alakazam(32));
+        temp.add(new MrMime(30));
+        temp.add(new Espeon(29));
         
         return temp;
     }
@@ -177,9 +177,9 @@ class CinnabarIslandGymLeader extends GymLeaders {
     @Override
     public ArrayList<Pokemon> gymLeaderPokemon() {
         ArrayList<Pokemon> temp = new ArrayList<>();
-        temp.add(new Arcanine(70));
-        temp.add(new Rapidash(67));
-        temp.add(new Ninetales(65));
+        temp.add(new Arcanine(37));
+        temp.add(new Rapidash(35));
+        temp.add(new Ninetales(34));
         
         return temp;
     }
@@ -194,9 +194,9 @@ class ViridianCityGymLeader extends GymLeaders {
     @Override
     public ArrayList<Pokemon> gymLeaderPokemon() {
         ArrayList<Pokemon> temp = new ArrayList<>();
-        temp.add(new Rhydon(78));
-        temp.add(new Nidoking(75));
-        temp.add(new Nidoqueen(73));
+        temp.add(new Rhydon(42));
+        temp.add(new Nidoking(40));
+        temp.add(new Nidoqueen(39));
         
         return temp;
     }
