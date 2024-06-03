@@ -1,28 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
+import java.util.Scanner;
 import java.util.Stack;
 import java.io.*;
-import java.util.Scanner;
 
-public class Blastoise extends Pokemon{
+public class Blastoise extends Pokemon {
 
     public Blastoise() {
         super("Blastoise","Water",5,115,0);
     }
     
-    public Blastoise(String location){
+    public Blastoise(String location) {
         super("Blastoise","Water",115,location);
     }
     
-    public Blastoise(int level){
+    public Blastoise(int level) {
         super("Blastoise","Water",level,115);
     }
 
@@ -49,16 +41,15 @@ public class Blastoise extends Pokemon{
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("Blastoise(kecik sikit).txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Blastoise picture is not found");
+        } catch(IOException e) {
+            System.out.println("Blastoise picture is not found.");
         }
     }
-    
 }
