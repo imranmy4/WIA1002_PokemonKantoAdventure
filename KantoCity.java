@@ -130,17 +130,17 @@ public class KantoCity {
             finishGame = gameFinish(player);
             int arr_size = graph.get(Index).size();
             ArrayList<City> currentLocation = graph.get(Index);
-            System.out.println("You are now at "+Location);
+            System.out.println("\nYou are now at " + Location);
             WildPokemon wildPokemon = new WildPokemon(Location);
             
-            if(player.pokeball > 0){
+            if(player.pokeball > 0) {
                player.catchPokemon();
             }
             
             //First Option (Move to other places)
             System.out.println("[1] Move To : ");
             char options = 'a';
-            for(int i = 0 ; i < arr_size ; i++){
+            for(int i = 0 ; i < arr_size ; i++) {
                 System.out.print((char)(options + i) + "." + currentLocation.get(i).name + "  ");
             }
 
@@ -152,7 +152,7 @@ public class KantoCity {
             System.out.println("a.Show Map  b.Show My Pokemon  c.Show My Badges  d.Save and Exit");
             
             //Fourth option to challenge gym leader (Pallet Town and Lavender City doesnt have gym)
-            if(!(Location.equals("Pallet Town") || Location.equals("Lavender Town"))){
+            if(!(Location.equals("Pallet Town") || Location.equals("Lavender Town"))) {
                 String gymLeader ;
                 switch (Location) {
                     case "Pewter City":
@@ -191,15 +191,15 @@ public class KantoCity {
                 System.out.println("[4] Challenge Gym Leader " + "[" + gymLeader + "]");
             }
             
-            if(Location.equals("Lavender Town")){
+            if(Location.equals("Lavender Town")) {
                 System.out.println("[4] PokeMaze");
-            } else if(Location.equals("Pallet Town")){
+            } else if(Location.equals("Pallet Town")) {
                 System.out.println("[4]Talk to MOM (Your hometown has no gym)");
             }
             
-            if(Location.equals("Saffron City")){
+            if(Location.equals("Saffron City")) {
                 System.out.println("[5] Rival's Race");
-            } else if(Location.equals("Fuchsia City")){
+            } else if(Location.equals("Fuchsia City")) {
                 System.out.println("[5] Safari Zone");
             }
             
@@ -479,16 +479,18 @@ public class KantoCity {
             System.out.println("Your moves : " + stack);
             
             if(x == x_end && y == y_end) {
-                System.out.println("Congratulations ,you have reached the end of the maze !");
+                System.out.println("Congratulations, you have reached the end of the maze !");
                 
-                Random rand = new Random();
-                int probability_items = rand.nextInt(2); 
+                Random randReward = new Random();
+                int probability_items = randReward.nextInt(2); 
                 switch(probability_items) {
                 case 0 :
                     System.out.println("Congratulations, you have received one ANTIDOTE item !");
                     player.antidote++;
+                    System.out.println("You currently have " + player.getAntidote() + " ANTIDOTE item.");
                     break;
                 }
+                break;
             }
             if(x == x_ghast1 && y == y_ghast1) {
                 System.out.println("You have encountered a ghast, you have been kicked out of the maze. \n");
