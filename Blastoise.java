@@ -31,12 +31,12 @@ public class Blastoise extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Wave Crash",103.0,41));
-        moveset.push(new Skill("Hydro Pump",72.0,29));
-        moveset.push(new Skill("Rain Dance",45.0,18));
-        moveset.push(new Skill("Flash Cannon",28.0,9));
-        moveset.push(new Skill("Water Gun",18.0,5));
-        moveset.push(new Skill("Tail Whip",15.0,5));
+        moveset.push(new Skill("Wave Crash",103.0,37));
+        moveset.push(new Skill("Hydro Pump",72.0,25));
+        moveset.push(new Skill("Rain Dance",45.0,14));
+        moveset.push(new Skill("Flash Cannon",28.0,5));
+        moveset.push(new Skill("Water Gun",18.0,1));
+        moveset.push(new Skill("Tail Whip",15.0,1));
         
         return moveset;
     }
