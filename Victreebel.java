@@ -31,12 +31,12 @@ public class Victreebel extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Leaf Blade",85.0,37));
-        moveset.push(new Skill("Leaaf Storm",57.0,25));
-        moveset.push(new Skill("Power Whip",38.0,15));
-        moveset.push(new Skill("Spit Up",21.0,7,"POISONED"));
-        moveset.push(new Skill("Razor Leaf",15.0,5));
-        moveset.push(new Skill("Vine Whip",14.0,5));
+        moveset.push(new Skill("Leaf Blade",85.0,33));
+        moveset.push(new Skill("Leaaf Storm",57.0,21));
+        moveset.push(new Skill("Power Whip",38.0,11));
+        moveset.push(new Skill("Spit Up",21.0,3,"BURNED"));
+        moveset.push(new Skill("Razor Leaf",15.0,1));
+        moveset.push(new Skill("Vine Whip",14.0,1));
         
         return moveset;
     }
