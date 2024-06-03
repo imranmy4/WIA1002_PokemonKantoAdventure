@@ -1,24 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 import java.io.*;
 
-public class Eevee extends Pokemon{
+public class Eevee extends Pokemon {
 
     public Eevee() {
         super("Eevee","Normal",5,100,0);
     }
     
-    public Eevee(String location){
+    public Eevee(String location) {
         super("Eevee","Normal",100,location);
     }
 
@@ -45,16 +37,15 @@ public class Eevee extends Pokemon{
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("eevee.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Eevee picture is not found");
+        } catch(IOException e) {
+            System.out.println("Eevee picture is not found.");
         }
     }
-    
 }
