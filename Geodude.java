@@ -29,12 +29,12 @@ public class Geodude extends Pokemon {
     }
 
     @Override
-    public Stack<Skill> allMoves() {                                            //all geodude moves(tackle is top of stack)
+    public Stack<Skill> allMoves() {                                        //all geodude moves(tackle is top of stack)
         Stack<Skill> moveset = new Stack<Skill>();
-        moveset.push(new Skill("Stone Edge",94.0,45));
-        moveset.push(new Skill("Earthquake",62,28));
-        moveset.push(new Skill("Rock Blast",40,15));
-        moveset.push(new Skill("Rock Throw",22.0,7));
+        moveset.push(new Skill("Stone Edge",100.0,41));
+        moveset.push(new Skill("Earthquake",62,24));
+        moveset.push(new Skill("Rock Blast",40,11));
+        moveset.push(new Skill("Rock Throw",22.0,3));
         moveset.push(new Skill("Rollout",16.0,1));
         moveset.push(new Skill("Tackle",14.0,1));
         
