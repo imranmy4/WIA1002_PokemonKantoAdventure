@@ -31,12 +31,12 @@ public class Vileplume extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Petal Blizzard",100.0,43));
-        moveset.push(new Skill("Petal Dance",67.0,28));
-        moveset.push(new Skill("Moonblast",46.0,18));
-        moveset.push(new Skill("Giga Drain",26.0,9));
-        moveset.push(new Skill("Stun Spore",17.0,5,"PARALYZED"));
-        moveset.push(new Skill("Mega Drain",16.0,5));
+        moveset.push(new Skill("Petal Blizzard",100.0,39));
+        moveset.push(new Skill("Petal Dance",67.0,24));
+        moveset.push(new Skill("Moonblast",46.0,14));
+        moveset.push(new Skill("Giga Drain",26.0,5));
+        moveset.push(new Skill("Stun Spore",17.0,1,"PARALYZED"));
+        moveset.push(new Skill("Mega Drain",16.0,1));
         
         return moveset;    
     }
