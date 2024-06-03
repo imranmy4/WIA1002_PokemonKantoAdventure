@@ -1,17 +1,20 @@
+package pokemonkantoadventure;
+
+import java.util.Scanner;
 import java.util.Stack;
 import java.io.*;
-import java.util.Scanner;
-public class Alakazam extends Pokemon{
+
+public class Alakazam extends Pokemon {
 
     public Alakazam() {
         super("Alakazam","Psychic",5,100,0);
     }
     
-    public Alakazam(String location){
+    public Alakazam(String location) {
         super("Alakazam","Psychic",100,location);
     }
     
-    public Alakazam(int level){
+    public Alakazam(int level) {
         super("Alakazam","Psychic",level,100);
     }
 
@@ -33,21 +36,20 @@ public class Alakazam extends Pokemon{
         moveset.push(new Skill("Psyshock",37.0,15));
         moveset.push(new Skill("Psycho Cut",26.0,9));
         moveset.push(new Skill("Psybeam",17.0,5));
-        moveset.push(new Skill("Confusion",15.0,5));
+        moveset.push(new Skill("Confusion",15.0,5,"CONFUSION"));
         
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("alakazam.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Alakazam picture is not found");
+        } catch(IOException e) {
+            System.out.println("Alakazam picture is not found.");
         }
     }
-    
 }
