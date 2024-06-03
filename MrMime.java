@@ -31,12 +31,12 @@ public class MrMime extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Teeter Dance",97.0,43,"CONFUSION"));
-        moveset.push(new Skill("Dazzling Gleam",65.0,28));
-        moveset.push(new Skill("Sucker Punch",38.0,15));
-        moveset.push(new Skill("Psybeam",26.0,9,"CONFUSION"));
-        moveset.push(new Skill("Confusion",14.0,5,"CONFUSION"));
-        moveset.push(new Skill("Pound",15.0,5));
+        moveset.push(new Skill("Teeter Dance",97.0,39,"CONFUSION"));
+        moveset.push(new Skill("Dazzling Gleam",65.0,24));
+        moveset.push(new Skill("Sucker Punch",38.0,11));
+        moveset.push(new Skill("Psybeam",26.0,5,"CONFUSION"));
+        moveset.push(new Skill("Confusion",14.0,1,"CONFUSION"));
+        moveset.push(new Skill("Pound",15.0,1));
         
         return moveset;
     }
