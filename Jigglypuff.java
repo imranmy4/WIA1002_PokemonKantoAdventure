@@ -1,24 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 import java.io.*;
 
-public class Jigglypuff extends Pokemon{
+public class Jigglypuff extends Pokemon {
 
     public Jigglypuff() {
         super("Jigglypuff","Normal/Fairy",5,112,0);
     }
     
-    public Jigglypuff(String location){
+    public Jigglypuff(String location) {
         super("Jigglypuff","Normal/Fairy",112,location);
     }
 
@@ -45,18 +37,15 @@ public class Jigglypuff extends Pokemon{
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("jigglypuff.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Jigglypuff picture is not found");
+        } catch(IOException e) {
+            System.out.println("Jigglypuff picture is not found.");
         }
     }
-    
-    
-    
 }
