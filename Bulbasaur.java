@@ -29,12 +29,12 @@ public class Bulbasaur extends Pokemon {
     }
 
     @Override
-    public Stack<Skill> allMoves() {                                            //all bulbasaur moves(top of stack is growl)
+    public Stack<Skill> allMoves() {                                    //all bulbasaur moves(top of stack is growl)
         Stack<Skill> moveset = new Stack<Skill>();
-        moveset.push(new Skill("Solar Beam",90,40));
-        moveset.push(new Skill("Power Whip",60,26));
-        moveset.push(new Skill("Razor Leaf",38.0,14));
-        moveset.push(new Skill("Vine Whip",23.0,8));
+        moveset.push(new Skill("Solar Beam",90,36));
+        moveset.push(new Skill("Power Whip",60,22));
+        moveset.push(new Skill("Razor Leaf",38.0,10));
+        moveset.push(new Skill("Vine Whip",23.0,4));
         moveset.push(new Skill("Tackle",15.0,1));
         moveset.push(new Skill("Growl",13.0,1));
         
