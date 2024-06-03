@@ -1,28 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 import java.io.*;
 
-public class Bulbasaur extends Pokemon{
+public class Bulbasaur extends Pokemon {
     
-    public Bulbasaur() {                                                           //new player bulbasaur
+    public Bulbasaur() {                                                        //new player bulbasaur
         super("Bulbasaur","Grass/Poison",5,100,0);
     }
     
-    public Bulbasaur(String location) {                                            //new wild bulbasaur
+    public Bulbasaur(String location) {                                         //new wild bulbasaur
         super("Bulbasaur","Grass/Poison",100, location);    
     }
     
-    public Bulbasaur(int level) {                                                           //gym leader pokemon
+    public Bulbasaur(int level) {                                               //gym leader pokemon
         super("Bulbasaur","Grass/Poison",level,100);
     }
     
@@ -37,7 +29,7 @@ public class Bulbasaur extends Pokemon{
     }
 
     @Override
-    public Stack<Skill> allMoves() {                                    //all bulbasaur moves(top of stack is growl)
+    public Stack<Skill> allMoves() {                                            //all bulbasaur moves(top of stack is growl)
         Stack<Skill> moveset = new Stack<Skill>();
         moveset.push(new Skill("Solar Beam",90,40));
         moveset.push(new Skill("Power Whip",60,26));
@@ -49,16 +41,15 @@ public class Bulbasaur extends Pokemon{
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("Bulbasaur.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Bulbasaur picture is not found");
+        } catch(IOException e) {
+            System.out.println("Bulbasaur picture is not found.");
         }
     }
-    
 }
