@@ -1,28 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 import java.io.*;
 
-public class Onix extends Pokemon{
+public class Onix extends Pokemon {
 
     public Onix() {
         super("Onix","Rock/Ground",5,112,0);
     }
     
-    public Onix(String location){
+    public Onix(String location) {
         super("Onix","Rock/Ground",112,location);
     }
     
-    public Onix(int level){
+    public Onix(int level) {
         super("Onix","Rock/Ground",level,112);
     }
 
@@ -49,17 +41,15 @@ public class Onix extends Pokemon{
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("onix.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Onix picture is not found");
+        } catch(IOException e) {
+            System.out.println("Onix picture is not found.");
         }
     }
-    
-    
 }
