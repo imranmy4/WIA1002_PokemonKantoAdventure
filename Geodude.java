@@ -1,27 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
+import java.util.Scanner;
 import java.util.Stack;
-import java.util.Scanner ;
 import java.io.*;
-public class Geodude extends Pokemon{
 
-    public Geodude() {                                                         //new player geodude
+public class Geodude extends Pokemon {
+
+    public Geodude() {                                                          //new player geodude
         super("Geodude","Rock/Ground",5,110,0);
     }
     
-    public Geodude(String location) {                                          //new wild geodude
+    public Geodude(String location) {                                           //new wild geodude
         super("Geodude","Rock/Ground",110,location);
     }
     
-    public Geodude(int level) {                                                         //gym leader pokemon
+    public Geodude(int level) {                                                 //gym leader pokemon
         super("Geodude","Rock/Ground",level,110);
     }
     
@@ -36,7 +29,7 @@ public class Geodude extends Pokemon{
     }
 
     @Override
-    public Stack<Skill> allMoves() {                                        //all geodude moves(tackle is top of stack)
+    public Stack<Skill> allMoves() {                                            //all geodude moves(tackle is top of stack)
         Stack<Skill> moveset = new Stack<Skill>();
         moveset.push(new Skill("Stone Edge",94.0,45));
         moveset.push(new Skill("Earthquake",62,28));
@@ -49,16 +42,15 @@ public class Geodude extends Pokemon{
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("geodude.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Geodude picture is not found");
+        } catch(IOException e) {
+            System.out.println("Geodude picture is not found.");
         }
     }
-    
 }
