@@ -27,12 +27,12 @@ public class Machop extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Dynamic Punch",98.0,44));
-        moveset.push(new Skill("Seismic Toss",67.0,29));
-        moveset.push(new Skill("Knock Off",40.0,16));
-        moveset.push(new Skill("Low Sweep",24.0,9));
-        moveset.push(new Skill("Revenge",15.0,5));
-        moveset.push(new Skill("Low Kick",13.0,5));
+        moveset.push(new Skill("Dynamic Punch",98.0,40));
+        moveset.push(new Skill("Seismic Toss",67.0,25));
+        moveset.push(new Skill("Knock Off",40.0,12));
+        moveset.push(new Skill("Low Sweep",24.0,5));
+        moveset.push(new Skill("Revenge",15.0,1));
+        moveset.push(new Skill("Low Kick",13.0,1));
         
         return moveset;
     }
