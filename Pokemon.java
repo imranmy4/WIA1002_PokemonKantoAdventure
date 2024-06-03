@@ -234,7 +234,6 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                     
                     if(currentSkill.getSideEffect() != null) {
                         boolean sideEffectApplied = currentSkill.applySideEffect();
-                        System.out.println(currentMoveName + " side effect applied: " + sideEffectApplied);
                         if (sideEffectApplied) {
                             String checkSideEffect = currentSkill.getSideEffect();
                             switch (checkSideEffect) {
@@ -257,8 +256,8 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                                 double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                                 sideEffectDamage = (int) Math.ceil(currentMovesAndDmg[0].getDamage() * randomDamage);
                                 enemy.currentHP -= sideEffectDamage;
-                                System.out.println("Side effect " + currentSkill.getSideEffect() + " is applied to " + enemy.getName());
-                                System.out.println("Side effect damage: " + sideEffectDamage);                         
+                                System.out.println(currentSkill.getSideEffect() + checkSideEffect + enemy.getName());
+                                System.out.println("Deals " + sideEffectDamage + " extra damage!");                         
                                 statusAilment = statusAilment.NONE;
                             }
                         }                        
@@ -304,8 +303,8 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                                 double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                                 sideEffectDamage = (int) Math.ceil(currentMovesAndDmg[0].getDamage() * randomDamage);
                                 enemy.currentHP -= sideEffectDamage;
-                                System.out.println("Side effect " + currentSkill.getSideEffect() + " is applied to " + enemy.getName());
-                                System.out.println("Side effect damage: " + sideEffectDamage);
+                                System.out.println(currentSkill.getSideEffect() + checkSideEffect + enemy.getName());
+                                System.out.println("Deals " + sideEffectDamage + " extra damage!");
                                 statusAilment = statusAilment.NONE;
                             }
                         }                        
@@ -397,8 +396,8 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                             double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                             sideEffectDamage = (int) Math.ceil(enemy.currentMovesAndDmg[0].getDamage() * randomDamage);
                             currentHP -= sideEffectDamage;
-                            System.out.println("Side effect " + currentSkill.getSideEffect() + " is applied to " + getName());
-                            System.out.println("Side effect damage: " + sideEffectDamage);
+                            System.out.println(currentSkill.getSideEffect() + checkSideEffect + getName());
+                            System.out.println("Deals " + sideEffectDamage + " extra damage!");
                             statusAilment = statusAilment.NONE;
                         } else {
                             System.out.println(name + " status ailment: " + getStatusAilment());
@@ -451,8 +450,8 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                             double randomDamage = randDef.nextDouble() * 0.0625 + 0.0625;
                             sideEffectDamage = (int) Math.ceil(enemy.currentMovesAndDmg[1].getDamage() * randomDamage);
                             currentHP -= sideEffectDamage;
-                            System.out.println("Side effect " + currentSkill.getSideEffect() + " is applied to " + getName());
-                            System.out.println("Side effect damage: " + sideEffectDamage);
+                            System.out.println(currentSkill.getSideEffect() + checkSideEffect + getName());
+                            System.out.println("Deals " + sideEffectDamage + " extra damage!");
                             statusAilment = statusAilment.NONE;
                         } else {
                             System.out.println(name + " status ailment: " + getStatusAilment());
