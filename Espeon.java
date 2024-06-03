@@ -1,27 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pokemonkantoadventure;
 
-/**
- *
- * @author ahmad
- */
+import java.util.Scanner;
 import java.util.Stack;
-import java.util.Scanner ;
 import java.io.*;
-public class Espeon extends Pokemon{
+
+public class Espeon extends Pokemon {
 
     public Espeon() {
         super("Espeon","Psychic",5,103,0);
     }
     
-    public Espeon(String location){
+    public Espeon(String location) {
         super("Espeon","Psychic",103,location);
     }
     
-    public Espeon(int level){
+    public Espeon(int level) {
         super("Espeon","Psychic",level,103);
     }
 
@@ -48,16 +41,15 @@ public class Espeon extends Pokemon{
         return moveset;
     }
     
-    public void display(){
+    public void display() {
         try{
             Scanner sc = new Scanner(new FileInputStream("espeon.txt"));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
             }
             sc.close();
-        }catch(IOException e){
-            System.out.println("Espeon picture is not found");
+        } catch(IOException e) {
+            System.out.println("Espeon picture is not found.");
         }
     }
-    
 }
