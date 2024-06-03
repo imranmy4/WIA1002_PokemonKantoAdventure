@@ -31,12 +31,12 @@ public class Snorlax extends Pokemon {
     @Override
     public Stack<Skill> allMoves() {
         Stack<Skill> moveset = new Stack<>();
-        moveset.push(new Skill("Belch",72.0,35));
-        moveset.push(new Skill("Heavy Slam",52.0,26));
-        moveset.push(new Skill("Snore",30.0,16));
-        moveset.push(new Skill("Bite",14.0,8));
-        moveset.push(new Skill("Flail",10.0,5));
-        moveset.push(new Skill("Covet",8.0,5));
+        moveset.push(new Skill("Belch",72.0,31));
+        moveset.push(new Skill("Heavy Slam",52.0,22));
+        moveset.push(new Skill("Snore",30.0,12));
+        moveset.push(new Skill("Bite",14.0,4));
+        moveset.push(new Skill("Flail",10.0,1));
+        moveset.push(new Skill("Covet",8.0,1));
         
         return moveset;
     }
