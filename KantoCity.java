@@ -55,13 +55,15 @@ public class KantoCity {
         
         FuschiaCity.add(new City("Celadon City",5));
         FuschiaCity.add(new City("Lavender Town",7));
+        FuschiaCity.add(new City("Cinnabar Island",3));
         
         CeladonCity.add(new City("Fuchsia City",4));
         CeladonCity.add(new City("Vermilion City",6));
         CeladonCity.add(new City("Saffron City",8));
         
-        VermilionCity.add(new City("Celadon City",5));
+        VermilionCity.add(new City("Saffron City",8));
         VermilionCity.add(new City("Lavender Town",7));
+        VermilionCity.add(new City("Fuchsia City",4));
         
         LavenderTown.add(new City("Vermilion City",6));
         LavenderTown.add(new City("Cerulean City",9));
