@@ -260,9 +260,6 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                                 System.out.println("Side effect " + currentSkill.getSideEffect() + " is applied to " + enemy.getName());
                                 System.out.println("Side effect damage: " + sideEffectDamage);                         
                                 statusAilment = statusAilment.NONE;
-                            } else {
-                                System.out.println("You didn't applied any side effect to the enemy.");
-                                System.out.println("Your current Pokemon status ailment: " + enemy.getStatusAilment());
                             }
                         }                        
                     } 
@@ -310,9 +307,6 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                                 System.out.println("Side effect " + currentSkill.getSideEffect() + " is applied to " + enemy.getName());
                                 System.out.println("Side effect damage: " + sideEffectDamage);
                                 statusAilment = statusAilment.NONE;
-                            } else {
-                                System.out.println("You didn't applied any side effect to the enemy.");
-                                System.out.println("Your current Pokemon status ailment: " + enemy.getStatusAilment());
                             }
                         }                        
                     } 
@@ -407,7 +401,6 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                             System.out.println("Side effect damage: " + sideEffectDamage);
                             statusAilment = statusAilment.NONE;
                         } else {
-                            System.out.println(enemy.name + " didn't applied any side effect to " + name + ".");
                             System.out.println(name + " status ailment: " + getStatusAilment());
                         }
                     }                        
@@ -462,7 +455,6 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
                             System.out.println("Side effect damage: " + sideEffectDamage);
                             statusAilment = statusAilment.NONE;
                         } else {
-                            System.out.println(enemy.name + " didn't applied any side effect to " + name + ".");
                             System.out.println(name + " status ailment: " + getStatusAilment());
                         }
                     }                        
