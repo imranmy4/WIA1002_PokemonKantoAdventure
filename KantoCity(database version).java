@@ -141,10 +141,11 @@ public class PokemonKantoAdventure {
         int Index = 2;
         String Location = "Pallet Town";
         boolean gameloop = true ;
-        boolean finishGame = false;
+        boolean creditPlayed = false;
         
-        while(gameloop && !finishGame) {
-            finishGame = gameFinish(player);
+        while(gameloop) {
+            if(creditPlayed == false)
+                creditPlayed = creditScene(player);
             int arr_size = graph.get(Index).size();
             ArrayList<City> currentLocation = graph.get(Index);
             System.out.println("\nYou are now at " + Location);
@@ -338,11 +339,6 @@ public class PokemonKantoAdventure {
                 System.out.println("\nSorting your Pokémon according to their unique preferences...");
                 sortPokemon(pokemonArray);            
             }
-        }
-        if(saveLocal==true){
-        creditScene(player);
-        saveAndExit(player);
-        System.exit(0);
         }
         
         return main_player;
@@ -1053,19 +1049,23 @@ public class PokemonKantoAdventure {
         return temp;
     }
     
-    public static boolean gameFinish(Player player) {
-        if(player.getBadges().size() == 8)
+    public static boolean creditScene(Player player) {
+        if(player.getBadges().size() == 8){
+            System.out.println("---------------------------------------------------------------");
+            System.out.println("Congratulations "+player.getName()+", you've finished the game!");
+            System.out.println("You've collected all 8 badges in Kanto region!");
+            System.out.println("We hope you enjoyed our game!");
+            System.out.println("\nDeveloped by:");
+            System.out.println("Ahmad Iman bin Azrul Hasni");
+            System.out.println("Siti Sa'adah binti Ismail");
+            System.out.println("Dennis Aimin Oon bin Jeffrey Oon");
+            System.out.println("Muhammad Imran bin Ilias");
+            System.out.println("\nYou can still enjoy current gameplay or create a new game save!");
+            System.out.println("Happy playing dear pokemon trainer!");
+            System.out.println("---------------------------------------------------------------");
             return true;
-        else
+        } else
             return false;
-    }
-    
-    public static void creditScene(Player player) {
-        System.out.println("---------------------------------------------------------------");
-        System.out.println("\nCongratulations "+player.getName()+", you've finished the game!");
-        System.out.println("You've collected all 8 badges in Kanto region!");
-        System.out.println("We hope you enjoyed our game!");
-        System.out.println("---------------------------------------------------------------");
     }
 
     public static int acceptInt() {
