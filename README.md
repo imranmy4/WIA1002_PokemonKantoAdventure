@@ -2,13 +2,9 @@
 
 # Main file is KantoCity.java
 
-aku dah buat player.java, gymleaders.java, pokemon.java, etc.
-esok aku post yg paling latest
+6 Jun 2024
 
-
-27.05.2024 
-1. Account creation tu da siap
-2. Tinggal nak link dengan database
-3. But that nak buat cane eh?
-
-tk sure la. kena tunggu yg part extra database start buat
+1. KantoCity and Account got coding changes
+2. Classes lain that are added today, no coding changes, just comments
+   -> change MapTools to Town in RivalsRace class
+   -> that's basically it
