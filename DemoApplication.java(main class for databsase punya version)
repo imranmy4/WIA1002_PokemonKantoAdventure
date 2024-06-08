@@ -1,3 +1,5 @@
+package com.example.demo;
+
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +21,7 @@ public class DemoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         try {
-            Thread.sleep(7000); // 5 seconds delay (adjust as needed)
+            Thread.sleep(7000); //  seconds delay (adjust as needed)
         } catch (InterruptedException e) {
         // Handle interrupted exception
             e.printStackTrace();
@@ -31,6 +33,7 @@ public class DemoApplication implements CommandLineRunner {
         System.out.println("1.Local Storage");
         System.out.println("2.Database");
         String options ;
+        String createNewAcc = "";
         options = sc.nextLine();
         while(options.equals("1")==false && options.equals("2")==false ){
             System.out.print("Invalid input, please try again :");
@@ -65,16 +68,18 @@ public class DemoApplication implements CommandLineRunner {
                         }
                         Player saved_player = PokemonKantoAdventure.mainGame(false, retrieved_player);
                         userService.updatePlayer(username, saved_player);
+                        createNewAcc="no";
                         
                         break;
                     }else{
                         System.out.println("Invalid input, do you want to create a new account?");
-                        options = sc.nextLine();
-                        while(options.equalsIgnoreCase("yes")==false && options.equalsIgnoreCase("no")==false ){
+                        createNewAcc = sc.nextLine();
+                        while(createNewAcc.equalsIgnoreCase("yes")==false && createNewAcc.equalsIgnoreCase("no")==false ){
                             System.out.println("Invalid input, please try again :");
-                            options = sc.nextLine();
+                            createNewAcc = sc.nextLine();
                         }
-                        if(options.equalsIgnoreCase("yes")){
+                        if(createNewAcc.equalsIgnoreCase("yes")){
+                            options="no";
                             break;
                         }else{
                             continue;
@@ -83,7 +88,11 @@ public class DemoApplication implements CommandLineRunner {
                 }
                 
             }else{
+                createNewAcc="yes";
+            }
+            if(createNewAcc.equalsIgnoreCase("yes") && options.equalsIgnoreCase("no")){
                 //create a new account
+                
                 while(true){
                 System.out.println("-------------------------------------");
                 System.out.println("Account Creation");
@@ -123,7 +132,7 @@ public class DemoApplication implements CommandLineRunner {
         
        System.out.println("Thank you for playing the game");
 
-        // You can add more logic here if needed
+       
     }
     
     
