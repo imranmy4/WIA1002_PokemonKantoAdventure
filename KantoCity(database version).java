@@ -301,7 +301,7 @@ public class PokemonKantoAdventure {
                     System.exit(0);
                     }
                     else{
-                        return main_player;
+                        return player;
                     }
                 }
             } else if(input.charAt(0) == '4' && Location.equals("Pallet Town")) {
@@ -332,16 +332,31 @@ public class PokemonKantoAdventure {
                 System.out.println("+----------------------------------------------------------------------+");
                 System.out.println("Welcome to the Safari Zone! Today's challenge: Sort the Pokémon!");
                 System.out.println("+----------------------------------------------------------------------+");
-                System.out.print("Enter the Pokémon in your party (separated by a comma): ");
-                String SafariZoneInput = scanner.nextLine();
-                String[] pokemonArray = SafariZoneInput.split(", ");
+
+                String[] pokemonArray;
+
+                while (true) {
+                    System.out.println("Instructions:");
+                    System.out.println("1) Please make sure to seperate your Pokémon names with a comma followed by a space.");
+                    System.out.println("2) Please make sure to start your Pokémon names with uppercase letter.");
+                    System.out.println("3) Please make sure to enter at least 6 pokémon names.");
+                    System.out.print("\nEnter the Pokémon names in your party: ");
+                    String safariZoneInput = scanner.nextLine();
+                    pokemonArray = safariZoneInput.split(", ");
+
+                    if (isValidInput(pokemonArray, safariZoneInput)) {
+                        break; 
+                    } else {
+                        System.out.println("Invalid input! Please re-enter.\n");
+                    }
+                }
                 System.out.println("\nYou entered: " + String.join(", ", pokemonArray));
                 System.out.println("\nSorting your Pokémon according to their unique preferences...");
-                sortPokemon(pokemonArray);            
+                sortPokemon(pokemonArray);  
             }
         }
         
-        return main_player;
+        return player;
     }
     
     public static void convertMap (String city) {
@@ -1087,91 +1102,207 @@ public class PokemonKantoAdventure {
         if (pokemonList.contains("Eevee")) {
             pokemonList.remove("Eevee");
             pokemonList.add(0, "Eevee");
+            
             System.out.println("\nStep " + i + ": Eevee insists on being positioned either at the beginning of the lineup to showcase its adaptability.");
             System.out.println("Sorted List: " + pokemonList);
             i++;
         }
 
         if (pokemonList.contains("Pikachu")) {
-            pokemonList.remove("Pikachu");
-            int centerIndex = pokemonList.size() / 2;
-            pokemonList.add(centerIndex, "Pikachu");
+            int centerIndex = -1;
+            int oriPikachuIndex = pokemonList.indexOf("Pikachu");
+            if (pokemonList.size() % 2 == 0) {
+                centerIndex = pokemonList.size() / 2 - 1;
+            } else
+                centerIndex = pokemonList.size() / 2;
+            
+            while(!(oriPikachuIndex==centerIndex)) {
+                String removedPokemon = pokemonList.remove(centerIndex);
+                pokemonList.remove("Pikachu");
+                if (oriPikachuIndex < centerIndex) 
+                    pokemonList.add(centerIndex - 1, "Pikachu"); 
+                else 
+                    pokemonList.add(centerIndex, "Pikachu"); 
+                pokemonList.add(oriPikachuIndex, removedPokemon);
+                break;
+            }
+            
             System.out.println("\nStep " + i + ": Pikachu demands to be placed at the center of the arrangement.");
             System.out.println("Partial Sort: " + pokemonList);
             i++;
         }
         
         if (pokemonList.contains("Snorlax")) {
-            pokemonList.remove("Snorlax");
-            pokemonList.add("Snorlax");
+            int oriSnorlaxIndex = pokemonList.indexOf("Snorlax");
+            
+            while(!(oriSnorlaxIndex == (pokemonList.size() - 1))) {
+                String removedPokemon = pokemonList.remove(pokemonList.size() - 1);
+                pokemonList.remove("Snorlax");
+                pokemonList.add("Snorlax"); 
+                pokemonList.add(oriSnorlaxIndex, removedPokemon);
+                break;
+            }
+            
             System.out.println("\nStep " + i + ": Snorlax insists on being positioned at the end of the lineup to ensure maximum relaxation.");
             System.out.println("Partial Sort: " + pokemonList);
             i++;
         }
         
         if (pokemonList.contains("Pikachu") && pokemonList.contains("Jigglypuff")) {
-            pokemonList.remove("Jigglypuff");
-            int pikachuIndex = pokemonList.indexOf("Pikachu");
-            if (pikachuIndex != -1 && pikachuIndex > 0) {
-                String removedPokemon = pokemonList.remove(pikachuIndex - 1);
-                pokemonList.add(pikachuIndex - 1, "Jigglypuff"); 
-                pokemonList.add(pikachuIndex + 1, removedPokemon); 
+            int checkNextToPikachu = pokemonList.indexOf("Pikachu") + 1;
+            String checkNextToPikachuElement = pokemonList.get(checkNextToPikachu);
+            while (!checkNextToPikachuElement.equals("Jigglypuff")) {
+                int pikachuIndex = pokemonList.indexOf("Pikachu");
+                String removedPokemon = pokemonList.remove(pikachuIndex + 1);
+                int oriJigglypuffIndex = pokemonList.indexOf("Jigglypuff");
+                pokemonList.remove("Jigglypuff");
+                if (oriJigglypuffIndex < pikachuIndex) {
+                    pokemonList.add(pikachuIndex, "Jigglypuff");
+                    pokemonList.add(oriJigglypuffIndex, removedPokemon); 
+                } else {
+                    pokemonList.add(pikachuIndex + 1, "Jigglypuff"); 
+                    pokemonList.add(oriJigglypuffIndex + 1, removedPokemon); 
+                }
+                break;
             }
+            
             System.out.println("\nStep " + i + ": Jigglypuff prefers to be surrounded by \"cute\" Pokémon (Pikachu) for morale purposes.");
             System.out.println("Partial Sort: " + pokemonList);
             i++;
         }
 
         if (pokemonList.contains("Machop") && pokemonList.contains("Snorlax")) {
-            pokemonList.remove("Machop");
-            int snorlaxIndex = pokemonList.indexOf("Snorlax");
-            pokemonList.add(snorlaxIndex, "Machop");
+            int checkBeforeSnorlax = pokemonList.indexOf("Snorlax") - 1;
+            String checkBeforeSnorlaxElement = pokemonList.get(checkBeforeSnorlax);
+            while (!checkBeforeSnorlaxElement.equals("Machop")) {
+                int snorlaxIndex = pokemonList.indexOf("Snorlax");
+                String removedPokemon = pokemonList.remove(snorlaxIndex - 1);
+                int oriMachopIndex = pokemonList.indexOf("Machop");
+                pokemonList.remove("Machop");
+                pokemonList.add(snorlaxIndex - 2, "Machop"); 
+                pokemonList.add(oriMachopIndex, removedPokemon);
+                break;
+            }
+            
             System.out.println("\nStep " + i + ": Machop demands to be placed next to the heaviest Pokemon in the lineup to show  off its strength.");
             System.out.println("Partial Sort: " + pokemonList);
             i++;
         }
         
         if (pokemonList.contains("Bulbasaur") && pokemonList.contains("Charmander")) {
-            int bulbasaurIndex = pokemonList.indexOf("Bulbasaur");
-            int charmanderIndex = pokemonList.indexOf("Charmander");
-            int bulbasaurSize = 0, charmanderSize = 0;
-            if (Math.abs(bulbasaurIndex - charmanderIndex) == 1) {
-                if (bulbasaurIndex > charmanderIndex) {
-                    for (int j = bulbasaurIndex ; j < pokemonList.size() ; j++) {
-                        bulbasaurSize++;
-                    }
-                    for (int k = charmanderIndex ; k >= 0 ; k--) {
-                        charmanderSize++;
-                    }
-                    if (bulbasaurSize > charmanderSize) {
-                        int swapIndex = bulbasaurIndex + 1;
+            int checkBeforeBulbasaur = pokemonList.indexOf("Bulbasaur") - 1;
+            int checkAfterBulbasaur = pokemonList.indexOf("Bulbasaur") + 1;
+            String checkBeforeBulbasaurElement = pokemonList.get(checkBeforeBulbasaur);
+            String checkAfterBulbasaurElement = pokemonList.get(checkAfterBulbasaur);
+            
+            while (!checkBeforeBulbasaurElement.equals("Charmander") || !checkAfterBulbasaurElement.equals("Charmander")) {
+                int bulbasaurIndex = pokemonList.indexOf("Bulbasaur");
+                int charmanderIndex = pokemonList.indexOf("Charmander");
+                int bulbasaurSize = 0, charmanderSize = 0;
+                if (Math.abs(bulbasaurIndex - charmanderIndex) == 1) {
+                    if (bulbasaurIndex > charmanderIndex) {
+                        for (int j = bulbasaurIndex ; j < pokemonList.size() ; j++) {
+                            bulbasaurSize++;
+                        }
+                        for (int k = charmanderIndex ; k >= 0 ; k--) {
+                            charmanderSize++;
+                        }
+                        if (bulbasaurSize > charmanderSize) {
+                            int checkAfterPikachu = pokemonList.indexOf("Pikachu") + 1;
+                            String checkAfterPikachuElement = pokemonList.get(checkAfterPikachu);
 
-                         Collections.swap(pokemonList, bulbasaurIndex, swapIndex);
-                    } else if (bulbasaurSize < charmanderSize) {
-                        int swapIndex = charmanderIndex - 1;
-                        Collections.swap(pokemonList, charmanderIndex, swapIndex);
-                     }
-                } else {
-                    for (int j = bulbasaurIndex ; j >= 0 ; j--) {
-                        bulbasaurSize++;
-                     }
-                    for (int k = charmanderIndex ; k < pokemonList.size() ; k++) {
-                        charmanderSize++;
-                    }
-                    if (bulbasaurSize > charmanderSize) {
-                        int swapIndex = bulbasaurIndex - 1;
-                        Collections.swap(pokemonList, bulbasaurIndex, swapIndex);
-                    } else if (bulbasaurSize < charmanderSize) {
-                        int swapIndex = charmanderIndex + 1;
-                        Collections.swap(pokemonList, charmanderIndex, swapIndex);
+                            if(checkAfterBulbasaurElement.equals("Pikachu") && checkAfterPikachuElement.equals("Jigglypuff")) {
+                                int swapIndex = bulbasaurIndex + 3;
+                                Collections.swap(pokemonList, bulbasaurIndex, swapIndex);
+                            } else if (checkBeforeBulbasaurElement.equals("Pikachu")) {
+                                int swapIndex = bulbasaurIndex + 2;
+                                Collections.swap(pokemonList, bulbasaurIndex, swapIndex);
+                            } else {
+                                int swapIndex = bulbasaurIndex + 1;
+                                Collections.swap(pokemonList, bulbasaurIndex, swapIndex);
+                            }
+                        } else if (bulbasaurSize < charmanderSize) {
+                            int checkBeforeCharmander = pokemonList.indexOf("Charmander") - 1;
+                            String checkBeforeCharmanderElement = pokemonList.get(checkBeforeCharmander);
+                            int checkBeforeJigglypuff = pokemonList.indexOf("Jigglypuff") - 1;
+                            String checkBeforeJigglypuffElement = pokemonList.get(checkBeforeJigglypuff);
+                            
+                            if(checkBeforeCharmanderElement.equals("Jigglypuff") && checkBeforeJigglypuffElement.equals("Pikachu")) {
+                                int swapIndex = charmanderIndex - 3;
+                                Collections.swap(pokemonList, charmanderIndex, swapIndex);
+                            } else if (checkBeforeCharmanderElement.equals("Pikachu")) {
+                                int swapIndex = charmanderIndex - 2;
+                                Collections.swap(pokemonList, charmanderIndex, swapIndex);
+                            } else {
+                                int swapIndex = charmanderIndex - 1;
+                                Collections.swap(pokemonList, charmanderIndex, swapIndex);
+                            }
+                        }
+                    } else {
+                        for (int j = bulbasaurIndex ; j >= 0 ; j--) {
+                            bulbasaurSize++;
+                         }
+                        for (int k = charmanderIndex ; k < pokemonList.size() ; k++) {
+                            charmanderSize++;
+                        }
+                        if (bulbasaurSize > charmanderSize) {
+                            int checkBeforeJigglypuff = pokemonList.indexOf("Jigglypuff") - 1;
+                            String checkBeforeJigglypuffElement = pokemonList.get(checkBeforeJigglypuff);
+                            
+                            if(checkBeforeBulbasaurElement.equals("Jigglypuff") && checkBeforeJigglypuffElement.equals("Pikachu")) {
+                                int swapIndex = bulbasaurIndex - 3;
+                                Collections.swap(pokemonList, bulbasaurIndex, swapIndex);
+                            } else if (checkBeforeBulbasaurElement.equals("Pikachu")) {
+                                int swapIndex = bulbasaurIndex - 2;
+                                Collections.swap(pokemonList, bulbasaurIndex, swapIndex);
+                            } else {
+                                int swapIndex = bulbasaurIndex - 1;
+                                Collections.swap(pokemonList, bulbasaurIndex, swapIndex);
+                            }
+                        } else if (bulbasaurSize < charmanderSize) {
+                            int checkAfterCharmander = pokemonList.indexOf("Charmander") + 1;
+                            String checkAfterCharmanderElement = pokemonList.get(checkAfterCharmander);
+                            int checkAfterPikachu = pokemonList.indexOf("Pikachu") + 1;
+                            String checkAfterPikachuElement = pokemonList.get(checkAfterPikachu);
+                            
+                            if(checkAfterCharmanderElement.equals("Pikachu") && checkAfterPikachuElement.equals("Jigglypuff")) {
+                                int swapIndex = charmanderIndex + 3;
+                                Collections.swap(pokemonList, charmanderIndex, swapIndex);
+                            } else if (checkAfterCharmanderElement.equals("Pikachu")) {
+                                int swapIndex = bulbasaurIndex + 2;
+                                Collections.swap(pokemonList, charmanderIndex, swapIndex);
+                            } else {
+                                int swapIndex = bulbasaurIndex + 1;
+                                Collections.swap(pokemonList, charmanderIndex, swapIndex);
+                            }
+                        }
                     }
                 }
+                break;
             }
+            
             System.out.println("\nStep " + i + ": Bulbasaur refuses to be placed next to Charmander.");
             System.out.println("Final Sorted List: " + pokemonList);
         }
+        
         System.out.println("\n+----------------------------------------------------------------------+");
         System.out.println("Your Pokémon are now sorted! Enjoy your adventure in the Safari Zone!");
         System.out.println("+----------------------------------------------------------------------+");
+    }
+    
+    public static boolean isValidInput(String[] pokemonArray, String input) {
+        if(pokemonArray.length < 6){
+            return false;
+        }
+        if (!input.contains(", ")) {
+            return false;
+        }
+        
+        for (String pokemon : pokemonArray) {
+            if (pokemon.isEmpty() || !Character.isUpperCase(pokemon.charAt(0))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
