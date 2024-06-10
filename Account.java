@@ -3,6 +3,7 @@ package pokemonkantoadventure;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -10,7 +11,7 @@ public class Account {
 
     String name;
     String password;
-    static final String DataDirectory = "C:/Users/saada/OneDrive/Desktop/Java/Data Structure/PokemonKantoAdventure";
+    static final String DataDirectory = System.getProperty("user.dir");
     static final String UserDataFile = DataDirectory + "/users.txt";
     Scanner r = new Scanner(System.in);
     boolean start = false;
@@ -19,35 +20,27 @@ public class Account {
     Account() {
         this.users = new HashMap<>();
         loadUserData();
+        int signingIn;
+        
+        do{
+            System.out.println("1. Existing User \n2. New User");
+            System.out.print("Enter your choice: ");
+            signingIn = acceptInt();
 
-        System.out.println("1. Existing User \n2. New User");
-        System.out.print("Enter your choice: ");
-        int signingIn = r.nextInt();
-        r.nextLine();
+            switch (signingIn) {
 
-        switch (signingIn) {
+                case 1:
+                    existingUser();
+                    break;
 
-            case 1:
+                case 2:
+                    newUser();
+                    break;
 
-                System.out.print("Enter username: ");
-                this.name = r.nextLine();
-                System.out.print("Enter password: ");
-                this.password = r.nextLine();
-                existingUser(name, password);
-                break;
-
-            case 2:
-
-                System.out.print("Enter username: ");
-                this.name = r.nextLine();
-                System.out.print("Enter password: ");
-                this.password = r.nextLine();
-                newUser(name, password);
-                break;
-
-            default:
-                System.out.println("Invalid choice.");
-        }
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        } while(signingIn<1 || signingIn>2);
     }
 
     private void loadUserData() {
@@ -123,25 +116,26 @@ public class Account {
         return name;
     }
 
-    public void newUser(String name, String password) {
-
-        while (existingUsername(name) || !isStrongPassword(password)) {
+    public void newUser() {
+        do{
+            do{
+                System.out.print("Enter username: ");
+                name = r.nextLine();
+            } while(name.isBlank());
+            do{
+                System.out.print("Enter password: ");
+                password = r.nextLine();
+            } while(password.isBlank());
 
             if (existingUsername(name)) {
                 System.out.println("The username is already taken.");
-                System.out.print("Enter username: ");
-                name = r.nextLine();
-                break;
             }
 
             if (!isStrongPassword(password)) {
                 System.out.println("The password is not strong.");
                 System.out.println("Password must contain at least 1 upper case, 1 lower case, 1 digit and use > 5 characters.");
-                System.out.print("Enter password: ");
-                password = r.nextLine();
-                break;
             }
-        }
+        }while (existingUsername(name) || !isStrongPassword(password));
 
 
         users.put(name, password);
@@ -158,11 +152,20 @@ public class Account {
         }         
     }
 
-    public void existingUser(String name, String password) {
+    public void existingUser() {
 
         int trial = 1;
 
         while (trial < 4) {
+            String answer = null;
+            do{
+                System.out.print("Enter username: ");
+                name = r.nextLine();
+            } while(name.isBlank());
+            do{
+                System.out.print("Enter password: ");
+                password = r.nextLine();
+            } while(password.isBlank());
 
             if (users.containsKey(name)) {
 
@@ -178,24 +181,37 @@ public class Account {
             } else {
                 System.out.println("This account does not exist.");
                 System.out.println("Would you like to create an account?");
-                String answer = r.nextLine();
-
+                
+                do{
+                System.out.print("[yes/no](If you choose no, game will quit): ");
+                answer = r.nextLine();
+                
                 if (answer.equalsIgnoreCase("yes")) {
-                    System.out.print("Enter username: ");
-                    this.name = r.nextLine();
-                    System.out.print("Enter password: ");
-                    this.password = r.nextLine();
-                    newUser(name, password);
-                    start = true;
+                    newUser();
                     break;
-                } else {
+                } else if(answer.equalsIgnoreCase("no")){
                     start = false;
-                }
+                    break;
+                } else
+                    System.out.println("Invalid choice!\n");
+                } while(!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no"));
             }
+            if(answer.equalsIgnoreCase("no"))
+                break;
         }
-
-        start = false;
         if (trial > 4)
-            System.out.println("Too many failed attempts.");
+            System.out.println("Too many failed attempts.");  
+    }
+    
+    public static int acceptInt() {
+        int i;
+        Scanner input = new Scanner(System.in);
+        try {
+            i = input.nextInt();
+            input.nextLine();
+            return i;
+        } catch (InputMismatchException ex) {
+            return -1;
+        }
     }
 }
