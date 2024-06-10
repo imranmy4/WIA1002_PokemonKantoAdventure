@@ -96,15 +96,6 @@ public class DijkstraAlgorithm {
         System.out.println("\n\n\n\n");
     }
 
-    public static void main(String[] args) {
-
-        RivalsRaceMap raceMap = new RivalsRaceMap();
-        DijkstraAlgorithm dijkstra = new DijkstraAlgorithm();
-
-        Town source = raceMap.Pewter;
-        Town target = raceMap.Cinnabar;
-
-    }
 }
 /*
 Shortest Path:
