@@ -3,7 +3,7 @@ package pokemonkantoadventure;
 
 import java.util.*;
 
-public class  {
+public class Town{
 
     public String name;
     public Map<Town, Integer> neighbors;
