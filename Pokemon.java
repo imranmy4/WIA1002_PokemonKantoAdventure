@@ -9,52 +9,52 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Stack;
 
-public abstract class Pokemon implements Serializable {     //Pokemon parent class
+public abstract class Pokemon implements Serializable {     // pokemon parent class
     final private String name;
     final private String type;
     private int level;
     private int HP;
     private int currentHP;
     private int XP;
-    final private String[] strength;            //Which type the pokemon is strong against
+    final private String[] strength;            // which type the pokemon is strong against
     final private String[] weakness;            // which type the pokemon is weak against
-    private Stack<Skill> moveset;               //moves the pokemon have not unlocked yet
-    private ArrayList<Skill> movesAndDmg;       //the pokemon total moves/skills
-    private Skill[] currentMovesAndDmg;         //the pokemon currently used moves/skills 
+    private Stack<Skill> moveset;               // moves the pokemon have not unlocked yet
+    private ArrayList<Skill> movesAndDmg;       // the pokemon total moves/skills
+    private Skill[] currentMovesAndDmg;         // the pokemon currently used moves/skills 
     private int XPThreshold;
     private StatusAilment statusAilment;
     
-    Pokemon(String name, String type, int level, int HP, int XP) {       //constructor for new/saved child classes
+    Pokemon(String name, String type, int level, int HP, int XP) {       // constructor for new child classes
         this.name = name;
         this.type = type;
         this.level = level;
         this.HP = setHP(level,HP);
         this.currentHP = this.HP;
         this.XP = XP;
-        this.strength = setStrength();                      //set in child class(permanent)
-        this.weakness = setWeakness();                      //set in child class(permanent)
-        this.moveset = allMoves();                          //automatic for each pokemon
-        this.movesAndDmg = unlockedMoves();                 //automatic for each pokemon
-        this.currentMovesAndDmg = initializeCurrentMovesAndDmg();       //currentMovesAndDmg initialized for new pokemon created
+        this.strength = setStrength();                      // set in child class(permanent)
+        this.weakness = setWeakness();                      // set in child class(permanent)
+        this.moveset = allMoves();                          // automatic for each pokemon
+        this.movesAndDmg = unlockedMoves();                 // automatic for each pokemon
+        this.currentMovesAndDmg = initializeCurrentMovesAndDmg();       // currentMovesAndDmg initialized for new pokemon created
         this.XPThreshold = XPThresholdSet();
         this.statusAilment = StatusAilment.NONE;
     }
     
-    Pokemon(String name, String type, int baseHP, String location) {       //constructor for wild pokemon child classes
+    Pokemon(String name, String type, int baseHP, String location) {       // constructor for wild pokemon child classes
         this.name = name;
         this.type = type;
         this.level = setWildLevel(location);
         this.HP = setHP(level, baseHP);
         this.currentHP = this.HP;
-        this.strength = setStrength();               //same as above
+        this.strength = setStrength();               // same as above
         this.weakness = setWeakness();
         this.moveset = allMoves();
         this.movesAndDmg = unlockedMoves();
-        this.currentMovesAndDmg = wildPokemonMoves();       //currentMovesAndDmg initialized for wild pokemon randomly
+        this.currentMovesAndDmg = wildPokemonMoves();       // currentMovesAndDmg initialized for wild pokemon randomly
         this.statusAilment = StatusAilment.NONE;
     }
     
-    Pokemon(String name, String type, int level, int HP) {
+    Pokemon(String name, String type, int level, int HP) {        // constructor for gymleader pokemon
         this.name = name;
         this.type = type;
         this.level = level;
@@ -69,13 +69,13 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         this.statusAilment = StatusAilment.NONE;
     }
     
-    public abstract String[] setStrength();                  //child class set pokemon strength
+    public abstract String[] setStrength();                  // child class set pokemon strength
     
     public abstract String[] setWeakness();                  // child class set pokemon weakness   
     
-    public abstract Stack<Skill> allMoves();                 //child class set pokemon moveset
+    public abstract Stack<Skill> allMoves();                 // child class set pokemon moveset
     
-    final private int setWildLevel(String location) {        //set wild pokemon level according to location
+    final private int setWildLevel(String location) {        // set wild pokemon level according to location
         Random rand = new Random();
         int newWildLevel = 0;
         
@@ -117,7 +117,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         return newWildLevel;
     }
     
-    final private int setHP(int level, int HP) {          //set pokemon HP according to level
+    final private int setHP(int level, int HP) {          // set pokemon HP according to level
         while(level > 1) {
             HP += 5;
             level--;
@@ -125,7 +125,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         return HP;
     }
     
-    final public Skill moveDamageLeveling(Skill skill) {         //increase damage according to level (+2 damage for each level)
+    final public Skill moveDamageLeveling(Skill skill) {         // increase damage according to level (+2 damage for each level)
         int levelCheck = level;
         int moveLevel = skill.getLevel();
         
@@ -136,7 +136,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         return skill;
     }
     
-    public ArrayList<Skill> unlockedMoves() {                //automatically unlock moves according to pokemon level
+    public ArrayList<Skill> unlockedMoves() {                // automatically unlock moves according to pokemon level
         int levelCheck = level;
         int movesLevelCheck;
         ArrayList<Skill> unlockedMoveset = new ArrayList<Skill>();
@@ -159,14 +159,14 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         return newSkill;   
     }
     
-    final public Skill[] initializeCurrentMovesAndDmg() {              //initialize currently used moves/skills for newly created pokemon
+    final public Skill[] initializeCurrentMovesAndDmg() {              // initialize currently used moves/skills for newly created pokemon
         Skill initialMove1, initialMove2;
         initialMove1 = movesAndDmg.get(0);
         initialMove2 = movesAndDmg.get(1);
-        return new Skill[]{initialMove1,initialMove2};      //return moves/skill to currentMovesAndDmg for newly created pokemon
+        return new Skill[]{initialMove1,initialMove2};      // return moves/skill to currentMovesAndDmg for newly created pokemon
     }
     
-    public Skill[] wildPokemonMoves() {          //wild pokemon randomly choose its moves
+    public Skill[] wildPokemonMoves() {          // wild pokemon randomly choose its moves
         Random rand = new Random();
         int move1, move2;
         Skill currentMove1, currentMove2;
@@ -182,51 +182,51 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         return new Skill[]{currentMove1,currentMove2};
     }
     
-    public int attack(Pokemon enemy) {                  //method for player pokemon to attack enemy
+    public int attack(Pokemon enemy) {                  // method for player pokemon to attack enemy
         Scanner input = new Scanner(System.in);
-        int check1 = 0, check2 = 0;                     //check for player pokemon strength and weakness
+        int check1 = 0, check2 = 0;                     // check for player pokemon strength and weakness
         int move;
         int damage;
-        double dmgMultiplier = 1;                       //damage multiplier according to player pokemon strength and weakness
+        double dmgMultiplier = 1;                       // damage multiplier according to player pokemon strength and weakness
         String line = enemy.type;
         String splitBy = "/";
         String[] enemyType = line.split(splitBy);
         
-        for(String str1 : enemyType) {                      //check if player pokemon is strong against enemy types
+        for(String str1 : enemyType) {                      // check if player pokemon is strong against enemy types
             for(String str2 : strength) {
-                if(str2.equals(str1)) {              //if yes, bonus 20% attack damage and check1 is raised
+                if(str2.equals(str1)) {              // if yes, bonus 20% attack damage and check1 is raised
                     dmgMultiplier = 1.2;
                     check1 = 1;
                 }
             }
         }
         
-        for(String str1 : enemyType) {                       //check if player pokemon is weak against enemy types
+        for(String str1 : enemyType) {                       // check if player pokemon is weak against enemy types
             for(String str2 : weakness) {
-                if(str2.equals(str1)) {               //if yes, 20% reduction in attack damage and check2 is raised
+                if(str2.equals(str1)) {               // if yes, 20% reduction in attack damage and check2 is raised
                     dmgMultiplier = 0.8;
                     check2 = 1;
                 }
             }
         }
         
-        if(check1 == 1 && check2 == 1) {                  //if both check is raised(player pokemon is both strong and weak against enemy types), damage normally
+        if(check1 == 1 && check2 == 1) {                  // if both check is raised(player pokemon is both strong and weak against enemy types), damage normally
             dmgMultiplier = 1;
         }
         
-        System.out.println(name+" Moves:");                //tell player pokemon moves/skills available
+        System.out.println(name+" Moves:");                // tell player pokemon moves/skills available
         for(int i = 0 ; i < 2 ; i++){
             System.out.println((i + 1) + ". " + currentMovesAndDmg[i].getMoveName() + " [" + (int) currentMovesAndDmg[i].getDamage() + " damage}");        //player pokemon moves list
         }
         
         do{
-            System.out.print("Which moves will " + name + " use: ");        //player choose which moves/skills to use
+            System.out.print("Which moves will " + name + " use: ");        // player choose which moves/skills to use
             move = acceptInt();
             System.out.println("\n");
             
             switch(move) {
                 case 1 : 
-                    System.out.println(name + " uses " + currentMovesAndDmg[0].getMoveName() + "!");       //player use first moves 
+                    System.out.println(name + " uses " + currentMovesAndDmg[0].getMoveName() + "!");       // player use first moves 
                     
                     Skill currentSkill = currentMovesAndDmg[0];
                     String currentMoveName = currentSkill.getMoveName();
@@ -334,8 +334,8 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         return enemy.currentHP;
     }
     
-    public int defense(Pokemon enemy, Player player) {              //method for player taking damage from enemy
-        int check1 = 0, check2 = 0;                                 //basically 50% same as attack method just reverse role
+    public int defense(Pokemon enemy, Player player) {              // method for player taking damage from enemy
+        int check1 = 0, check2 = 0;                                 // basically 50% same as attack method just reverse role
         double dmgMultiplier = 1;
         int damage;
         int enemyMoveChoice;
@@ -363,7 +363,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
 
         if(check1 == 1 && check2 == 1)
             dmgMultiplier = 1;
-        Random rand = new Random();                     //enemy randomly choose moves/skills
+        Random rand = new Random();                     // enemy randomly choose moves/skills
         enemyMoveChoice = rand.nextInt(2) + 1;
         System.out.println("\n");
         switch(enemyMoveChoice) {
@@ -486,31 +486,31 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         return currentHP;
     }
     
-    public void levelUp(int enemyLevel) {                    //method for player pokemon to check for level up
+    public void levelUp(int enemyLevel) {                    // method for player pokemon to check for level up
         XPThresholdSet();
         int currentLevel = level;
-        XP += (enemyLevel * 5);                              //player pokemon XP increase by 5 times enemy pokemon level
+        XP += (enemyLevel * 5);                              // player pokemon XP increase by 5 times enemy pokemon level
         while(XP > 0) {
-            if(XP >= XPThreshold) {                          //check if player XP reach minimum requirement
-                level++;                                     //increase player pokemon level
-                HP += 5;                                     //increase player pokemon health
+            if(XP >= XPThreshold) {                          // check if player XP reach minimum requirement
+                level++;                                     // increase player pokemon level
+                HP += 5;                                     // increase player pokemon health
                 System.out.println(name + " leveled up!");
-                System.out.println(name + "[level " + currentLevel + " --> level " + level + "]");      //tell level increase
-                System.out.println(name + " HP increase to " + HP);       // (temporary) show HP increase
+                System.out.println(name + "[level " + currentLevel + " --> level " + level + "]");      // tell level increase
+                System.out.println(name + " HP increase to " + HP);       // show HP increase
                 for(int i = 0 ; i < getMovesAndDmg().size() ; i++) {
-                    movesAndDmg.get(i).addDamage();                   //increase player pokemon damage for all moves/skills
-                    System.out.println(movesAndDmg.get(i).getMoveName() + " damage increase to " + movesAndDmg.get(i).getDamage() + " !");        //(temporary) show damage increase
+                    movesAndDmg.get(i).addDamage();                   // increase player pokemon damage for all moves/skills
+                    System.out.println(movesAndDmg.get(i).getMoveName() + " damage increase to " + movesAndDmg.get(i).getDamage() + " !");        // show damage increase
                 }
                  
                 if(level >= moveset.peek().getLevel())
-                    movesAndDmg.add(unlockNewMoves());                  //unlock new moves
+                    movesAndDmg.add(unlockNewMoves());                  // unlock new moves
                 currentLevel++;
-                XP -= XPThreshold;                                        //minus player pokemon XP from minimum requirement to level up
+                XP -= XPThreshold;                                        // minus player pokemon XP from minimum requirement to level up
                 XPThreshold = XPThresholdSet();
             } else
                 break;
         }
-        if(XP < 0)              //reset player pokemon XP to zero
+        if(XP < 0)              // reset player pokemon XP to zero
             XP = 0;
         System.out.println(name + " [XP: " + XP + "/" + XPThreshold + "]");
     }
@@ -518,19 +518,19 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
     private int XPThresholdSet() {
         int XPThresholdSet = 1000000;
         if(level >= 1 && level <= 9)
-                XPThresholdSet = 30;                                  //XP requirement for level 1 to 9
+                XPThresholdSet = 30;                                  // XP requirement for level 1 to 9
             else if(level >= 10 && level <= 19)
-                XPThresholdSet = 100;                                  //XP requirement for level 10 to 19
+                XPThresholdSet = 100;                                  // XP requirement for level 10 to 19
             else if(level >= 20 && level <= 29)
-                XPThresholdSet = 200;                                   //XP requirement for level 20 to 29
+                XPThresholdSet = 200;                                   // XP requirement for level 20 to 29
             else if(level >= 30)
-                XPThresholdSet = 300;                                  //XP requirement dor level 30 and above
+                XPThresholdSet = 300;                                  // XP requirement dor level 30 and above
             else
-                System.out.println("Error in leveling up!");         //just in case problem
+                System.out.println("Error in leveling up!");         // just in case problem
         return XPThresholdSet;
     }
     
-    public void equipMoves() {                       //equip moves for player pokemon
+    public void equipMoves() {                       // equip moves for player pokemon
         Scanner input = new Scanner(System.in);
         int moveNum1, moveNum2;
         System.out.println("\nWhich moves would you like to equip on " + name + "?");
@@ -556,7 +556,7 @@ public abstract class Pokemon implements Serializable {     //Pokemon parent cla
         currentMovesAndDmg[1] = movesAndDmg.get(moveNum2 - 1);
     }
     
-    public void againstEnemy(Pokemon enemy) {
+    public void againstEnemy(Pokemon enemy) {                        // check if pokemon is weak or strong against enemy pokemon
         int check1 = 0, check2 = 0;
         String line = type;
         String splitBy = "/";
