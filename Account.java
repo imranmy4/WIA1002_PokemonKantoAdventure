@@ -8,11 +8,6 @@ import java.util.Scanner;
 
 public class Account {
 
-    public static void main(String[] args) {
-
-        Account newUser = new Account();
-    }
-
     String name;
     String password;
     static final String DataDirectory = "C:/Users/saada/OneDrive/Desktop/Java/Data Structure/PokemonKantoAdventure";
