@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Pokemonkantoadventure {
+public class KantoCity {
 
     public static void main(String[] args) {
 
@@ -109,12 +109,11 @@ public class Pokemonkantoadventure {
 
         Account newUser = new Account();
         String dataDirectory = newUser.getUserDirectory(newUser.getName());
-        System.out.println("---------------------------------------------------------------");
-        //Check save file
-        if(newUser.start)
-            fileExists(dataDirectory);
 
-        switch (startPrompt(newUser.start)) {
+        //Check save file
+        fileExists(dataDirectory);
+
+        switch (startPrompt(!newUser.start)) {
             case 1:
                 player = newGame(dataDirectory);
                 break;
@@ -123,15 +122,10 @@ public class Pokemonkantoadventure {
                 System.out.println(player.getName());
                 break;
             case 3:
-                System.out.println("Quitting game...");
-                System.out.println("Goodbye!");
-                System.out.println("---------------------------------------------------------------");
                 System.exit(0);
             default:
-                System.out.println("Quitting game...");
-                System.out.println("Goodbye!");
-                System.out.println("---------------------------------------------------------------");
-                System.exit(0);
+                System.out.println("Invalid choice.");
+                System.exit(1);
         }
         
         if (player == null) {
@@ -807,10 +801,7 @@ public class Pokemonkantoadventure {
 
             out.writeObject(player);
             out.close();
-            System.out.println("Game saved!");
-            System.out.println("Quitting game...");
-            System.out.println("Goodbye!");
-            System.out.println("---------------------------------------------------------------");
+            System.out.println("Saved!");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -968,26 +959,6 @@ public class Pokemonkantoadventure {
                                         }
                                     } catch (SecurityException s) {
                                         s.printStackTrace();
-                                    }
-                                    try{
-                                        BufferedWriter bw = new BufferedWriter(new FileWriter("Game Slot.txt"));
-                                        for(int n=0;n<slots.size();n++){
-                                            if((choice) == Integer.parseInt(slots.get(n)[0])){
-                                                bw.write(String.valueOf(choice));
-                                                bw.newLine();
-                                            } else{
-                                                if(slots.get(n).length == 1){
-                                                    bw.write(slots.get(n)[0]);
-                                                    bw.newLine();
-                                                } else if(slots.get(n).length == 2){
-                                                    bw.write(slots.get(n)[0]+","+slots.get(n)[1]);
-                                                    bw.newLine();
-                                                }
-                                            }
-                                        }
-                                        bw.close();
-                                    } catch(IOException e){
-                                        e.printStackTrace();
                                     }
                                     overwrite = true;
                                 }
