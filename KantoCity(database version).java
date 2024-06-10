@@ -1,3 +1,14 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package com.example.demo;
+
+/**
+ *
+ * @author ahmad
+ */
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,11 +30,6 @@ import java.util.Scanner;
 
 public class PokemonKantoAdventure {
     public static Player mainGame(boolean saveLocal, Player main_player) {
-        //Check save file
-        
-        if(saveLocal==true){
-        fileExists();
-        }
         
         Scanner sc = new Scanner(System.in);
         
@@ -98,29 +104,50 @@ public class PokemonKantoAdventure {
         
         Player player = null;
         GymLeaders gymleader;
+        String dataDirectory ="";
         if(saveLocal==true){
-        try{
+        try {
             Scanner skaner = new Scanner(new FileInputStream("pokemon_logo.txt"));
-            while(skaner.hasNextLine()) {
-               System.out.println(skaner.nextLine());
+            while (skaner.hasNextLine()) {
+                System.out.println(skaner.nextLine());
             }
             skaner.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("There is something wrong with the pokemon logo");
         }
-        
+
         System.out.println("---------------------------------------------------------------");
         System.out.println("Welcome to Pokemon - Kanto Adventure\n");
-        switch(startPrompt()) {
-            case 1 :
-                player = newGame();
+
+        Account newUser = new Account();
+        dataDirectory = newUser.getUserDirectory(newUser.getName());
+        System.out.println("---------------------------------------------------------------");
+        //Check save file
+        if(newUser.start)
+            fileExists(dataDirectory);
+
+        switch (startPrompt(newUser.start)) {
+            case 1:
+                player = newGame(dataDirectory);
                 break;
-            case 2: 
-                player = loadPlayerData();
+            case 2:
+                player = loadPlayerData(dataDirectory);
                 System.out.println(player.getName());
                 break;
             case 3:
-                System.exit(0);        
+                System.out.println("Quitting game...");
+                System.out.println("Goodbye!");
+                System.out.println("---------------------------------------------------------------");
+                System.exit(0);
+            default:
+                System.out.println("Quitting game...");
+                System.out.println("Goodbye!");
+                System.out.println("---------------------------------------------------------------");
+                System.exit(0);
+        }
+        
+        if (player == null) {
+            throw new NullPointerException("Player is null after the switch statement.");
         }
         }else{
             player = main_player;
@@ -286,7 +313,7 @@ public class PokemonKantoAdventure {
                 } else if(input.charAt(1) == 'd') {
                     //Save and exit
                     if(saveLocal==true){
-                    saveAndExit(player);
+                    saveAndExit(player, dataDirectory);
                     System.exit(0);
                     }
                     else{
@@ -533,21 +560,25 @@ public class PokemonKantoAdventure {
         }
     }
     
-    public static int startPrompt() {
-        Scanner input = new Scanner(System.in);
-        int choice;
-        System.out.println("1. Start a new adventure.");
-        System.out.println("2. Resume previous adventure.");
-        System.out.println("3. Quit game");
-        System.out.println("---------------------------------------------------------------");
-        do{
-            System.out.print("Your choice: ");
-            choice = acceptInt();
-            if(choice < 1 || choice > 3) {
-                System.out.println("Invalid input! Please try again!");
-            }
-        } while(choice < 1 || choice > 3);
-        
+    public static int startPrompt(boolean start) {
+
+        int choice = 0;
+
+        if (start) {
+            Scanner input = new Scanner(System.in);
+            System.out.println("1. Start a new adventure.");
+            System.out.println("2. Resume previous adventure.");
+            System.out.println("3. Quit game");
+            System.out.println("---------------------------------------------------------------");
+            do {
+                System.out.print("Your choice: ");
+                choice = acceptInt();
+                if (choice < 1 || choice > 3) {
+                    System.out.println("Invalid input! Please try again!");
+                }
+            } while (choice < 1 || choice > 3);
+        }
+
         return choice;
     }
     
@@ -739,58 +770,59 @@ public class PokemonKantoAdventure {
         player.resetPokemon();
     }
     
-    public static void fileExists() {
-        File file = new File("Game Slot.txt");
-        if(!file.exists()){
-        createFile();
+    public static void fileExists(String dataDirectory) {
+        File file = new File(dataDirectory + File.separator + "Game Slot.txt");
+        if (!file.exists()) {
+            createFile(dataDirectory);
         }
     }
+
     
-    public static void createFile() {
-        try{
-            FileWriter fw = new FileWriter("Game Slot.txt");
+    public static void createFile(String dataDirectory) {
+        try {
+            FileWriter fw = new FileWriter(dataDirectory + File.separator + "Game Slot.txt");
             fw.write("1\n2\n3\n");
             fw.close();
             System.out.println("File Created");
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    public static void saveAndExit(Player player) {
+    public static void saveAndExit(Player player, String dataDirectory) {
         String name = player.getName();
-        String playerSave = name + ".bin";
+        String playerSave = dataDirectory + File.separator + name + ".bin";
         int slot = player.getSaveSlot();
         String line;
         String array[];
         ArrayList<String[]> data = new ArrayList<>();
-        File file1 = new File("Game Slot.txt");
-        
-        try{
+        File file1 = new File(dataDirectory + File.separator + "Game Slot.txt");
+
+        try {
             BufferedReader br = new BufferedReader(new FileReader(file1));
-            
-            while((line = br.readLine()) != null){
+
+            while ((line = br.readLine()) != null) {
                 array = line.split(",");
                 data.add(array);
             }
             br.close();
-            
-        } catch(IOException e) {
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        try{
+
+        try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file1));
-            
-            for(int i = 0 ; i < data.size() ; i++) {
-                if(slot == Integer.parseInt(data.get(i)[0])) {
+
+            for (int i = 0; i < data.size(); i++) {
+                if (slot == Integer.parseInt(data.get(i)[0])) {
                     bw.write(String.valueOf(slot) + "," + name);
                     bw.newLine();
                 } else {
-                    if(data.get(i).length == 2) {
+                    if (data.get(i).length == 2) {
                         bw.write(data.get(i)[0] + "," + data.get(i)[1]);
                         bw.newLine();
-                    } else if(data.get(i).length == 1) {
+                    } else if (data.get(i).length == 1) {
                         bw.write(data.get(i)[0]);
                         bw.newLine();
                     } else {
@@ -800,24 +832,27 @@ public class PokemonKantoAdventure {
                 }
             }
             bw.close();
-            
-        } catch(IOException e){
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        try{
+
+        try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(playerSave));
-            
+
             out.writeObject(player);
             out.close();
-            System.out.println("Saved!");
-            
-        } catch(IOException e) {
+            System.out.println("Game saved!");
+            System.out.println("Quitting game...");
+            System.out.println("Goodbye!");
+            System.out.println("---------------------------------------------------------------");
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
         
-    public static Player loadPlayerData() {
+    public static Player loadPlayerData(String dataDirectory) {
         Scanner input = new Scanner(System.in);
         boolean success = false;
         String line;
@@ -827,72 +862,73 @@ public class PokemonKantoAdventure {
         int choice;
         Player player = null;
         System.out.print("Which game file would you like to load: ");
-        
-        while(success == false) {
-            try{
-                BufferedReader br = new BufferedReader(new FileReader("Game Slot.txt"));
+
+        while (success == false) {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(dataDirectory + File.separator + "Game Slot.txt"));
                 System.out.print("\nGame Saves:\t");
-                do{
-                    while((line = br.readLine()) != null) {
+                do {
+                    while ((line = br.readLine()) != null) {
                         array = line.split(",");
-                        if(array.length == 1) {
+                        if (array.length == 1) {
                             System.out.print(array[0] + ". (empty)\t");
-                        } else if(array.length == 2) {
-                            System.out.print(array[0] + ". ("+array[1] + ")\t");
+                        } else if (array.length == 2) {
+                            System.out.print(array[0] + ". (" + array[1] + ")\t");
                         } else {
                             System.out.print(array[0] + ". (corrupted save file)");
                         }
                         slots.add(array);
                     }
-                    
+
                     System.out.print("\n\nLoad: ");
                     choice = acceptInt();
-                    if(choice < 1 || choice > 3)
+                    if (choice < 1 || choice > 3) {
                         System.out.println("\nInvalid game save.");
-                } while(choice < 1 || choice > 3);
-                
-                for(int i = 0 ; i < slots.size() ; i++) {
-                    if(choice == Integer.parseInt(slots.get(i)[0])){
-                        if(slots.get(i).length == 2) {
+                    }
+                } while (choice < 1 || choice > 3);
+
+                for (int i = 0; i < slots.size(); i++) {
+                    if (choice == Integer.parseInt(slots.get(i)[0])) {
+                        if (slots.get(i).length == 2) {
                             name = slots.get(i)[1];
                             success = true;
                             break;
-                        } else if(slots.get(i).length == 1) {
+                        } else if (slots.get(i).length == 1) {
                             System.out.println("Choose available game file only.");
                         } else {
                             System.out.println("Game file is corrupted. Choose another available game file.");
                         }
                     }
                 }
-            } catch(IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        
-        try{
-            File filename = new File(name + ".bin");
+
+        try {
+            File filename = new File(dataDirectory + File.separator + name + ".bin");
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
-            if(name.equals("") || filename.exists() == false) {
+            if (name.equals("") || filename.exists() == false) {
                 System.out.println("Fail to load game file(no name or file does not exist).");
-            } else{
+            } else {
                 player = (Player) ois.readObject();
                 System.out.println("Welcome back " + player.getName() + "!");
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch(ClassNotFoundException f) {
+        } catch (ClassNotFoundException f) {
             f.printStackTrace();
         }
         return player;
     }
     
-    public static Player newGame() {
+    public static Player newGame(String dataDirectory) {
         Scanner input = new Scanner(System.in);
         int choice = 0;
         String name;
         Player player = null;
-        
-        while(player == null) {
+
+        while (player == null) {
             System.out.print("\nNew Game:\t");
             String line;
             String[] temp;
@@ -901,106 +937,131 @@ public class PokemonKantoAdventure {
             boolean overwrite = false;
             boolean unique = false;
             ArrayList<String[]> slots = new ArrayList<>();
-            
-            try{
-                BufferedReader br = new BufferedReader(new FileReader("Game Slot.txt"));
-                while((line = br.readLine()) != null) {
+
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(dataDirectory + File.separator + "Game Slot.txt"));
+                while ((line = br.readLine()) != null) {
                     slot = line.split(",");
-                    if(slot.length == 1) {
+                    if (slot.length == 1) {
                         System.out.print(slot[0] + ". (empty)\t");
-                    } else if(slot.length == 2){
-                        System.out.print(slot[0] + ". ("+slot[1]+")\t");
-                    } else{
+                    } else if (slot.length == 2) {
+                        System.out.print(slot[0] + ". (" + slot[1] + ")\t");
+                    } else {
                         System.out.println(slot[0] + ". Error(corrupted save file)");
                     }
                     slots.add(slot);
                 }
                 br.close();
-                
+
                 do {
                     System.out.print("\n\nGame Slot: ");
                     choice = acceptInt();
-                    if(choice <1 || choice >3)
+                    if (choice < 1 || choice > 3) {
                         System.out.println("Invalid Save Slot.");
-                } while(choice <1 || choice >3);
-                
-                if(slots.get(choice-1).length == 2) {
-                    while(overwrite == false) {
+                    }
+                } while (choice < 1 || choice > 3);
+
+                if (slots.get(choice - 1).length == 2) {
+                    while (overwrite == false) {
                         System.out.println("Overwrite save file?");
                         System.out.print("You can't revert back after overwriting this game file. [yes/no] : ");
                         answer = input.nextLine();
-                        if(answer.equalsIgnoreCase("yes")) {
-                            while(unique == false) {
-                                do{    //cant input blank
+                        if (answer.equalsIgnoreCase("yes")) {
+                            while (unique == false) {
+                                do {    //cant input blank
                                     System.out.print("Enter your name: ");
                                     name = input.nextLine();
-                                    if(name.isBlank())
+                                    if (name.isBlank()) {
                                         System.out.println("Please enter a name!");
-                                } while(name.isBlank());
-                                for(int j = 0 ; j < 3 ; j++) {
+                                    }
+                                } while (name.isBlank());
+                                for (int j = 0; j < 3; j++) {
                                     temp = slots.get(j);
-                                    if(temp.length == 2) {
-                                        if(name.equalsIgnoreCase(temp[1]) && choice == Integer.parseInt(temp[0])) {
+                                    if (temp.length == 2) {
+                                        if (name.equalsIgnoreCase(temp[1]) && choice == Integer.parseInt(temp[0])) {
                                             unique = true;
                                             break;
-                                        } else if(name.equalsIgnoreCase(temp[1]) && choice != Integer.parseInt(temp[0])) {
+                                        } else if (name.equalsIgnoreCase(temp[1]) && choice != Integer.parseInt(temp[0])) {
                                             System.out.println("Please enter unique name.");
                                             unique = false;
                                             break;
-                                        } else
+                                        } else {
                                             unique = true;
+                                        }
                                     }
                                 }
-                                if(unique == true) {
+                                if (unique == true) {
                                     player = new Player(name,1);
                                     player.setSaveSlot(choice);
-                                    try{
-                                        File oldFile = new File(slots.get(choice - 1)[1] + ".bin");
-                                        File sameFile = new File(name + ".bin");
-                                        if(sameFile.exists())
+                                    try {
+                                        File oldFile = new File(dataDirectory + File.separator + slots.get(choice - 1)[1] + ".bin");
+                                        File sameFile = new File(dataDirectory + File.separator + name + ".bin");
+                                        if (sameFile.exists()) {
                                             sameFile.delete();
-                                        else if(oldFile.exists())
+                                        } else if (oldFile.exists()) {
                                             oldFile.delete();
-                                    } catch(SecurityException s) {
+                                        }
+                                    } catch (SecurityException s) {
                                         s.printStackTrace();
+                                    }
+                                    try{
+                                        BufferedWriter bw = new BufferedWriter(new FileWriter("Game Slot.txt"));
+                                        for(int n=0;n<slots.size();n++){
+                                            if((choice) == Integer.parseInt(slots.get(n)[0])){
+                                                bw.write(String.valueOf(choice));
+                                                bw.newLine();
+                                            } else{
+                                                if(slots.get(n).length == 1){
+                                                    bw.write(slots.get(n)[0]);
+                                                    bw.newLine();
+                                                } else if(slots.get(n).length == 2){
+                                                    bw.write(slots.get(n)[0]+","+slots.get(n)[1]);
+                                                    bw.newLine();
+                                                }
+                                            }
+                                        }
+                                        bw.close();
+                                    } catch(IOException e){
+                                        e.printStackTrace();
                                     }
                                     overwrite = true;
                                 }
                             }
-                        } else if(answer.equalsIgnoreCase("no")) {
+                        } else if (answer.equalsIgnoreCase("no")) {
                             overwrite = false;
                             break;
                         }
                     }
-                } else if(slots.get(choice-1).length == 1) {
-                    while(unique == false) {
-                        do{    //cant input blank
+                } else if (slots.get(choice - 1).length == 1) {
+                    while (unique == false) {
+                        do {    //cant input blank
                             System.out.print("Enter your name: ");
                             name = input.nextLine();
-                            if(name.isBlank())
+                            if (name.isBlank()) {
                                 System.out.println("Please enter a name!");
-                        } while(name.isBlank());
-                        for(int k = 0 ; k < 3 ; k++) {
+                            }
+                        } while (name.isBlank());
+                        for (int k = 0; k < 3; k++) {
                             temp = slots.get(k);
-                            if(temp.length == 2) {
-                                if(name.equalsIgnoreCase(temp[1])) {
+                            if (temp.length == 2) {
+                                if (name.equalsIgnoreCase(temp[1])) {
                                     unique = false;
                                     break;
                                 }
-                            } else if(temp.length == 1) {
+                            } else if (temp.length == 1) {
                                 unique = true;
                             }
                         }
-                        if(unique == false) {
+                        if (unique == false) {
                             System.out.println("Please enter unique name.");
-                        } else{
+                        } else {
                             player = new Player(name,1);
                             player.setSaveSlot(choice);
                             break;
                         }
                     }
                 }
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
