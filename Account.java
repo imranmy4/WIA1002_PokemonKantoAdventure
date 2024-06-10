@@ -1,6 +1,13 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package pokemonkantoadventure;
 
+/**
+ *
+ * @author ahmad
+ */
 import java.io.*;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -196,7 +203,7 @@ public class Account {
                     System.out.println("Invalid choice!\n");
                 } while(!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no"));
             }
-            if(answer.equalsIgnoreCase("no"))
+            if(answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("yes"))
                 break;
         }
         if (trial > 3)
