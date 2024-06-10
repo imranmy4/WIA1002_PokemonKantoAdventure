@@ -19,14 +19,9 @@ public class RandomSelectionAlgorithm {
 
         // add all neighbors nodes into a new list
         nonAdjNodes.addAll(Town.getTowns().keySet());
-//        System.out.print(nonAdjNodes + " ");
-//        System.out.println("");
 
         // remove the current node
         nonAdjNodes.remove(current);
-//        System.out.println("\nRemove " + current.toString());
-//        System.out.print(nonAdjNodes + " ");
-//        System.out.println("");
 
         // iterate through each neighbor
         Iterator<Town> iterator = nonAdjNodes.iterator();
@@ -37,12 +32,9 @@ public class RandomSelectionAlgorithm {
 
             if (neighbors.containsKey(neighbor)) {
                 iterator.remove();
-//                System.out.println("Remove " + neighbor);
             }
         }
 
-//        System.out.print(nonAdjNodes + " ");
-//        System.out.println("");
     }
 
     public List<Town> getNonAdjNodes() {
@@ -60,20 +52,4 @@ public class RandomSelectionAlgorithm {
         }
     }
 
-//    public static void main(String[] args) {
-//
-//        RivalsRaceMap raceMap = new RivalsRaceMap();
-//        RandomSelectionAlgorithm randomSelectionAlgorithm = new RandomSelectionAlgorithm(raceMap);
-//
-//        Town currentTown = raceMap.Saffron;
-//        Map<Town, Integer> neighbors = currentTown.getNeighbors();
-//        
-//        System.out.println("Current: " + currentTown);
-//        System.out.println("");
-//        
-//        randomSelectionAlgorithm.removingAdjacentNodes(neighbors, currentTown);
-//        
-//        System.out.println("\nOutput: ");
-//        System.out.println(randomSelectionAlgorithm.specifiedTargetTown().toString());
-//    }
 }
