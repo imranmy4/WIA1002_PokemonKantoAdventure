@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class WildPokemon {                                          //demo wild pokemon class
+public class WildPokemon {                                          // wild pokemon class
     private ArrayList<Pokemon> wildPokemon;
     private HashMap<String,ArrayList<Pokemon>> allWildPokemon;
     private String location;
@@ -17,7 +17,7 @@ public class WildPokemon {                                          //demo wild 
         enemy = setEnemy();
     }
     
-    public HashMap<String,ArrayList<Pokemon>> setWildPokemon() {
+    public HashMap<String,ArrayList<Pokemon>> setWildPokemon() {        // set wild pokemon in each city
         ArrayList<Pokemon> PalletTown = new ArrayList<>();
         PalletTown.add(new Bulbasaur("Pallet Town"));
         PalletTown.add(new Geodude("Pallet Town"));
@@ -83,7 +83,7 @@ public class WildPokemon {                                          //demo wild 
         return temp;
     }
     
-    public Pokemon setEnemy() {
+    public Pokemon setEnemy() {                        // randomly pick wild pokemon for battle
         Random rand = new Random();
         int chosen = rand.nextInt(3);
         enemy = wildPokemon.get(chosen);
@@ -95,7 +95,7 @@ public class WildPokemon {                                          //demo wild 
         return enemy;
     }
     
-    public String stringPokemonInArea() {
+    public String stringPokemonInArea() {                // print common wild pokemon in city
         return "[" + wildPokemon.get(0).getName() + "," + wildPokemon.get(1).getName() + " and " + wildPokemon.get(2).getName() + " is common.]";
     }
 }
