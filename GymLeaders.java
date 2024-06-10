@@ -2,8 +2,9 @@ package pokemonkantoadventure;
 
 import java.util.ArrayList;
 import java.util.Stack;
+
 // gymleader abstract parent class
-public abstract class GymLeaders {
+public abstract class GymLeaders {                                                
     String name;
     String badge;
     String type;
@@ -19,8 +20,8 @@ public abstract class GymLeaders {
         for(int i = 0 ; i < allPokemon.size() ; i++)
             remainingPokemon.push(allPokemon.get(i));
     }
-    // set pokemon for each gymleader
-    abstract public ArrayList<Pokemon> gymLeaderPokemon();
+    
+    abstract public ArrayList<Pokemon> gymLeaderPokemon();                        // set pokemon for each gymleader
     
     public String getName() {
         return name;
@@ -37,16 +38,16 @@ public abstract class GymLeaders {
     public Stack<Pokemon> getRemainingPokemon() {
         return remainingPokemon;
     }
-    // reset pokemon after battle
-    public void resetPokemon() {
+   
+    public void resetPokemon() {                                                    // reset gymleader pokemon after battle
         allPokemon = new ArrayList<>();
         allPokemon = gymLeaderPokemon();
         remainingPokemon = new Stack<>();
         for(int i = 0 ; i < allPokemon.size() ; i++)
             remainingPokemon.push(allPokemon.get(i));
     }
-    // get next gymleader pokemon in stack
-    public Pokemon nextBattlePokemon() {
+    
+    public Pokemon nextBattlePokemon() {                                            // get next gymleader pokemon in stack
         currentPokemon = remainingPokemon.pop();
         return currentPokemon;
     }
@@ -62,13 +63,14 @@ public abstract class GymLeaders {
     public Pokemon getCurrentPokemon() {
         return currentPokemon;
     }
-    // set currently used gymleader pokemon
-    public void setCurrentPokemon() {
+    
+    public void setCurrentPokemon() {                                                // set currently used gymleader pokemon
         currentPokemon = nextBattlePokemon();
     }
 }
+
 // Pewter City gymleader child class
-class PewterCityGymLeader extends GymLeaders {
+class PewterCityGymLeader extends GymLeaders {                                        
 
     public PewterCityGymLeader() {
         super("Brock","Rock","The Boulder Badge");
@@ -83,6 +85,7 @@ class PewterCityGymLeader extends GymLeaders {
         return temp;
     }
 }
+
 // Cerulean City gymleader child class
 class CeruleanCityGymLeader extends GymLeaders {
     
@@ -99,6 +102,7 @@ class CeruleanCityGymLeader extends GymLeaders {
         return temp;
     }
 }
+
 // Vermilion City gymleader child class
 class VermilionCityGymLeader extends GymLeaders {
 
@@ -116,6 +120,7 @@ class VermilionCityGymLeader extends GymLeaders {
         return temp;
     }
 }
+
 // Celadon City gymleader child class
 class CeladonCityGymLeader extends GymLeaders{
     
@@ -133,6 +138,7 @@ class CeladonCityGymLeader extends GymLeaders{
         return temp;
     }
 }
+
 // Fuchsia City gymleader child class
 class FuchsiaCityGymLeader extends GymLeaders {
     
@@ -150,6 +156,7 @@ class FuchsiaCityGymLeader extends GymLeaders {
         return temp;
     }
 }
+
 // Saffron City gymleader child class
 class SaffronCityGymLeader extends GymLeaders {
     
@@ -167,6 +174,7 @@ class SaffronCityGymLeader extends GymLeaders {
         return temp;
     }
 }
+
 // Cinnabar Island gymleader child class
 class CinnabarIslandGymLeader extends GymLeaders {
     
@@ -184,6 +192,7 @@ class CinnabarIslandGymLeader extends GymLeaders {
         return temp;
     }
 }
+
 // Viridian City gymleader child class
 class ViridianCityGymLeader extends GymLeaders {
 
