@@ -2,7 +2,7 @@ package pokemonkantoadventure;
 
 import java.util.ArrayList;
 import java.util.Stack;
-
+// gymleader abstract parent class
 public abstract class GymLeaders {
     String name;
     String badge;
@@ -19,7 +19,7 @@ public abstract class GymLeaders {
         for(int i = 0 ; i < allPokemon.size() ; i++)
             remainingPokemon.push(allPokemon.get(i));
     }
-    
+    // set pokemon for each gymleader
     abstract public ArrayList<Pokemon> gymLeaderPokemon();
     
     public String getName() {
@@ -37,7 +37,7 @@ public abstract class GymLeaders {
     public Stack<Pokemon> getRemainingPokemon() {
         return remainingPokemon;
     }
-    
+    // reset pokemon after battle
     public void resetPokemon() {
         allPokemon = new ArrayList<>();
         allPokemon = gymLeaderPokemon();
@@ -45,7 +45,7 @@ public abstract class GymLeaders {
         for(int i = 0 ; i < allPokemon.size() ; i++)
             remainingPokemon.push(allPokemon.get(i));
     }
-    
+    // get next gymleader pokemon in stack
     public Pokemon nextBattlePokemon() {
         currentPokemon = remainingPokemon.pop();
         return currentPokemon;
@@ -62,12 +62,12 @@ public abstract class GymLeaders {
     public Pokemon getCurrentPokemon() {
         return currentPokemon;
     }
-    
+    // set currently used gymleader pokemon
     public void setCurrentPokemon() {
         currentPokemon = nextBattlePokemon();
     }
 }
-
+// Pewter City gymleader child class
 class PewterCityGymLeader extends GymLeaders {
 
     public PewterCityGymLeader() {
@@ -83,7 +83,7 @@ class PewterCityGymLeader extends GymLeaders {
         return temp;
     }
 }
-
+// Cerulean City gymleader child class
 class CeruleanCityGymLeader extends GymLeaders {
     
     public CeruleanCityGymLeader() {
@@ -99,7 +99,7 @@ class CeruleanCityGymLeader extends GymLeaders {
         return temp;
     }
 }
-
+// Vermilion City gymleader child class
 class VermilionCityGymLeader extends GymLeaders {
 
     public VermilionCityGymLeader() {
@@ -116,7 +116,7 @@ class VermilionCityGymLeader extends GymLeaders {
         return temp;
     }
 }
-
+// Celadon City gymleader child class
 class CeladonCityGymLeader extends GymLeaders{
     
     public CeladonCityGymLeader(){
@@ -133,7 +133,7 @@ class CeladonCityGymLeader extends GymLeaders{
         return temp;
     }
 }
-
+// Fuchsia City gymleader child class
 class FuchsiaCityGymLeader extends GymLeaders {
     
     public FuchsiaCityGymLeader() {
@@ -150,7 +150,7 @@ class FuchsiaCityGymLeader extends GymLeaders {
         return temp;
     }
 }
-
+// Saffron City gymleader child class
 class SaffronCityGymLeader extends GymLeaders {
     
     public SaffronCityGymLeader() {
@@ -167,7 +167,7 @@ class SaffronCityGymLeader extends GymLeaders {
         return temp;
     }
 }
-
+// Cinnabar Island gymleader child class
 class CinnabarIslandGymLeader extends GymLeaders {
     
     public CinnabarIslandGymLeader() {
@@ -184,7 +184,7 @@ class CinnabarIslandGymLeader extends GymLeaders {
         return temp;
     }
 }
-
+// Viridian City gymleader child class
 class ViridianCityGymLeader extends GymLeaders {
 
     public ViridianCityGymLeader() {
