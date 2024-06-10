@@ -157,7 +157,7 @@ public class Account {
         int trial = 1;
 
         while (trial < 4) {
-            String answer = null;
+            String answer = "null";
             do{
                 System.out.print("Enter username: ");
                 name = r.nextLine();
@@ -199,7 +199,7 @@ public class Account {
             if(answer.equalsIgnoreCase("no"))
                 break;
         }
-        if (trial > 4)
+        if (trial > 3)
             System.out.println("Too many failed attempts.");  
     }
     
