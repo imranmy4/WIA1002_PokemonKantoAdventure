@@ -86,11 +86,5 @@ public class  {
         return null;
     }
 
-//    public static void main(String[] args) {
-//        RivalsRaceMap raceMap = new RivalsRaceMap();
-//        
-//        System.out.println(raceMap.toString());
-//    }
-
     
 }
