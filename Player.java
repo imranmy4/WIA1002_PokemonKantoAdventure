@@ -70,13 +70,13 @@ public class Player implements Serializable {
         return currentPokemon;
     }    
     
-    public void resetPokemon() {
+    public void resetPokemon() {                                                // reset pokemon after battle
         battlePokemon = new ArrayList<Pokemon>(pokemon);
         removeCurrentPokemon();
         usedPokemon.clear();
     }
     
-    public void updatePokemon() {
+    public void updatePokemon() {                                                // update used pokemon in case it level up after battle
         for(int i = 0 ; i < usedPokemon.size() ; i++){
             usedPokemon.get(i).resetCurrentHP();
             battlePokemon.add(usedPokemon.get(i));
@@ -85,7 +85,7 @@ public class Player implements Serializable {
         usedPokemon.clear();
     }
     
-    public Pokemon starterPokemon() {
+    public Pokemon starterPokemon() {                                            // choose starter pokemon
         Scanner input = new Scanner(System.in);
         pokeball = 0;
         antidote = 0;
@@ -184,7 +184,7 @@ public class Player implements Serializable {
         currentPokemon = null;
     }
     
-    public void putBackPokemon() {
+    public void putBackPokemon() {                                                // put back pokemon if player want to change mid-battle
         battlePokemon.add(currentPokemon);
         currentPokemon = null;
     }
