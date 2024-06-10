@@ -1,4 +1,4 @@
-package pokemonkantoadventure;;
+package pokemonkantoadventure;
 
 import java.util.Scanner;
 import java.util.Stack;
