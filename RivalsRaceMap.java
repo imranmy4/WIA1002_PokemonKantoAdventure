@@ -4,7 +4,7 @@ package pokemonkantoadventure;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  {
+public class RivalsRaceMap{
 
     Town t = new Town();
     
