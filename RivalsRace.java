@@ -19,7 +19,7 @@ import java.util.*;
 
  */
 
-public class  {
+public class RivalsRace{
 
     Town currentTown;
     Town source;
