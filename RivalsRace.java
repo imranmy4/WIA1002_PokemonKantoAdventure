@@ -44,8 +44,4 @@ public class  {
         dijkstra.displaySTP(dijkstra, currentTown, target);
     }
 
-    public static void main(String[] args) {
-        
-        RivalsRace race1 = new RivalsRace("Saffron City");
-    }
 }
