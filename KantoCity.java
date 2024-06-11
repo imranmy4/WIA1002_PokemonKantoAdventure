@@ -109,11 +109,12 @@ public class KantoCity {
 
         Account newUser = new Account();
         String dataDirectory = newUser.getUserDirectory(newUser.getName());
-
+        System.out.println("---------------------------------------------------------------");
         //Check save file
-        fileExists(dataDirectory);
+        if(newUser.start)
+            fileExists(dataDirectory);
 
-        switch (startPrompt(!newUser.start)) {
+        switch (startPrompt(newUser.start)) {
             case 1:
                 player = newGame(dataDirectory);
                 break;
@@ -122,10 +123,15 @@ public class KantoCity {
                 System.out.println(player.getName());
                 break;
             case 3:
+                System.out.println("Quitting game...");
+                System.out.println("Goodbye!");
+                System.out.println("---------------------------------------------------------------");
                 System.exit(0);
             default:
-                System.out.println("Invalid choice.");
-                System.exit(1);
+                System.out.println("Quitting game...");
+                System.out.println("Goodbye!");
+                System.out.println("---------------------------------------------------------------");
+                System.exit(0);
         }
         
         if (player == null) {
@@ -801,7 +807,10 @@ public class KantoCity {
 
             out.writeObject(player);
             out.close();
-            System.out.println("Saved!");
+            System.out.println("Game saved!");
+            System.out.println("Quitting game...");
+            System.out.println("Goodbye!");
+            System.out.println("---------------------------------------------------------------");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -959,6 +968,26 @@ public class KantoCity {
                                         }
                                     } catch (SecurityException s) {
                                         s.printStackTrace();
+                                    }
+                                    try{
+                                        BufferedWriter bw = new BufferedWriter(new FileWriter("Game Slot.txt"));
+                                        for(int n=0;n<slots.size();n++){
+                                            if((choice) == Integer.parseInt(slots.get(n)[0])){
+                                                bw.write(String.valueOf(choice));
+                                                bw.newLine();
+                                            } else{
+                                                if(slots.get(n).length == 1){
+                                                    bw.write(slots.get(n)[0]);
+                                                    bw.newLine();
+                                                } else if(slots.get(n).length == 2){
+                                                    bw.write(slots.get(n)[0]+","+slots.get(n)[1]);
+                                                    bw.newLine();
+                                                }
+                                            }
+                                        }
+                                        bw.close();
+                                    } catch(IOException e){
+                                        e.printStackTrace();
                                     }
                                     overwrite = true;
                                 }
