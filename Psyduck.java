@@ -15,7 +15,7 @@ public class Psyduck extends Pokemon {
     }
     
     public Psyduck(int level) {
-        super("Psyduck","Water",100,level);
+        super("Psyduck","Water",level,100);
     }
 
     @Override
