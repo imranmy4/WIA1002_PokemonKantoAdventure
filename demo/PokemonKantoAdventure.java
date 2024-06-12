@@ -513,6 +513,7 @@ public class PokemonKantoAdventure {
                 stack.push("down");
             } else {
                 System.out.println("Invalid input, please tray again.");
+                arr[x][y]="Y";
                 continue;
             }
 
