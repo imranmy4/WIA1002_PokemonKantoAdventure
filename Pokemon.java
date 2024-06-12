@@ -18,13 +18,13 @@ public abstract class Pokemon implements Serializable {     // pokemon parent cl
     private int XP;
     final private String[] strength;            // which type the pokemon is strong against
     final private String[] weakness;            // which type the pokemon is weak against
-    private Stack<Skill> moveset;               // moves the pokemon have not unlocked yet
+    private Stack<Skill> moveset;               //moves the pokemon have not unlocked yet
     private ArrayList<Skill> movesAndDmg;       // the pokemon total moves/skills
     private Skill[] currentMovesAndDmg;         // the pokemon currently used moves/skills 
     private int XPThreshold;
     private StatusAilment statusAilment;
     
-    Pokemon(String name, String type, int level, int HP, int XP) {       // constructor for new child classes
+    Pokemon(String name, String type, int level, int HP, int XP) {       // constructor for new/saved child classes
         this.name = name;
         this.type = type;
         this.level = level;
@@ -257,9 +257,9 @@ public abstract class Pokemon implements Serializable {     // pokemon parent cl
                                 sideEffectDamage = (int) Math.ceil(currentMovesAndDmg[0].getDamage() * randomDamage);
                                 enemy.currentHP -= sideEffectDamage;
                                 if(checkSideEffect.equals("POISONED") || checkSideEffect.equals("PARALYZED") || checkSideEffect.equals("BURNED")) {
-                                    System.out.println(currentSkill.getSideEffect() + checkSideEffect + enemy.getName());
+                                    System.out.println(currentMovesAndDmg[0].getMoveName() + " " + checkSideEffect + " " + enemy.getName() + "!");
                                 } else {
-                                    System.out.println(currentSkill.getSideEffect() + " CONFUSED " + enemy.getName());
+                                    System.out.println(currentMovesAndDmg[0].getMoveName() + " CONFUSED " + enemy.getName());
                                 }
                                 System.out.println("Deals " + sideEffectDamage + " extra damage!");                         
                                 statusAilment = statusAilment.NONE;
@@ -284,7 +284,6 @@ public abstract class Pokemon implements Serializable {     // pokemon parent cl
                     
                     if(currentSkill.getSideEffect() != null) {
                         boolean sideEffectApplied = currentSkill.applySideEffect();
-                        System.out.println(currentMoveName + " side effect applied: " + sideEffectApplied);
                         if (sideEffectApplied) {
                             String checkSideEffect = currentSkill.getSideEffect();
                             switch (checkSideEffect) {
@@ -308,9 +307,9 @@ public abstract class Pokemon implements Serializable {     // pokemon parent cl
                                 sideEffectDamage = (int) Math.ceil(currentMovesAndDmg[0].getDamage() * randomDamage);
                                 enemy.currentHP -= sideEffectDamage;
                                 if(checkSideEffect.equals("POISONED") || checkSideEffect.equals("PARALYZED") || checkSideEffect.equals("BURNED")) {
-                                    System.out.println(currentSkill.getSideEffect() + checkSideEffect + enemy.getName());
+                                    System.out.println(currentMovesAndDmg[1].getMoveName() + " " + checkSideEffect + " " + enemy.getName() + "!");
                                 } else {
-                                    System.out.println(currentSkill.getSideEffect() + " CONFUSED " + enemy.getName());
+                                    System.out.println(currentMovesAndDmg[1].getMoveName() + " CONFUSED " + enemy.getName());
                                 }
                                 System.out.println("Deals " + sideEffectDamage + " extra damage!");
                                 statusAilment = statusAilment.NONE;
@@ -376,7 +375,6 @@ public abstract class Pokemon implements Serializable {     // pokemon parent cl
                 
                 if(currentSkill.getSideEffect() != null) {
                     boolean sideEffectApplied = currentSkill.applySideEffect();
-                    System.out.println(currentMoveName + " side effect applied: " + sideEffectApplied);
                     if (sideEffectApplied) {
                         String checkSideEffect = currentSkill.getSideEffect();
                         switch (checkSideEffect) {
@@ -405,9 +403,9 @@ public abstract class Pokemon implements Serializable {     // pokemon parent cl
                             sideEffectDamage = (int) Math.ceil(enemy.currentMovesAndDmg[0].getDamage() * randomDamage);
                             currentHP -= sideEffectDamage;
                             if(checkSideEffect.equals("POISONED") || checkSideEffect.equals("PARALYZED") || checkSideEffect.equals("BURNED")) {
-                                    System.out.println(currentSkill.getSideEffect() + checkSideEffect + getName());
+                                System.out.println(enemy.currentMovesAndDmg[0].getMoveName() + " " + checkSideEffect + " " + getName() + "!");
                             } else {
-                                System.out.println(currentSkill.getSideEffect() + " CONFUSED " + getName());
+                                System.out.println(enemy.currentMovesAndDmg[0].getMoveName() + " CONFUSED " + getName());
                             }
                             System.out.println("Deals " + sideEffectDamage + " extra damage!");
                             statusAilment = statusAilment.NONE;
@@ -434,7 +432,6 @@ public abstract class Pokemon implements Serializable {     // pokemon parent cl
                 
                 if(currentSkill.getSideEffect() != null) {
                     boolean sideEffectApplied = currentSkill.applySideEffect();
-                    System.out.println(currentMoveName + " side effect applied: " + sideEffectApplied);
                     if (sideEffectApplied) {
                         String checkSideEffect = currentSkill.getSideEffect();
                     switch (checkSideEffect) {
@@ -463,9 +460,9 @@ public abstract class Pokemon implements Serializable {     // pokemon parent cl
                             sideEffectDamage = (int) Math.ceil(enemy.currentMovesAndDmg[1].getDamage() * randomDamage);
                             currentHP -= sideEffectDamage;
                             if(checkSideEffect.equals("POISONED") || checkSideEffect.equals("PARALYZED") || checkSideEffect.equals("BURNED")) {
-                                    System.out.println(currentSkill.getSideEffect() + checkSideEffect + getName());
+                                    System.out.println(enemy.currentMovesAndDmg[1].getMoveName() + " " + checkSideEffect + " " + getName() + "!");
                             } else {
-                                System.out.println(currentSkill.getSideEffect() + " CONFUSED " + getName());
+                                System.out.println(enemy.currentMovesAndDmg[1].getMoveName() + " CONFUSED " + getName());
                             }
                             System.out.println("Deals " + sideEffectDamage + " extra damage!");
                             statusAilment = statusAilment.NONE;
@@ -496,10 +493,10 @@ public abstract class Pokemon implements Serializable {     // pokemon parent cl
                 HP += 5;                                     // increase player pokemon health
                 System.out.println(name + " leveled up!");
                 System.out.println(name + "[level " + currentLevel + " --> level " + level + "]");      // tell level increase
-                System.out.println(name + " HP increase to " + HP);       // show HP increase
+                System.out.println(name + " HP increase to " + HP);       // (temporary) show HP increase
                 for(int i = 0 ; i < getMovesAndDmg().size() ; i++) {
                     movesAndDmg.get(i).addDamage();                   // increase player pokemon damage for all moves/skills
-                    System.out.println(movesAndDmg.get(i).getMoveName() + " damage increase to " + movesAndDmg.get(i).getDamage() + " !");        // show damage increase
+                    System.out.println(movesAndDmg.get(i).getMoveName() + " damage increase to " + movesAndDmg.get(i).getDamage() + " !");        //(temporary) show damage increase
                 }
                  
                 if(level >= moveset.peek().getLevel())
@@ -691,15 +688,5 @@ public abstract class Pokemon implements Serializable {     // pokemon parent cl
         this.statusAilment = statusAilment;
     }
     
-    public void display() {
-        try{
-            Scanner sc = new Scanner(new FileInputStream(name + ".txt"));
-            while(sc.hasNextLine()) {
-                System.out.println(sc.nextLine());
-            }
-            sc.close();
-        } catch(IOException e) {
-            System.out.println(name + " picture is not found.");
-        }
-    }
+    public abstract void display(); 
 }
