@@ -14,7 +14,7 @@ import java.io.*;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 public class Snorlax extends Pokemon {
-     @Field("geodude_name")
+     @Field("snorlax_name")
     String name ;
     public void setName(String name){
         this.name = name;
